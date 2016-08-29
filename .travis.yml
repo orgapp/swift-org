@@ -1,0 +1,26 @@
+language: objective-c
+osx_image: xcode7.3
+xcode_workspace: CocoaOrg.xcworkspace
+xcode_scheme: CocoaOrg
+xcode_sdk: iphonesimulator9.3
+env:
+  global:
+  - FRAMEWORK_NAME=CocoaOrg
+before_install:
+- brew update
+- brew outdated carthage || brew upgrade carthage
+before_script:
+- carthage bootstrap
+before_deploy:
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
+deploy:
+  provider: releases
+  api_key:
+    secure: u6uEmwnTp7kRhcNIwV2s3PUmXH3NL4JRNN1aW3MESWjnWFcMTRjaKpsq5zOwj1dwygpD1coysSVzYwQNKtz2h+dFWc/OQdNOJ0o8xwuoPRCqF/LRfb8wwvpLkXve1gVcIgOjHH2dXq5PUDYOYiYQwOUKLStDnfHGFV79HY9A7hAxZeNXGh5aN/Rx9q9DJTqwbyq3YDj18VElKbOjXUjhd5/t96ew9920vUFvHaWENZf9WngWGVR1adUFhIWNbf4w/5XjaVU3R5TIF7HAsFv/v9Xi0dc2xrZqZiKvGPbxmWfSsJQd2YBR0QARIrjZkfPdrVGwOJPWfrb2DKqGvsJMRn3skcwn0SnWKpnzKEKeLK2ptAl/iZbd7V5vSw9m8bv4/Dsba+33FlCCdkDN45x/cUaM8+aYcLG8BzBVhzKqoiXrYq81MQ0Df5s9MT3v5DHvv6rQnOc8Dcd2SHTGc/0uvnKVuFhs9O/9sp2bpNSzsktGky3ZiX1bKzMlPAWLblZ305cilMkqf1lPmMMOshMwG4x+dshie+Fpfr32702CQKWAyRp5Ky5h8u2xXHs6EB85iU0uH6BrbhguEmJHnC2fqLmT2M2UrqUtwtXKwLkZPZdj/vmqJAgXgD2Qx+XrbeZrF6chxpRx3wxs+Qh2MmCqbDGphnjWW0lockSWprU9XTI=
+  file: CocoaOrg.framework
+  skip_cleanup: true
+  on:
+    repo: xiaoxinghu/CocoaOrg
+    tags: true
+    branch: master
