@@ -8,9 +8,6 @@
       location = "group:Carthage/Checkouts/Nimble/Nimble.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/Curry/Curry.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:CocoaOrg.xcodeproj">
    </FileRef>
 </Workspace>

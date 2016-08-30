@@ -14,7 +14,6 @@
 		03F9E6A01D60411A0080E872 /* CocoaOrg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F9E69F1D60411A0080E872 /* CocoaOrg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F9E6A71D60411A0080E872 /* CocoaOrg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E69C1D6041190080E872 /* CocoaOrg.framework */; };
 		03F9E6AC1D60411A0080E872 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6AB1D60411A0080E872 /* LexerTests.swift */; };
-		03F9E6D51D60637E0080E872 /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E6D41D60637E0080E872 /* Curry.framework */; };
 		03F9E6D81D6064160080E872 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E6D61D6064160080E872 /* Nimble.framework */; };
 		03F9E6D91D6064160080E872 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E6D71D6064160080E872 /* Quick.framework */; };
 		03F9E6DC1D606FFD0080E872 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6DB1D606FFD0080E872 /* Lexer.swift */; };
@@ -44,7 +43,6 @@
 		03F9E6A61D60411A0080E872 /* CocoaOrgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaOrgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F9E6AB1D60411A0080E872 /* LexerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		03F9E6AD1D60411A0080E872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		03F9E6D41D60637E0080E872 /* Curry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Curry.framework; path = "Carthage/Checkouts/Curry/build/Debug-iphoneos/Curry.framework"; sourceTree = "<group>"; };
 		03F9E6D61D6064160080E872 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		03F9E6D71D6064160080E872 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		03F9E6DB1D606FFD0080E872 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
@@ -58,7 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03F9E6D51D60637E0080E872 /* Curry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +122,6 @@
 			children = (
 				03F9E6D61D6064160080E872 /* Nimble.framework */,
 				03F9E6D71D6064160080E872 /* Quick.framework */,
-				03F9E6D41D60637E0080E872 /* Curry.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
