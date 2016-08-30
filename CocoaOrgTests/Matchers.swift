@@ -110,3 +110,16 @@ func beHorizontalRule() -> MatcherFunc<Token> {
         return false
     }
 }
+
+func matcheAll(matchers: [MatcherFunc<Token>]) -> MatcherFunc<[Token]> {
+    return MatcherFunc { expression, message in
+        if let tokens = try expression.evaluate() {
+            for i in 0..<tokens.count {
+                expect(tokens[i]).to(matchers[i])
+            }
+            return true
+        }
+        message.postfixMessage = "wrong type"
+        return false
+    }
+}

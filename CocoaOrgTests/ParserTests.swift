@@ -66,6 +66,15 @@ class ParserTests: QuickSpec {
                 expect(line.text) == "A line of content."
                 
             }
+            it("merges lines") {
+                let lines = [
+                    "Hello world. 1",
+                    "Hello world. 2",
+                    "Hello world. 3",
+                    ]
+                let doc = self.parse(lines)
+                print(doc)
+            }
             it("parses valid org file") {
                 let lines = [
                     "#+options: toc:nil",
@@ -90,9 +99,6 @@ class ParserTests: QuickSpec {
                     ]
                 let lexer = Lexer(lines: lines)
                 let tokens = lexer.tokenize()
-                for token in tokens {
-                    print("- \(token)")
-                }
                 let parser = Parser(tokens: tokens)
                 do {
                     let doc = try parser.parse()

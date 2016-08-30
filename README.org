@@ -1,0 +1,5 @@
+* org-mode parser for Cocoa
+
+  [[https://travis-ci.org/xiaoxinghu/CocoaOrg.svg?branch=master]]
+
+  Take it, go nuts and build beautiful things with it.

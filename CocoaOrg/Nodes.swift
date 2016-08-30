@@ -84,7 +84,7 @@ public struct Blank: Node {
 }
 
 public struct Line: Node {
-    public let text: String
+    public var text: String
     public var parsed: [InlineToken] {
         return InlineLexer(text: text).tokenize()
     }

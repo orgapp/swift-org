@@ -29,7 +29,7 @@ public class Parser {
     
     func popCurrentToken() -> Token? {
         index += 1
-        if index >= tokens.count {
+        if index > tokens.count {
             return nil
         }
         return tokens[index - 1]
@@ -56,6 +56,22 @@ public class Parser {
         throw Errors.UnexpectedToken("Cannot find BlockEnd")
     }
     
+    func parseLines() throws -> Line {
+        guard case Token.Line(let text) = popCurrentToken()! else {
+            throw Errors.UnexpectedToken("Line expected")
+        }
+        var line = Line(text: text)
+        while let token = peekCurrentToken() {
+            if case .Line(let t) = token {
+                line.text = [line.text, t].joinWithSeparator(" ")
+                popCurrentToken()
+            } else {
+                break
+            }
+        }
+        return line
+    }
+    
     func parseSection(level: Int) throws -> [Node] {
         var nodes = [Node]()
         while let token = peekCurrentToken() {
@@ -71,9 +87,8 @@ public class Parser {
             case .Blank:
                 popCurrentToken()
                 nodes.append(Blank())
-            case let .Line(t):
-                popCurrentToken()
-                nodes.append(Line(text: t))
+            case .Line:
+                nodes.append(try parseLines())
             case let .Comment(t):
                 popCurrentToken()
                 nodes.append(Comment(text: t))
