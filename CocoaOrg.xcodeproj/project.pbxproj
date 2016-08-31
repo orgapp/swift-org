@@ -10,6 +10,7 @@
 		03A5FE9A1D6B097500156B26 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE991D6B097500156B26 /* Nodes.swift */; };
 		03A5FE9C1D6B1ADB00156B26 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE9B1D6B1ADB00156B26 /* Parser.swift */; };
 		03D347BE1D71093C00F78D70 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D347BD1D71093C00F78D70 /* ParserTests.swift */; };
+		03D7955D1D76E30700F0A6EB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D7955C1D76E30700F0A6EB /* Data.swift */; };
 		03EF5CBC1D646BE400AC294C /* Matchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EF5CBB1D646BE400AC294C /* Matchers.swift */; };
 		03F9E6A01D60411A0080E872 /* CocoaOrg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F9E69F1D60411A0080E872 /* CocoaOrg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F9E6A71D60411A0080E872 /* CocoaOrg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E69C1D6041190080E872 /* CocoaOrg.framework */; };
@@ -36,6 +37,7 @@
 		03A5FE991D6B097500156B26 /* Nodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
 		03A5FE9B1D6B1ADB00156B26 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		03D347BD1D71093C00F78D70 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		03D7955C1D76E30700F0A6EB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		03EF5CBB1D646BE400AC294C /* Matchers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matchers.swift; sourceTree = "<group>"; };
 		03F9E69C1D6041190080E872 /* CocoaOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F9E69F1D60411A0080E872 /* CocoaOrg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaOrg.h; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				03A5FE991D6B097500156B26 /* Nodes.swift */,
 				03A5FE9B1D6B1ADB00156B26 /* Parser.swift */,
 				A704C53E1D739503004BB00F /* Inline.swift */,
+				03D7955C1D76E30700F0A6EB /* Data.swift */,
 			);
 			path = CocoaOrg;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D7955D1D76E30700F0A6EB /* Data.swift in Sources */,
 				03F9E6E01D61C4E00080E872 /* String.swift in Sources */,
 				03F9E6DC1D606FFD0080E872 /* Lexer.swift in Sources */,
 				03A5FE9C1D6B1ADB00156B26 /* Parser.swift in Sources */,

@@ -13,34 +13,18 @@ public enum Errors: ErrorType {
 }
 
 public class Parser {
-    let tokens: [Token]
-    var index = 0
+    var tokens: Queue<Token>
     
     public init(tokens: [Token]) {
-        self.tokens = tokens
-    }
-    
-    func peekCurrentToken() -> Token? {
-        if index >= tokens.count {
-            return nil
-        }
-        return tokens[index]
-    }
-    
-    func popCurrentToken() -> Token? {
-        index += 1
-        if index > tokens.count {
-            return nil
-        }
-        return tokens[index - 1]
+        self.tokens = Queue<Token>(data: tokens)
     }
     
     func parseBlock() throws -> Block {
-        guard case let Token.BlockBegin(type, params) = popCurrentToken()! else {
+        guard case let Token.BlockBegin(type, params) = tokens.dequeue()! else {
             throw Errors.UnexpectedToken("BlockBegin expected")
         }
         var block = Block(type: type, params: params)
-        while let token = popCurrentToken() {
+        while let token = tokens.dequeue() {
             switch token {
             case let .Raw(text):
                 block.content.append(text)
@@ -57,14 +41,14 @@ public class Parser {
     }
     
     func parseLines() throws -> Line {
-        guard case Token.Line(let text) = popCurrentToken()! else {
+        guard case Token.Line(let text) = tokens.dequeue()! else {
             throw Errors.UnexpectedToken("Line expected")
         }
         var line = Line(text: text)
-        while let token = peekCurrentToken() {
+        while let token = tokens.peek() {
             if case .Line(let t) = token {
                 line.text = [line.text, t].joinWithSeparator(" ")
-                popCurrentToken()
+                tokens.dequeue()
             } else {
                 break
             }
@@ -74,23 +58,23 @@ public class Parser {
     
     func parseSection(level: Int) throws -> [Node] {
         var nodes = [Node]()
-        while let token = peekCurrentToken() {
+        while let token = tokens.peek() {
             switch token {
             case let .Header(l, t, s):
                 if l <= level {
                     return nodes
                 }
-                popCurrentToken()
+                tokens.dequeue()
                 var subSection = Section(level: l, title: t!, state: s)
                 subSection.nodes = try parseSection(l)
                 nodes.append(subSection)
             case .Blank:
-                popCurrentToken()
+                tokens.dequeue()
                 nodes.append(Blank())
             case .Line:
                 nodes.append(try parseLines())
             case let .Comment(t):
-                popCurrentToken()
+                tokens.dequeue()
                 nodes.append(Comment(text: t))
             case .BlockBegin:
                 nodes.append(try parseBlock())
@@ -103,10 +87,10 @@ public class Parser {
     
     func parseDocument() throws -> Document {
         var document = Document()
-        while let token = peekCurrentToken() {
+        while let token = tokens.peek() {
             switch token {
             case let .Setting(key, value):
-                popCurrentToken()
+                tokens.dequeue()
                 document.settings = (document.settings ?? [key: value])
             default:
                 let section = try parseSection(0)
