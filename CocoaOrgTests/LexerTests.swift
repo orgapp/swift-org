@@ -43,10 +43,10 @@ class LexerTests: QuickSpec {
                     " * ",
                 ]).toQueue()
                 
-                expect(tokens.dequeue()).to(beHeader(1, text: "Level One", state: nil))
-                expect(tokens.dequeue()).to(beHeader(2, text: "Level Two", state: nil))
-                expect(tokens.dequeue()).to(beHeader(1, text: "Level One with todo", state: "TODO"))
-                expect(tokens.dequeue()).to(beHeader(1, text: nil, state: nil))
+                expect(tokens.dequeue()).to(beHeader(1, text: "Level One"))
+                expect(tokens.dequeue()).to(beHeader(2, text: "Level Two"))
+                expect(tokens.dequeue()).to(beHeader(1, text: "TODO Level One with todo"))
+                expect(tokens.dequeue()).to(beHeader(1, text: nil))
                 expect(tokens.dequeue()).to(beLine("*"))
                 expect(tokens.dequeue()).to(beLine("* "))
             }

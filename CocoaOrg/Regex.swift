@@ -37,7 +37,7 @@ public extension String {
         return matches
     }
     
-    public func match(regex: String, options: NSRegularExpressionOptions) -> [String?]? {
+    public func match(regex: String, options: NSRegularExpressionOptions = []) -> [String?]? {
         let expression = self.getExpression(regex, options: options)
         
         if let match = expression.firstMatchInString(self, options: [], range: NSMakeRange(0, self.utf16.count)) {

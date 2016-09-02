@@ -21,12 +21,12 @@ func beSetting(key: String, value: String) -> MatcherFunc<Token> {
     }
 }
 
-func beHeader(level: Int, text: String?, state: String?) -> MatcherFunc<Token> {
+func beHeader(level: Int, text: String?) -> MatcherFunc<Token> {
     return MatcherFunc { expression, message in
-        message.postfixMessage = "be <Header(\"\(level)\", \"\(text)\", \"\(state)\")>"
+        message.postfixMessage = "be <Header(\"\(level)\", \"\(text)\")>"
         if let actual = try expression.evaluate(),
-            case let .Header(l ,t, s) = actual {
-            return level == l && text == t && state == s
+            case let .Header(l ,t) = actual {
+            return level == l && text == t
         }
         return false
     }

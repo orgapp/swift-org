@@ -66,15 +66,25 @@ public class Parser {
         return 0
     }
     
+    func getTodos(node: OrgNode) -> [String] {
+        if let doc = node.lookUp(DocumentMeta) {
+            return doc.todos
+        }
+        // TODO make it robust
+        print("+++ Cannot find DocumentMeta")
+        return []
+    }
+    
     func parseSection(parent: OrgNode) throws {
         while let token = tokens.peek() {
             switch token {
-            case let .Header(l, t, s):
+            case let .Header(l, t):
                 if l <= getCurrentLevel(parent) {
                     return
                 }
                 tokens.dequeue()
-                let subSection = parent.add(Section(level: l, title: t!, state: s))
+                let subSection = parent.add(Section(
+                    level: l, title: t!, todos: getTodos(parent)))
                 try parseSection(subSection)
             case .Blank:
                 tokens.dequeue()
@@ -93,19 +103,23 @@ public class Parser {
     }
     
     func parseDocument() throws -> OrgNode {
-        var doc = DocumentMeta()
-        let document = OrgNode(value: doc)
+//        var doc = DocumentMeta()
+        let document = OrgNode(value: DocumentMeta())
         
         while let token = tokens.peek() {
             switch token {
             case let .Setting(key, value):
                 tokens.dequeue()
-                doc.settings[key] = value
+                if var meta = document.value as? DocumentMeta {
+                    meta.settings[key] = value
+                    document.value = meta
+                }
+//                doc.settings[key] = value
             default:
                 try parseSection(document)
             }
         }
-        document.value = doc
+//        document.value = doc
         return document
     }
     

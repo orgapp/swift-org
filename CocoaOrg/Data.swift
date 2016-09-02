@@ -78,7 +78,7 @@ public class TreeNode<T> {
             return v
         }
         if let p = parent {
-            p.lookUp(type)
+            return p.lookUp(type)
         }
         return nil
     }

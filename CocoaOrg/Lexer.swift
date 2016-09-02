@@ -10,7 +10,7 @@ import Foundation
 
 public enum Token {
     case Setting(key: String, value: String)
-    case Header(level: Int, text: String?, state: String?)
+    case Header(level: Int, text: String?)
     case Blank
     case HorizontalRule
     case BlockBegin(type: String, params: [String]?)
@@ -26,21 +26,22 @@ typealias TokenGenerator = ([String?]) -> Token?
 let tokenList: [(String, NSRegularExpressionOptions, TokenGenerator)] = [
     ("^\\s*$", [], { _ in .Blank }),
     ("^#\\+([a-zA-Z_]+):\\s*(.*)$", [],
-        { (matches: [String?]) in .Setting(key: matches[1]!, value: matches[2]!) }),
-    ("^(\\*+)\\s+(?:(TODO|DONE)\\s+)?(.*)$", [],
-        { (matches: [String?]) in .Header(level: matches[1]!.characters.count, text: matches[3], state: matches[2]) }),
+        { matches in .Setting(key: matches[1]!, value: matches[2]!) }),
+//    ("^(\\*+)\\s+(?:(TODO|DONE)\\s+)?(.*)$", [],
+    ("^(\\*+)\\s+(.*)$", [],
+        { matches in .Header(level: matches[1]!.characters.count, text: matches[2]) }),
     ("^(\\s*)#\\+begin_([a-z]+)(:?\\s+(.*))?$", [.CaseInsensitive],
         { (matches: [String?]) in
             .BlockBegin(
                 type: matches[2]!,
                 params: matches[3] != nil ? matches[3]!.characters.split{$0 == " "}.map(String.init) : nil) }),
     ("^(\\s*)#\\+end_([a-z]+)$", [.CaseInsensitive],
-        { (matches: [String?]) in .BlockEnd(type: matches[2]!) }),
+        { matches in .BlockEnd(type: matches[2]!) }),
     ("^\\s*-{5,}$", [], { _ in .HorizontalRule }),
     ("^\\s*#\\s+(.*)$", [],
-        { (matches: [String?]) in .Comment(matches[1]) }),
+        { matches in .Comment(matches[1]) }),
     ("^(\\s*)(.*)$", [],
-        { (matches: [String?]) in .Line(text: matches[2]!)})
+        { matches in .Line(text: matches[2]!)})
 ]
 
 public class Lexer {
@@ -80,6 +81,10 @@ public class Lexer {
             cursor += 1
             return tryTokenize(match, or: or)
         }
+    }
+    
+    public func reset() {
+        cursor = 0
     }
     
     public func tokenize() -> [Token] {

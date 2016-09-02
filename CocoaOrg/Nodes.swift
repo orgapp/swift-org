@@ -15,6 +15,18 @@ public typealias OrgNode = TreeNode<Node>
 public struct DocumentMeta: Node {
     public var settings = [String: String]()
     
+    public var title: String {
+        return settings["TITLE"] ?? ""
+    }
+    
+    public var todos: [String] {
+        var todos = ["TODO", "DONE"]
+        if let todo = settings["TODO"] {
+            todos.append(todo)
+        }
+        return todos
+    }
+    
     public var description: String {
         return "Document(settings: \(settings))"
     }
@@ -26,10 +38,17 @@ public struct Section: Node {
     public let state: String?
 //    public var properties: [String: String] = [:]
     
-    public init(level l: Int, title t: String, state s: String?) {
+    public init(level l: Int, title t: String, todos: [String]) {
         level = l
-        title = t
-        state = s
+        
+        let pattern = "^(?:(\(todos.joinWithSeparator("|")))\\s+)?(.*)$"
+        if let m = t.match(pattern) {
+            state = m[1]
+            title = m[2]!
+        } else {
+            state = nil
+            title = t
+        }
     }
     
     public var description: String {
