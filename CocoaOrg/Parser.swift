@@ -40,14 +40,14 @@ public class Parser {
         throw Errors.UnexpectedToken("Cannot find BlockEnd")
     }
     
-    func parseLines() throws -> Line {
+    func parseLines() throws -> Paragraph {
         guard case Token.Line(let text) = tokens.dequeue()! else {
             throw Errors.UnexpectedToken("Line expected")
         }
-        var line = Line(text: text)
+        var line = Paragraph(lines: [text])
         while let token = tokens.peek() {
             if case .Line(let t) = token {
-                line.text = [line.text, t].joinWithSeparator(" ")
+                line.lines.append(t)
                 tokens.dequeue()
             } else {
                 break
@@ -56,51 +56,60 @@ public class Parser {
         return line
     }
     
-    func parseSection(level: Int) throws -> [Node] {
-        var nodes = [Node]()
+    func getCurrentLevel(node: OrgNode) -> Int {
+        if let section = node.value as? Section {
+            return section.level
+        }
+        if let p = node.parent {
+            return getCurrentLevel(p)
+        }
+        return 0
+    }
+    
+    func parseSection(parent: OrgNode) throws {
         while let token = tokens.peek() {
             switch token {
             case let .Header(l, t, s):
-                if l <= level {
-                    return nodes
+                if l <= getCurrentLevel(parent) {
+                    return
                 }
                 tokens.dequeue()
-                var subSection = Section(level: l, title: t!, state: s)
-                subSection.nodes = try parseSection(l)
-                nodes.append(subSection)
+                let subSection = parent.add(Section(level: l, title: t!, state: s))
+                try parseSection(subSection)
             case .Blank:
                 tokens.dequeue()
-                nodes.append(Blank())
+                parent.add(Blank())
             case .Line:
-                nodes.append(try parseLines())
+                parent.add(try parseLines())
             case let .Comment(t):
                 tokens.dequeue()
-                nodes.append(Comment(text: t))
+                parent.add(Comment(text: t))
             case .BlockBegin:
-                nodes.append(try parseBlock())
+                parent.add(try parseBlock())
             default:
                 throw Errors.UnexpectedToken("\(token) is not expected")
             }
         }
-        return nodes
     }
     
-    func parseDocument() throws -> Document {
-        var document = Document()
+    func parseDocument() throws -> OrgNode {
+        var doc = DocumentMeta()
+        let document = OrgNode(value: doc)
+        
         while let token = tokens.peek() {
             switch token {
             case let .Setting(key, value):
                 tokens.dequeue()
-                document.settings = (document.settings ?? [key: value])
+                doc.settings[key] = value
             default:
-                let section = try parseSection(0)
-                document.nodes += section
+                try parseSection(document)
             }
         }
+        document.value = doc
         return document
     }
     
-    public func parse() throws -> Document {
+    public func parse() throws -> OrgNode {
         return try parseDocument()
     }
 }

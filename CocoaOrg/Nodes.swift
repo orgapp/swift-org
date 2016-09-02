@@ -10,12 +10,13 @@ import Foundation
 
 public protocol Node: CustomStringConvertible {}
 
-public struct Document: Node {
-    public var settings: [String: String]?
-    public var nodes: [Node] = []
+public typealias OrgNode = TreeNode<Node>
+
+public struct DocumentMeta: Node {
+    public var settings = [String: String]()
     
     public var description: String {
-        return "Document(settings: \(settings), nodes: \(nodes))"
+        return "Document(settings: \(settings))"
     }
 }
 
@@ -24,7 +25,6 @@ public struct Section: Node {
     public let level: Int
     public let state: String?
 //    public var properties: [String: String] = [:]
-    public var nodes: [Node]?
     
     public init(level l: Int, title t: String, state s: String?) {
         level = l
@@ -33,7 +33,7 @@ public struct Section: Node {
     }
     
     public var description: String {
-        return "Section(level: \(level), title: \(title), state: \(state), nodes: \(nodes))"
+        return "Section(level: \(level), title: \(title), state: \(state))"
     }
 }
 
@@ -83,14 +83,17 @@ public struct Blank: Node {
     }
 }
 
-public struct Line: Node {
-    public var text: String
+public struct Paragraph: Node {
+    public var lines: [String]
+    public var text: String {
+        return lines.joinWithSeparator(" ")
+    }
     public var parsed: [InlineToken] {
         return InlineLexer(text: text).tokenize()
     }
     
     public var description: String {
-        return "Line(text: \(text))"
+        return "Paragraph(text: \(text))"
     }
 }
 

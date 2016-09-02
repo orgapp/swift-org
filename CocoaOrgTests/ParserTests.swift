@@ -11,7 +11,7 @@ import Nimble
 import CocoaOrg
 
 class ParserTests: QuickSpec {
-    func parse(lines: [String]) -> Document? {
+    func parse(lines: [String]) -> OrgNode? {
         let parser = Parser(tokens: Lexer(lines: lines).tokenize())
         do {
             return try parser.parse()
@@ -24,16 +24,20 @@ class ParserTests: QuickSpec {
     override func spec() {
         describe("Parser") {
             it("parses settings") {
-                let doc = self.parse([
+                guard let doc = self.parse([
                     "#+options: toc:nil",
                     "  ",
                     "* First Head Line",
-                    ])
-                expect(doc?.settings).to(haveCount(1))
-                expect(doc?.settings?["options"]) == "toc:nil"
+                    ]) else { return }
+                guard let d = doc.lookUp(DocumentMeta) else {
+                    fail("Cannot find Document root.")
+                    return
+                }
+                expect(d.settings).to(haveCount(1))
+                expect(d.settings["options"]) == "toc:nil"
             }
             it("parses headers") {
-                let doc = self.parse([
+                guard let doc = self.parse([
                     "* Header 1",
                     "* Header 2",
                     "  A line of content.",
@@ -41,43 +45,63 @@ class ParserTests: QuickSpec {
                     "*** Header 2.1.1",
                     "** Header 2.2",
                     "* Header 3",
-                    ])
-                expect(doc?.nodes).to(haveCount(3))
-                guard let h1 = doc?.nodes[0] as? Section else {
+                    ]) else { return }
+                expect(doc.children).to(haveCount(3))
+                
+                let h1Section = doc.children[0]
+                guard let h1 = h1Section.value as? Section else {
                     fail("Expect nodes[0] to be Section")
                     return
                 }
                 expect(h1.level) == 1
                 expect(h1.title) == "Header 1"
-                expect(h1.nodes).to(beEmpty())
+                expect(h1Section.children).to(beEmpty())
 
-                guard let h2 = doc?.nodes[1] as? Section else {
+                let h2Section = doc.children[1]
+                guard let h2 = h2Section.value as? Section else {
                     fail("Expect nodes[1] to be Section")
                     return
                 }
                 expect(h2.level) == 1
                 expect(h2.title) == "Header 2"
-                expect(h2.nodes).to(haveCount(3))
+                expect(h2Section.children).to(haveCount(3))
                 
-                guard let line = h2.nodes![0] as? Line else {
+                guard let line = h2Section.children[0].value as? Paragraph else {
                     fail("Expect h2.nodes[0] to be Line")
                     return
                 }
                 expect(line.text) == "A line of content."
                 
             }
-            it("merges lines") {
+            it("parses paragraphes") {
                 let lines = [
-                    "Hello world. 1",
-                    "Hello world. 2",
-                    "Hello world. 3",
+                    "Line one.",
+                    "Line two.",
+                    "Line three.",
+                    "",
+                    "Line four.",
+                    "Line five.",
                     ]
                 let doc = self.parse(lines)
+                guard let para1 = doc?.children[0].value as? Paragraph else {
+                    fail("Expect 0 to be Paragraph")
+                    return
+                }
+                expect(para1.lines).to(haveCount(3))
+                expect(para1.lines).to(contain(["Line one.", "Line two.", "Line three."]))
+                
+                guard let para2 = doc?.children[2].value as? Paragraph else {
+                    fail("Expect 0 to be Paragraph")
+                    return
+                }
+                expect(para2.lines).to(haveCount(2))
+                expect(para2.lines).to(contain(["Line four.", "Line five."]))
                 print(doc)
             }
             it("parses valid org file") {
                 let lines = [
                     "#+options: toc:nil",
+                    "#+title: hello world",
                     "  ",
                     "** Hello World",
                     "*** TODO The subsection",
@@ -102,6 +126,7 @@ class ParserTests: QuickSpec {
                 let parser = Parser(tokens: tokens)
                 do {
                     let doc = try parser.parse()
+                    print("++++++++++++++++++++++++")
                     print(doc)
                 } catch let Errors.UnexpectedToken(msg) {
                     print("[ERROR] \(msg)")
