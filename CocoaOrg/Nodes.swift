@@ -33,18 +33,18 @@ public struct DocumentMeta: Node {
 }
 
 public struct Section: Node {
-    public let title: String
+    public let title: String?
     public let level: Int
     public let state: String?
 //    public var properties: [String: String] = [:]
     
-    public init(level l: Int, title t: String, todos: [String]) {
+    public init(level l: Int, title t: String?, todos: [String]) {
         level = l
         
         let pattern = "^(?:(\(todos.joinWithSeparator("|")))\\s+)?(.*)$"
-        if let m = t.match(pattern) {
+        if let text = t, m = text.match(pattern) {
             state = m[1]
-            title = m[2]!
+            title = m[2]
         } else {
             state = nil
             title = t

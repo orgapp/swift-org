@@ -46,8 +46,9 @@ class ParserTests: QuickSpec {
                     "*** Header 2.1.1",
                     "** Header 2.2",
                     "* NEXT Customized todo",
+                    "* "
                     ]) else { return }
-                expect(doc.children).to(haveCount(3))
+                expect(doc.children).to(haveCount(4))
                 print(doc)
                 
                 let h1Section = doc.children[0]
@@ -83,6 +84,13 @@ class ParserTests: QuickSpec {
                 expect(h3.title) == "Customized todo"
                 expect(h3.state) == "NEXT"
                 
+                let h4Section = doc.children[3]
+                guard let h4 = h4Section.value as? Section else {
+                    fail("Expect nodes[1] to be Section")
+                    return
+                }
+                expect(h4.title).to(beNil())
+                expect(h4.state).to(beNil())
             }
             it("parses paragraphes") {
                 let lines = [

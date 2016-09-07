@@ -84,7 +84,7 @@ public class Parser {
                 }
                 tokens.dequeue()
                 let subSection = parent.add(Section(
-                    level: l, title: t!, todos: getTodos(parent)))
+                    level: l, title: t, todos: getTodos(parent)))
                 try parseSection(subSection)
             case .Blank:
                 tokens.dequeue()
