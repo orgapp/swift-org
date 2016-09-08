@@ -12,7 +12,7 @@ import CocoaOrg
 
 class ParserTests: QuickSpec {
     func parse(lines: [String]) -> OrgNode? {
-        let parser = Parser(tokens: Lexer(lines: lines).tokenize())
+        let parser = Parser(lines: lines)
         do {
             return try parser.parse()
         } catch {

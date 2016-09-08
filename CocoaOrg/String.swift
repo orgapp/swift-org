@@ -11,3 +11,7 @@ import Foundation
 public func multiline(x: String...) -> String {
     return x.joinWithSeparator("\n")
 }
+
+extension String {
+    var lines: [String] { return self.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) }
+}

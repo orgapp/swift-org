@@ -19,6 +19,15 @@ public class Parser {
         self.tokens = Queue<Token>(data: tokens)
     }
     
+    public convenience init(lines: [String]) {
+        let lexer = Lexer(lines: lines)
+        self.init(tokens: lexer.tokenize())
+    }
+    
+    public convenience init(content: String) {
+        self.init(lines: content.lines)
+    }
+    
     func parseBlock() throws -> Block {
         guard case let Token.BlockBegin(type, params) = tokens.dequeue()! else {
             throw Errors.UnexpectedToken("BlockBegin expected")
