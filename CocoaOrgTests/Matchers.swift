@@ -10,7 +10,7 @@ import Foundation
 import CocoaOrg
 import Nimble
 
-func beSetting(key: String, value: String) -> MatcherFunc<Token> {
+func beSetting(key: String, value: String?) -> MatcherFunc<Token> {
     return MatcherFunc { expression, message in
         message.postfixMessage = "be <Setting(\"\(key)\", \"\(value)\")>"
         if let actual = try expression.evaluate(),

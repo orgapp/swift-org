@@ -27,11 +27,18 @@ class LexerTests: QuickSpec {
                 expect(tokens).to(allPass(beBlank()))
             }
             it("tokenize setting") {
-                let tokens = self.tokenize([
+                var tokens = self.tokenize([
                     "#+options: toc:nil",
                     "#+options:    toc:nil",
-                ])
-                expect(tokens).to(allPass(beSetting("options", value: "toc:nil")))
+                    "#+TITLE: hello world",
+                    "#+TITLE: ",
+                    "#+TITLE:",
+                ]).toQueue()
+                expect(tokens.dequeue()).to(beSetting("options", value: "toc:nil"))
+                expect(tokens.dequeue()).to(beSetting("options", value: "toc:nil"))
+                expect(tokens.dequeue()).to(beSetting("TITLE", value: "hello world"))
+                expect(tokens.dequeue()).to(beSetting("TITLE", value: nil))
+                expect(tokens.dequeue()).to(beSetting("TITLE", value: nil))
             }
             it("tokenize header") {
                 var tokens = self.tokenize([

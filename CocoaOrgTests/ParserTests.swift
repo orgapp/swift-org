@@ -26,6 +26,7 @@ class ParserTests: QuickSpec {
             it("parses settings") {
                 guard let doc = self.parse([
                     "#+options: toc:nil",
+                    "#+TITLE: ",
                     "  ",
                     "* First Head Line",
                     ]) else { return }
@@ -35,6 +36,7 @@ class ParserTests: QuickSpec {
                 }
                 expect(d.settings).to(haveCount(1))
                 expect(d.settings["options"]) == "toc:nil"
+                expect(d.settings["TITLE"]).to(beNil())
             }
             it("parses headers") {
                 guard let doc = self.parse([

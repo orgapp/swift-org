@@ -9,7 +9,7 @@
 import Foundation
 
 public enum Token {
-    case Setting(key: String, value: String)
+    case Setting(key: String, value: String?)
     case Header(level: Int, text: String?)
     case Blank
     case HorizontalRule
@@ -26,7 +26,7 @@ typealias TokenGenerator = ([String?]) -> Token?
 let tokenList: [(String, NSRegularExpressionOptions, TokenGenerator)] = [
     ("^\\s*$", [], { _ in .Blank }),
     ("^#\\+([a-zA-Z_]+):\\s*(.*)$", [],
-        { matches in .Setting(key: matches[1]!, value: matches[2]!) }),
+        { matches in .Setting(key: matches[1]!, value: matches[2]) }),
 //    ("^(\\*+)\\s+(?:(TODO|DONE)\\s+)?(.*)$", [],
     ("^(\\*+)\\s+(.*)$", [],
         { matches in .Header(level: matches[1]!.characters.count, text: matches[2]) }),
