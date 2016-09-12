@@ -43,17 +43,23 @@
    [[google][https://www.google.com]]
    #+END_SRC
 
-** DONE List (ordered & unordered)
+** DONE List
    CLOSED: [2016-09-03 Sat 12:47]
    #+BEGIN_SRC org
    # ordered list
    1. first
-   2. second
+   2) second
    3. 3rd
    
    # unordered list
    - item
+   + item
+   * item
+
+   # nested list
    - item
+     1. sub item
+     1) sub item
    - item
    #+END_SRC
 
