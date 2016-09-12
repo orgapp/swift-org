@@ -55,7 +55,7 @@ class LexerTests: QuickSpec {
                 expect(tokens.dequeue()).to(beHeader(1, text: "TODO Level One with todo"))
                 expect(tokens.dequeue()).to(beHeader(1, text: nil))
                 expect(tokens.dequeue()).to(beLine("*"))
-                expect(tokens.dequeue()).to(beLine("* "))
+                expect(tokens.dequeue()).to(beListItem(1, text: nil, ordered: false))
             }
             it("tokenize src block") {
                 var tokens = self.tokenize([
@@ -118,6 +118,22 @@ class LexerTests: QuickSpec {
                 expect(lines).to(allPass(beLine("----")))
             }
             it("tokenize line") {
+            }
+            
+            it("tokenize lists") {
+                var tokens = self.tokenize([
+                    "- list item",
+                    " + list item",
+                    "  * list item",
+                    "1. ordered list item",
+                    "  2) ordered list item",
+                    ]).toQueue()
+                
+                expect(tokens.dequeue()).to(beListItem(0, text: "list item", ordered: false))
+                expect(tokens.dequeue()).to(beListItem(1, text: "list item", ordered: false))
+                expect(tokens.dequeue()).to(beListItem(2, text: "list item", ordered: false))
+                expect(tokens.dequeue()).to(beListItem(0, text: "ordered list item", ordered: true))
+                expect(tokens.dequeue()).to(beListItem(2, text: "ordered list item", ordered: true))
             }
         }
     }

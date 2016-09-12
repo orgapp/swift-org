@@ -49,6 +49,32 @@ public class Parser {
         throw Errors.UnexpectedToken("Cannot find BlockEnd")
     }
     
+    func parseList() throws -> List {
+        guard case let Token.ListItem(indent, text, ordered) = tokens.dequeue()! else {
+            throw Errors.UnexpectedToken("ListItem expected")
+        }
+        var list = List(ordered: ordered)
+        list.items = [ListItem(text: text)]
+        while let token = tokens.peek() {
+            if case let .ListItem(i, t, _) = token {
+                if i > indent {
+                    var lastItem = list.items.removeLast()
+                    lastItem.list = try parseList()
+                    list.items += [lastItem]
+                } else if i == indent {
+                    tokens.dequeue()
+                    list.items += [ListItem(text: t)]
+                } else {
+                    break
+                }
+            } else {
+                break
+            }
+        }
+        
+        return list
+    }
+    
     func parseLines() throws -> Paragraph {
         guard case Token.Line(let text) = tokens.dequeue()! else {
             throw Errors.UnexpectedToken("Line expected")
@@ -105,6 +131,8 @@ public class Parser {
                 parent.add(Comment(text: t))
             case .BlockBegin:
                 parent.add(try parseBlock())
+            case .ListItem:
+                parent.add(try parseList())
             default:
                 throw Errors.UnexpectedToken("\(token) is not expected")
             }

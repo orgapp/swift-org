@@ -110,3 +110,14 @@ func beHorizontalRule() -> MatcherFunc<Token> {
         return false
     }
 }
+
+func beListItem(indent: Int, text: String?, ordered: Bool) -> MatcherFunc<Token> {
+    return MatcherFunc { expression, message in
+        message.postfixMessage = "be <ListItem(\"\(indent)\", \"\(text)\", \"\(ordered)\")>"
+        if let actual = try expression.evaluate(),
+            case let .ListItem(i ,t, o) = actual {
+            return indent == i && text == t && ordered == o
+        }
+        return false
+    }
+}

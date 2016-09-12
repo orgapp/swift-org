@@ -89,6 +89,7 @@
 ** TODO Tags
 ** TODO Footnote
 ** TODO Clock
+** TODO Attachments
 
 * Maybe?
   - Latex Support

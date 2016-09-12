@@ -80,16 +80,26 @@ public struct Comment: Node {
 }
 
 public struct ListItem: Node {
-    public let text: String
+    public let text: String?
+    public var list: List?
  
+    public init(text t: String? = nil, list l: List? = nil) {
+        text = t
+        list = l
+    }
     public var description: String {
-        return "ListItem(text: \(text))"
+        return "ListItem(text: \(text), list: \(list))"
     }
 }
 
 public struct List: Node {
-    public let items: [ListItem]
-    public let ordered: Bool
+    public var items: [ListItem]
+    public var ordered: Bool
+    
+    public init(ordered o: Bool, items i: [ListItem] = []) {
+        ordered = o
+        items = i
+    }
 
     public var description: String {
         return "List(ordered: \(ordered), items: \(items))"

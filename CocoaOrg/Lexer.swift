@@ -15,11 +15,14 @@ public enum Token {
     case HorizontalRule
     case BlockBegin(type: String, params: [String]?)
     case BlockEnd(type: String)
-    case UnorderedListItem(text: String)
-    case OrderedListItem(text: String)
+    case ListItem(indent: Int, text: String?, ordered: Bool)
     case Comment(String?)
     case Line(text: String)
     case Raw(String)
+}
+
+func length(text: String?) -> Int {
+    return (text ?? "").characters.count
 }
 
 typealias TokenGenerator = ([String?]) -> Token?
@@ -37,6 +40,10 @@ let tokenList: [(String, NSRegularExpressionOptions, TokenGenerator)] = [
                 params: matches[3] != nil ? matches[3]!.characters.split{$0 == " "}.map(String.init) : nil) }),
     ("^(\\s*)#\\+end_([a-z]+)$", [.CaseInsensitive],
         { matches in .BlockEnd(type: matches[2]!) }),
+    ("^(\\s*)[-+*]\\s+(.*)$", [],
+        { matches in .ListItem(indent: length(matches[1]), text: matches[2], ordered: false) }),
+    ("^(\\s*)\\d+(?:\\.|\\))\\s+(.*)$", [],
+        { matches in .ListItem(indent: length(matches[1]), text: matches[2], ordered: true) }),
     ("^\\s*-{5,}$", [], { _ in .HorizontalRule }),
     ("^\\s*#\\s+(.*)$", [],
         { matches in .Comment(matches[1]) }),

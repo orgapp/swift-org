@@ -16,7 +16,7 @@ class ParserTests: QuickSpec {
         do {
             return try parser.parse()
         } catch {
-            fail("Unexpected error.")
+            fail("> ERROR: \(error).")
         }
         return nil
     }
@@ -146,9 +146,9 @@ class ParserTests: QuickSpec {
                 let tokens = lexer.tokenize()
                 let parser = Parser(tokens: tokens)
                 do {
-                    let doc = try parser.parse()
-                    print("++++++++++++++++++++++++")
-                    print(doc)
+                    _ = try parser.parse()
+//                    print("++++++++++++++++++++++++")
+//                    print(doc)
                 } catch let Errors.UnexpectedToken(msg) {
                     print("[ERROR] \(msg)")
                 } catch {
@@ -161,9 +161,35 @@ class ParserTests: QuickSpec {
 //                let splitted = text.matchSplit("(\\*)([\\s\\S]*?)\\1", options: [])
                 let lexer = InlineLexer(text: text)
                 let tokens = lexer.tokenize()
-                for t in tokens {
-                    print("-- \(t)")
+                for _ in tokens {
+//                    print("-- \(t)")
                 }
+            }
+            
+            it("parses lists") {
+                let lines = [
+                    "- list item",
+                    " 1. sub list item",
+                    " 1.  sub list item",
+                    "- list item",
+                ]
+                let doc = self.parse(lines)
+                guard let list = doc?.children[0].value as? List else {
+                    fail("Expect 0 to be List")
+                    return
+                }
+                expect(list.items).to(haveCount(2))
+                expect(list.ordered).to(beFalse())
+                expect(list.items[0].text) == "list item"
+                expect(list.items[1].text) == "list item"
+                expect(list.items[1].list).to(beNil())
+                
+                let subList = list.items[0].list
+                expect(subList).toNot(beNil())
+                expect(subList?.items).to(haveCount(2))
+                expect(subList?.ordered).to(beTrue())
+                expect(subList?.items[0].text) == "sub list item"
+                expect(subList?.items[1].text) == "sub list item"
             }
         }
     }
