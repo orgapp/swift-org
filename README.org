@@ -91,7 +91,7 @@
 
 ** TODO Table
 ** TODO Checkbox in list item
-** TODO Property Drawer
+** TODO Drawer
 ** TODO Tags
 ** TODO Footnote
 ** TODO Clock
