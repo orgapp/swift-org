@@ -10,6 +10,7 @@ import Foundation
 
 internal struct Queue<T> {
     var array = [T]()
+    var snapshot: [T]?
     
     init(data: [T]) {
         array = data
@@ -28,6 +29,22 @@ internal struct Queue<T> {
     
     func peek() -> T? {
         return array.first
+    }
+    
+    mutating func takeSnapshot() {
+        snapshot = array
+    }
+    
+    mutating func restore() {
+        if let s = snapshot {
+            array = s
+        }
+    }
+}
+
+extension Queue : CustomStringConvertible {
+    internal var description: String {
+        return array.map{i in "\(i)"}.joinWithSeparator("\n")
     }
 }
 

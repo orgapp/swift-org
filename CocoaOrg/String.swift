@@ -14,4 +14,11 @@ public func multiline(x: String...) -> String {
 
 extension String {
     var lines: [String] { return self.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) }
+    var trimmed: String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
+}
+
+func length(text: String?) -> Int {
+    return (text ?? "").characters.count
 }

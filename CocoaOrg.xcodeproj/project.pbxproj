@@ -21,6 +21,7 @@
 		03F9E6DE1D607CE30080E872 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6DD1D607CE30080E872 /* Regex.swift */; };
 		03F9E6E01D61C4E00080E872 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6DF1D61C4E00080E872 /* String.swift */; };
 		A704C53F1D739503004BB00F /* Inline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A704C53E1D739503004BB00F /* Inline.swift */; };
+		A715ED4D1D875EEE00FE6D25 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715ED4C1D875EEE00FE6D25 /* Tokens.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		03F9E6DD1D607CE30080E872 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		03F9E6DF1D61C4E00080E872 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		A704C53E1D739503004BB00F /* Inline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inline.swift; sourceTree = "<group>"; };
+		A715ED4C1D875EEE00FE6D25 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				03A5FE9B1D6B1ADB00156B26 /* Parser.swift */,
 				A704C53E1D739503004BB00F /* Inline.swift */,
 				03D7955C1D76E30700F0A6EB /* Data.swift */,
+				A715ED4C1D875EEE00FE6D25 /* Tokens.swift */,
 			);
 			path = CocoaOrg;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				03D7955D1D76E30700F0A6EB /* Data.swift in Sources */,
 				03F9E6E01D61C4E00080E872 /* String.swift in Sources */,
 				03F9E6DC1D606FFD0080E872 /* Lexer.swift in Sources */,
+				A715ED4D1D875EEE00FE6D25 /* Tokens.swift in Sources */,
 				03A5FE9C1D6B1ADB00156B26 /* Parser.swift in Sources */,
 				A704C53F1D739503004BB00F /* Inline.swift in Sources */,
 				03F9E6DE1D607CE30080E872 /* Regex.swift in Sources */,

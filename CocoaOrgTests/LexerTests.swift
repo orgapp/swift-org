@@ -13,7 +13,12 @@ import Nimble
 class LexerTests: QuickSpec {
     
     func tokenize(lines: [String]) -> [Token] {
-        return Lexer(lines: lines).tokenize()
+        do {
+            return try Lexer(lines: lines).tokenize()
+        } catch {
+            print("Tokenize failed.")
+            return []
+        }
     }
     override func spec() {
         describe("Lexer") {
@@ -72,9 +77,9 @@ class LexerTests: QuickSpec {
                     ]).toQueue()
                 
                 expect(tokens.dequeue()).to(beBlockBegin("src", params: ["java"]))
-                expect(tokens.dequeue()).to(beRaw("  class HelloWorld {"))
-                expect(tokens.dequeue()).to(beRaw("  # print(\"Hell World\");"))
-                expect(tokens.dequeue()).to(beRaw("  }"))
+                expect(tokens.dequeue()).to(beLine("class HelloWorld {"))
+                expect(tokens.dequeue()).to(beComment("print(\"Hell World\");"))
+                expect(tokens.dequeue()).to(beLine("}"))
                 expect(tokens.dequeue()).to(beBlockEnd("SRC"))
                 expect(tokens.dequeue()).to(beBlockBegin("src", params: nil))
                 expect(tokens.dequeue()).to(beBlockEnd("src"))
@@ -82,18 +87,6 @@ class LexerTests: QuickSpec {
                 expect(tokens.dequeue()).to(beBlockEnd("SRC"))
                 expect(tokens.dequeue()).to(beComment("+begin_src java"))
                 }
-            it("tokenize broken block") {
-                var tokens = self.tokenize([
-                    "#+BEGIN_QUOTE",
-                    "#+begin_src java",
-                    "  class HelloWorld {",
-                    "  }",
-                    ]).toQueue()
-                expect(tokens.dequeue()).to(beLine("#+BEGIN_QUOTE"))
-                expect(tokens.dequeue()).to(beLine("#+begin_src java"))
-                expect(tokens.dequeue()).to(beLine("class HelloWorld {"))
-                expect(tokens.dequeue()).to(beLine("}"))
-            }
             it("tokenize comment") {
                 var tokens = self.tokenize([
                     "# a line of comment",
@@ -135,6 +128,25 @@ class LexerTests: QuickSpec {
                 expect(tokens.dequeue()).to(beListItem(0, text: "ordered list item", ordered: true))
                 expect(tokens.dequeue()).to(beListItem(2, text: "ordered list item", ordered: true))
             }
+            
+            it("POC") {
+                var tokens = self.tokenize([
+                    "- list item 1",
+                    " + list item 1.1",
+                    "  * list item 1.1.1",
+                    "1. ordered list item 2",
+                    "  2) ordered list item 2.1",
+                    ]).toQueue()
+                tokens.dequeue()
+                print("tokens: \(tokens)")
+                tokens.takeSnapshot()
+                tokens.dequeue()
+                tokens.dequeue()
+                print("dequeued: \(tokens)")
+                tokens.restore()
+                print("restored: \(tokens)")
+            }
+
         }
     }
 }
