@@ -11,7 +11,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C6BB1840-0585-44E1-99D7-B9AAFE94A6DA",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "95438028B10BBB846574013D29F154A00556A9D1" : "CocoaOrg\/Carthage\/Checkouts\/Nimble\/",
+    "95438028B10BBB846574013D29F154A00556A9D1" : "CocoaOrg\/Carthage\/Checkouts\/Quick\/Externals\/Nimble\/",
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : "CocoaOrg\/Carthage\/Checkouts\/Quick\/",
     "C4222E45DC3C6A757C8CE21C09A770F429726BBF" : "CocoaOrg\/",
     "194A7A54F3CE0138A6C320E0643B7C60F8218891" : "CocoaOrg\/Carthage\/Checkouts\/Curry\/"

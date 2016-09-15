@@ -8,11 +8,11 @@
 
 import Foundation
 
-public enum Errors: ErrorType {
-    case UnexpectedToken(String)
+public enum Errors: Error {
+    case unexpectedToken(String)
 }
 
-public class Parser {
+open class Parser {
     // MARK: properties
     var tokens: Queue<Token>
     
@@ -32,16 +32,16 @@ public class Parser {
     
     // MARK: Greater Elements
     func parseBlock() throws -> Node {
-        guard case let Token.BlockBegin(meta, type, params) = tokens.dequeue()! else {
-            throw Errors.UnexpectedToken("BlockBegin expected")
+        guard case let Token.blockBegin(meta, type, params) = tokens.dequeue()! else {
+            throw Errors.unexpectedToken("BlockBegin expected")
         }
         var block = Block(type: type, params: params)
         tokens.takeSnapshot()
         while let token = tokens.dequeue() {
             switch token {
-            case let .BlockEnd(_, t):
-                if t.lowercaseString != type.lowercaseString {
-                    throw Errors.UnexpectedToken("Expecting BlockEnd of type \(type), but got \(t)")
+            case let .blockEnd(_, t):
+                if t.lowercased() != type.lowercased() {
+                    throw Errors.unexpectedToken("Expecting BlockEnd of type \(type), but got \(t)")
                 }
                 return block
             default:
@@ -53,19 +53,19 @@ public class Parser {
     }
     
     func parseList() throws -> List {
-        guard case let Token.ListItem(_, indent, text, ordered) = tokens.dequeue()! else {
-            throw Errors.UnexpectedToken("ListItem expected")
+        guard case let Token.listItem(_, indent, text, ordered) = tokens.dequeue()! else {
+            throw Errors.unexpectedToken("ListItem expected")
         }
         var list = List(ordered: ordered)
         list.items = [ListItem(text: text)]
         while let token = tokens.peek() {
-            if case let .ListItem(_, i, t, _) = token {
+            if case let .listItem(_, i, t, _) = token {
                 if i > indent {
                     var lastItem = list.items.removeLast()
                     lastItem.list = try parseList()
                     list.items += [lastItem]
                 } else if i == indent {
-                    tokens.dequeue()
+                    _ = tokens.dequeue()
                     list.items += [ListItem(text: t)]
                 } else {
                     break
@@ -78,18 +78,18 @@ public class Parser {
         return list
     }
     
-    func parseLines(startWith: String? = nil) throws -> Paragraph {
-        guard case Token.Line(_, let text) = tokens.dequeue()! else {
-            throw Errors.UnexpectedToken("Line expected")
+    func parseLines(_ startWith: String? = nil) throws -> Paragraph {
+        guard case Token.line(_, let text) = tokens.dequeue()! else {
+            throw Errors.unexpectedToken("Line expected")
         }
         var line = Paragraph(lines: [text])
         if let firstLine = startWith {
-            line.lines.insert(firstLine, atIndex: 0)
+            line.lines.insert(firstLine, at: 0)
         }
         while let token = tokens.peek() {
-            if case .Line(_, let t) = token {
+            if case .line(_, let t) = token {
                 line.lines.append(t)
-                tokens.dequeue()
+                _ = tokens.dequeue()
             } else {
                 break
             }
@@ -98,31 +98,31 @@ public class Parser {
     }
     
     
-    func parseSection(parent: OrgNode) throws {
+    func parseSection(_ parent: OrgNode) throws {
         while let token = tokens.peek() {
             switch token {
-            case let .Header(_, l, t):
+            case let .header(_, l, t):
                 if l <= getCurrentLevel(parent) {
                     return
                 }
-                tokens.dequeue()
+                _ = tokens.dequeue()
                 let subSection = parent.add(Section(
                     level: l, title: t, todos: getTodos(parent)))
                 try parseSection(subSection)
-            case .Blank:
-                tokens.dequeue()
-                parent.add(Blank())
-            case .Line:
-                parent.add(try parseLines())
-            case let .Comment(_, t):
-                tokens.dequeue()
-                parent.add(Comment(text: t))
-            case .BlockBegin:
-                parent.add(try parseBlock())
-            case .ListItem:
-                parent.add(try parseList())
+            case .blank:
+                _ = tokens.dequeue()
+                _ = parent.add(Blank())
+            case .line:
+                _ = parent.add(try parseLines())
+            case let .comment(_, t):
+                _ = tokens.dequeue()
+                _ = parent.add(Comment(text: t))
+            case .blockBegin:
+                _ = parent.add(try parseBlock())
+            case .listItem:
+                _ = parent.add(try parseList())
             default:
-                throw Errors.UnexpectedToken("\(token) is not expected")
+                throw Errors.unexpectedToken("\(token) is not expected")
             }
         }
     }
@@ -132,8 +132,8 @@ public class Parser {
         
         while let token = tokens.peek() {
             switch token {
-            case let .Setting(_, key, value):
-                tokens.dequeue()
+            case let .setting(_, key, value):
+                _ = tokens.dequeue()
                 if var meta = document.value as? DocumentMeta {
                     meta.settings[key] = value
                     document.value = meta
@@ -148,7 +148,7 @@ public class Parser {
     }
     
     // MARK: helpers
-    func getCurrentLevel(node: OrgNode) -> Int {
+    func getCurrentLevel(_ node: OrgNode) -> Int {
         if let section = node.value as? Section {
             return section.level
         }
@@ -158,8 +158,8 @@ public class Parser {
         return 0
     }
     
-    func getTodos(node: OrgNode) -> [String] {
-        if let doc = node.lookUp(DocumentMeta) {
+    func getTodos(_ node: OrgNode) -> [String] {
+        if let doc = node.lookUp(DocumentMeta.self) {
             return doc.todos
         }
         // TODO make it robust
@@ -168,7 +168,7 @@ public class Parser {
     }
     
     
-    public func parse() throws -> OrgNode {
+    open func parse() throws -> OrgNode {
         return try parseDocument()
     }
 }

@@ -8,17 +8,17 @@
 
 import Foundation
 
-public func multiline(x: String...) -> String {
-    return x.joinWithSeparator("\n")
+public func multiline(_ x: String...) -> String {
+    return x.joined(separator: "\n")
 }
 
 extension String {
-    var lines: [String] { return self.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) }
+    var lines: [String] { return self.components(separatedBy: CharacterSet.newlines) }
     var trimmed: String {
-        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
 }
 
-func length(text: String?) -> Int {
+func length(_ text: String?) -> Int {
     return (text ?? "").characters.count
 }

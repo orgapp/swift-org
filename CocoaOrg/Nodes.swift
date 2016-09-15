@@ -41,8 +41,8 @@ public struct Section: Node {
     public init(level l: Int, title t: String?, todos: [String]) {
         level = l
         
-        let pattern = "^(?:(\(todos.joinWithSeparator("|")))\\s+)?(.*)$"
-        if let text = t, m = text.match(pattern) {
+        let pattern = "^(?:(\(todos.joined(separator: "|")))\\s+)?(.*)$"
+        if let text = t, let m = text.match(pattern) {
             state = m[1]
             title = m[2]
         } else {
@@ -115,7 +115,7 @@ public struct Blank: Node {
 public struct Paragraph: Node {
     public var lines: [String]
     public var text: String {
-        return lines.joinWithSeparator(" ")
+        return lines.joined(separator: " ")
     }
     public var parsed: [InlineToken] {
         return InlineLexer(text: text).tokenize()

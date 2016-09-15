@@ -8,35 +8,29 @@
 
 import Foundation
 
-public enum LexerErrors: ErrorType {
-    case TokenizeFailed(Int, String)
+public enum LexerErrors: Error {
+    case tokenizeFailed(Int, String)
 }
 
-public class Lexer {
+func t(index: Int = -1, line: String) throws -> Token {
+    for (pattern, options, generator) in tokenList {
+        if let m = line.match(pattern, options: options) {
+            if let token = generator(m, index) {
+                return token
+            }
+        }
+    }
+    throw LexerErrors.tokenizeFailed(index, line)
+}
+
+open class Lexer {
     let lines: [String]
     public init(lines ls: [String]) {
         lines = ls
     }
     
-    func tokenize(index: Int, line: String) throws -> Token {
-        
-        for (pattern, options, generator) in tokenList {
-            if let m = line.match(pattern, options: options) {
-                if let token = generator(m, index) {
-                    return token
-                }
-            }
-        }
-        throw LexerErrors.TokenizeFailed(index, line)
-    }
-    
-    public func tokenize() throws -> [Token] {
+    open func tokenize() throws -> [Token] {
         defineTokens()
-        var tokens = [Token]()
-        for (index, line) in lines.enumerate() {
-            let token = try tokenize(index, line: line)
-            tokens += [token]
-        }
-        return tokens
+        return try lines.enumerated().map(t)
     }
 }

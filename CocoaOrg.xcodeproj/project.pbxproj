@@ -11,16 +11,15 @@
 		03A5FE9C1D6B1ADB00156B26 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE9B1D6B1ADB00156B26 /* Parser.swift */; };
 		03D347BE1D71093C00F78D70 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D347BD1D71093C00F78D70 /* ParserTests.swift */; };
 		03D7955D1D76E30700F0A6EB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D7955C1D76E30700F0A6EB /* Data.swift */; };
-		03EF5CBC1D646BE400AC294C /* Matchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EF5CBB1D646BE400AC294C /* Matchers.swift */; };
 		03F9E6A01D60411A0080E872 /* CocoaOrg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F9E69F1D60411A0080E872 /* CocoaOrg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F9E6A71D60411A0080E872 /* CocoaOrg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E69C1D6041190080E872 /* CocoaOrg.framework */; };
 		03F9E6AC1D60411A0080E872 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6AB1D60411A0080E872 /* LexerTests.swift */; };
-		03F9E6D81D6064160080E872 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E6D61D6064160080E872 /* Nimble.framework */; };
-		03F9E6D91D6064160080E872 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F9E6D71D6064160080E872 /* Quick.framework */; };
 		03F9E6DC1D606FFD0080E872 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6DB1D606FFD0080E872 /* Lexer.swift */; };
 		03F9E6DE1D607CE30080E872 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6DD1D607CE30080E872 /* Regex.swift */; };
 		03F9E6E01D61C4E00080E872 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6DF1D61C4E00080E872 /* String.swift */; };
 		A704C53F1D739503004BB00F /* Inline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A704C53E1D739503004BB00F /* Inline.swift */; };
+		A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22501D8A1D6A007796E2 /* Asserts.swift */; };
+		A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22521D8A204F007796E2 /* TokenExtensions.swift */; };
 		A715ED4D1D875EEE00FE6D25 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715ED4C1D875EEE00FE6D25 /* Tokens.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,19 +38,18 @@
 		03A5FE9B1D6B1ADB00156B26 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		03D347BD1D71093C00F78D70 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		03D7955C1D76E30700F0A6EB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		03EF5CBB1D646BE400AC294C /* Matchers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matchers.swift; sourceTree = "<group>"; };
 		03F9E69C1D6041190080E872 /* CocoaOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F9E69F1D60411A0080E872 /* CocoaOrg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaOrg.h; sourceTree = "<group>"; };
 		03F9E6A11D60411A0080E872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03F9E6A61D60411A0080E872 /* CocoaOrgTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaOrgTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F9E6AB1D60411A0080E872 /* LexerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
 		03F9E6AD1D60411A0080E872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		03F9E6D61D6064160080E872 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
-		03F9E6D71D6064160080E872 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		03F9E6DB1D606FFD0080E872 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		03F9E6DD1D607CE30080E872 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		03F9E6DF1D61C4E00080E872 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		A704C53E1D739503004BB00F /* Inline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inline.swift; sourceTree = "<group>"; };
+		A70C22501D8A1D6A007796E2 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
+		A70C22521D8A204F007796E2 /* TokenExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenExtensions.swift; sourceTree = "<group>"; };
 		A715ED4C1D875EEE00FE6D25 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,8 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03F9E6D81D6064160080E872 /* Nimble.framework in Frameworks */,
-				03F9E6D91D6064160080E872 /* Quick.framework in Frameworks */,
 				03F9E6A71D60411A0080E872 /* CocoaOrg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,7 +75,6 @@
 		03F9E6921D6041190080E872 = {
 			isa = PBXGroup;
 			children = (
-				03F9E6DA1D606DCE0080E872 /* Frameworks */,
 				03F9E69E1D6041190080E872 /* CocoaOrg */,
 				03F9E6AA1D60411A0080E872 /* CocoaOrgTests */,
 				03F9E69D1D6041190080E872 /* Products */,
@@ -117,19 +112,11 @@
 			children = (
 				03F9E6AB1D60411A0080E872 /* LexerTests.swift */,
 				03F9E6AD1D60411A0080E872 /* Info.plist */,
-				03EF5CBB1D646BE400AC294C /* Matchers.swift */,
 				03D347BD1D71093C00F78D70 /* ParserTests.swift */,
+				A70C22501D8A1D6A007796E2 /* Asserts.swift */,
+				A70C22521D8A204F007796E2 /* TokenExtensions.swift */,
 			);
 			path = CocoaOrgTests;
-			sourceTree = "<group>";
-		};
-		03F9E6DA1D606DCE0080E872 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				03F9E6D61D6064160080E872 /* Nimble.framework */,
-				03F9E6D71D6064160080E872 /* Quick.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,14 +176,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Xiaoxing Hu";
 				TargetAttributes = {
 					03F9E69B1D6041190080E872 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					03F9E6A51D60411A0080E872 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -255,9 +244,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03EF5CBC1D646BE400AC294C /* Matchers.swift in Sources */,
+				A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */,
 				03F9E6AC1D60411A0080E872 /* LexerTests.swift in Sources */,
 				03D347BE1D71093C00F78D70 /* ParserTests.swift in Sources */,
+				A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,8 +276,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -335,8 +327,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -356,6 +350,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -367,6 +362,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -378,6 +374,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -385,6 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -395,6 +393,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.huxiaoxing.CocoaOrg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -405,6 +404,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huxiaoxing.CocoaOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -415,6 +415,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huxiaoxing.CocoaOrgTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

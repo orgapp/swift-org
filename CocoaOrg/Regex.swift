@@ -10,7 +10,7 @@ import Foundation
 
 var expressions = [String: NSRegularExpression]()
 public extension String {
-    func getExpression(regex: String, options: NSRegularExpressionOptions) -> NSRegularExpression {
+    func getExpression(_ regex: String, options: NSRegularExpression.Options) -> NSRegularExpression {
         let expression: NSRegularExpression
         if let exists = expressions[regex] {
             expression = exists
@@ -21,15 +21,15 @@ public extension String {
         return expression
     }
     
-    func getMatches(match: NSTextCheckingResult) -> [String?] {
+    func getMatches(_ match: NSTextCheckingResult) -> [String?] {
         var matches = [String?]()
         switch match.numberOfRanges {
         case 0:
             return []
         case let n where n > 0:
             for i in 0..<n {
-                let r = match.rangeAtIndex(i)
-                matches.append(r.length > 0 ? (self as NSString).substringWithRange(r) : nil)
+                let r = match.rangeAt(i)
+                matches.append(r.length > 0 ? (self as NSString).substring(with: r) : nil)
             }
         default:
             return []
@@ -37,49 +37,49 @@ public extension String {
         return matches
     }
     
-    public func match(regex: String, options: NSRegularExpressionOptions = []) -> [String?]? {
+    public func match(_ regex: String, options: NSRegularExpression.Options = []) -> [String?]? {
         let expression = self.getExpression(regex, options: options)
         
-        if let match = expression.firstMatchInString(self, options: [], range: NSMakeRange(0, self.utf16.count)) {
+        if let match = expression.firstMatch(in: self, options: [], range: NSMakeRange(0, self.utf16.count)) {
             return getMatches(match)
         }
         return nil
     }
     
-    public func matchSplit(regex: String, options: NSRegularExpressionOptions) -> [String] {
+    public func matchSplit(_ regex: String, options: NSRegularExpression.Options) -> [String] {
         let expression = self.getExpression(regex, options: options)
-        let matches = expression.matchesInString(self, options: [], range: NSMakeRange(0, self.utf16.count))
+        let matches = expression.matches(in: self, options: [], range: NSMakeRange(0, self.utf16.count))
         var splitted = [String]()
         var cursor = 0
         for m in matches {
             if m.range.location > cursor {
-                splitted.append(self.substringWithRange(self.startIndex.advancedBy(cursor)..<self.startIndex.advancedBy(m.range.location)))
+                splitted.append(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.characters.index(self.startIndex, offsetBy: m.range.location)))
             }
-            splitted.append((self as NSString).substringWithRange(m.range))
-            cursor = (m.range.toRange()?.endIndex)! + 1
+            splitted.append((self as NSString).substring(with: m.range))
+            cursor = (m.range.toRange()?.upperBound)! + 1
         }
         if cursor <= self.characters.count {
-            splitted.append(self.substringWithRange(self.startIndex.advancedBy(cursor)..<self.endIndex))
+            splitted.append(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
         }
         return splitted
     }
     
-    public func tryMatch(regex: String,
-                        options: NSRegularExpressionOptions = [],
+    public func tryMatch(_ regex: String,
+                        options: NSRegularExpression.Options = [],
                         match: ([String?]) -> Void,
                         or: (String) -> Void) {
         let expression = self.getExpression(regex, options: options)
-        let matches = expression.matchesInString(self, options: [], range: NSMakeRange(0, self.utf16.count))
+        let matches = expression.matches(in: self, options: [], range: NSMakeRange(0, self.utf16.count))
         var cursor = 0
         for m in matches {
             if m.range.location > cursor {
-                or(self.substringWithRange(self.startIndex.advancedBy(cursor)..<self.startIndex.advancedBy(m.range.location)))
+                or(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.characters.index(self.startIndex, offsetBy: m.range.location)))
             }
             match(getMatches(m))
-            cursor = (m.range.toRange()?.endIndex)! + 1
+            cursor = (m.range.toRange()?.upperBound)! + 1
         }
         if cursor <= self.characters.count {
-            or(self.substringWithRange(self.startIndex.advancedBy(cursor)..<self.endIndex))
+            or(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
         }
     }
 }

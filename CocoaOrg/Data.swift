@@ -44,7 +44,7 @@ internal struct Queue<T> {
 
 extension Queue : CustomStringConvertible {
     internal var description: String {
-        return array.map{i in "\(i)"}.joinWithSeparator("\n")
+        return array.map{i in "\(i)"}.joined(separator: "\n")
     }
 }
 
@@ -54,21 +54,21 @@ internal extension Array {
     }
 }
 
-public class TreeNode<T> {
-    public var value: T
-    public var parent: TreeNode?
-    public var children = [TreeNode<T>]()
+open class TreeNode<T> {
+    open var value: T
+    open var parent: TreeNode?
+    open var children = [TreeNode<T>]()
     public init(value v: T) {
         value = v
     }
     
-    func add(child: TreeNode<T>) -> TreeNode<T> {
+    func add(_ child: TreeNode<T>) -> TreeNode<T> {
         children.append(child)
         child.parent = self
         return child
     }
     
-    func add(child: T) -> TreeNode<T> {
+    func add(_ child: T) -> TreeNode<T> {
         let c = TreeNode<T>(value: child)
         c.parent = self
         children.append(c)
@@ -90,7 +90,7 @@ public class TreeNode<T> {
         return 0
     }
     
-    public func lookUp<Type>(type: Type.Type) -> Type? {
+    open func lookUp<Type>(_ type: Type.Type) -> Type? {
         if let v = value as? Type {
             return v
         }
@@ -103,11 +103,11 @@ public class TreeNode<T> {
 
 extension TreeNode: CustomStringConvertible {
     public var description: String {
-        let prefix = String(count: depth, repeatedValue: Character("-"))
+        let prefix = String(repeating: "-", count: depth)
         var lines = ["\(prefix) \(value)"]
         if !children.isEmpty {
             lines += children.map { $0.description }
         }
-        return lines.joinWithSeparator("\n")
+        return lines.joined(separator: "\n")
     }
 }

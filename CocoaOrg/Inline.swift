@@ -9,44 +9,44 @@
 import Foundation
 
 public enum InlineToken {
-    case Bold(String)
-    case Italic(String)
-    case Underlined(String)
-    case StrikeThrough(String)
-    case Verbatim(String)
-    case Code(String)
-    case Link(text: String, url: String)
-    case Plain(String)
+    case bold(String)
+    case italic(String)
+    case underlined(String)
+    case strikeThrough(String)
+    case verbatim(String)
+    case code(String)
+    case link(text: String, url: String)
+    case plain(String)
 }
 
 typealias InlineTokenGenerator = (String) -> InlineToken
 let markerList: [(String, InlineTokenGenerator)] = [
-    ("~", { text in .Code(text) }),
-    ("=", { text in .Verbatim(text) }),
-    ("*", { text in .Bold(text) }),
-    ("/", { text in .Italic(text) }),
-    ("_", { text in .Underlined(text) }),
-    ("+", { text in .StrikeThrough(text) }),
+    ("~", { text in .code(text) }),
+    ("=", { text in .verbatim(text) }),
+    ("*", { text in .bold(text) }),
+    ("/", { text in .italic(text) }),
+    ("_", { text in .underlined(text) }),
+    ("+", { text in .strikeThrough(text) }),
 ]
 
-public class InlineLexer {
+open class InlineLexer {
     
     var text: String
     var tokens: [InlineToken]
     var attr: [String : AnyObject] = [String : AnyObject]()
     public init(text t: String) {
         text = t
-        tokens = [InlineToken.Plain(text)]
+        tokens = [InlineToken.plain(text)]
     }
     
-    private func tokenizeEmphasis() {
+    fileprivate func tokenizeEmphasis() {
         for (marker, generator) in markerList {
             var newTokens = [InlineToken]()
             for token in tokens {
-                if case let InlineToken.Plain(text) = token {
+                if case let InlineToken.plain(text) = token {
                     text.tryMatch("([\(marker)])([\\s\\S]*?)\\1", match: { m in
                         newTokens.append(generator(m[2]!))
-                        }, or: { text in newTokens.append(.Plain(text)) })
+                        }, or: { text in newTokens.append(.plain(text)) })
                 } else {
                     newTokens.append(token)
                 }
@@ -55,13 +55,13 @@ public class InlineLexer {
         }
     }
     
-    private func tokenizeLink() {
+    fileprivate func tokenizeLink() {
         var newTokens = [InlineToken]()
         for token in tokens {
-            if case let InlineToken.Plain(text) = token {
+            if case let InlineToken.plain(text) = token {
                 text.tryMatch("\\[\\[([^\\]]*)\\](?:\\[([^\\]]*)\\])?\\]", match: { m in
-                    newTokens.append(.Link(text: m[2]!, url: m[1]!))
-                    }, or: { text in newTokens.append(.Plain(text)) })
+                    newTokens.append(.link(text: m[2]!, url: m[1]!))
+                    }, or: { text in newTokens.append(.plain(text)) })
             } else {
                 newTokens.append(token)
             }
@@ -69,8 +69,8 @@ public class InlineLexer {
         tokens = newTokens
     }
     
-    public func tokenize() -> [InlineToken] {
-        tokens = [InlineToken.Plain(text)]
+    open func tokenize() -> [InlineToken] {
+        tokens = [InlineToken.plain(text)]
         tokenizeLink()
         tokenizeEmphasis()
         return tokens
