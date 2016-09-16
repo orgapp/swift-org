@@ -83,8 +83,22 @@ func evalBlank(_ content: String, rawIsNil: Bool = false,
 }
 
 func evalLine(_ content: String, text: String,
-                 file: StaticString = #file, line: UInt = #line) {
+              file: StaticString = #file, line: UInt = #line) {
     let token = tokenize(line: content)
     expect(token!, toBe: .line(TokenMeta(raw: content, lineNumber: -1), text: text),
+           file: file, line: line)
+}
+
+func evalDrawerBegin(_ content: String, name: String,
+              file: StaticString = #file, line: UInt = #line) {
+    let token = tokenize(line: content)
+    expect(token!, toBe: .drawerBegin(TokenMeta(raw: content, lineNumber: -1), name: name),
+           file: file, line: line)
+}
+
+func evalDrawerEnd(_ content: String,
+                     file: StaticString = #file, line: UInt = #line) {
+    let token = tokenize(line: content)
+    expect(token!, toBe: .drawerEnd(TokenMeta(raw: content, lineNumber: -1)),
            file: file, line: line)
 }

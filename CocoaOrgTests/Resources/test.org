@@ -1,0 +1,106 @@
+* org-mode Parser for Cocoa
+
+[[https://travis-ci.org/xiaoxinghu/CocoaOrg.svg?branch=master]]
+[[https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat]]
+
+[[http://orgmode.org/][org-mode]] is awesome, go nuts and build beautiful things with it.
+
+* Supported Syntax (so far) [10/16]
+** DONE Keywords (aka In Buffer Settings)
+CLOSED: [2016-09-03 Sat 12:47]
+
+#+BEGIN_SRC org
+#+TITLE: Hello World
+#+OPTIONS: Hello World
+#+END_SRC
+
+** DONE Headlines
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC org
+* Head Line 1
+* Head Line 2
+** Head Line 2.1
+*** Head Line 2.1.1
+#+END_SRC
+
+** DONE Paragraph
+CLOSED: [2016-09-03 Sat 12:47]
+Lines without *line breaker* becomes a *paragraph*.
+
+** DONE Emphasis
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC org
+*bold*
+/italic/
+_underlined_
+=verbatim=
+~code~
++strike-through+
+#+END_SRC
+
+** DONE Link
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC org
+[[google][https://www.google.com]]
+#+END_SRC
+
+** DONE List
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC org
+# ordered list
+1. first
+2) second
+3. 3rd
+
+# unordered list
+- item
++ item
+* item
+
+# nested list
+- item
+1. sub item
+1) sub item
+- item
+#+END_SRC
+
+** DONE Horizontal rules
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC org
+Above.
+-----
+Below
+#+END_SRC
+
+** DONE Comment
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC org
+# This is a comment.
+#This is a regular line.
+#+END_SRC
+
+** DONE Blocks
+CLOSED: [2016-09-03 Sat 12:47]
+#+BEGIN_SRC javascript
+Console.log("Hello Org.")
+#+END_SRC
+
+#+BEGIN_QUOTE
+Everything should be made as simple as possible,
+but not any simpler -- Albert Einstein
+#+END_QUOTE
+
+** TODO Table
+** TODO Checkbox in list item
+** TODO Drawer
+** TODO Tags
+** TODO Footnote
+** TODO Clock
+** TODO Attachments
+
+
+* TODO Performance Test
+
+* Maybe?
+- Latex Support
+- Macros

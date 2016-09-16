@@ -72,5 +72,14 @@ class LexerTests: XCTestCase {
         evalListItem("  * list item", indent: 2, text: "list item", ordered: false)
         evalListItem("1. ordered list item", indent: 0, text: "ordered list item", ordered: true)
         evalListItem("  2) ordered list item", indent: 2, text: "ordered list item", ordered: true)
-    }    
+    }
+    
+    func testDrawer() {
+        evalDrawerBegin(":PROPERTY:", name: "PROPERTY")
+        evalDrawerBegin("  :properties:", name: "properties")
+        evalDrawerBegin("  :properties:  ", name: "properties")
+        evalDrawerEnd(":END:")
+        evalDrawerEnd("  :end:")
+        evalDrawerEnd("  :end:   ")
+    }
 }

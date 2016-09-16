@@ -24,6 +24,8 @@ public enum Token {
     case horizontalRule(TokenMeta)
     case blockBegin(TokenMeta, name: String, params: [String]?)
     case blockEnd(TokenMeta, name: String)
+    case drawerBegin(TokenMeta, name: String)
+    case drawerEnd(TokenMeta)
     case listItem(TokenMeta, indent: Int, text: String?, ordered: Bool)
     case comment(TokenMeta, String?)
     case line(TokenMeta, text: String)
@@ -44,6 +46,10 @@ extension Token: CommonToken {
         case .blockBegin(let meta, _, _):
             return meta
         case .blockEnd(let meta, _):
+            return meta
+        case .drawerBegin(let meta, _):
+            return meta
+        case .drawerEnd(let meta):
             return meta
         case .listItem(let meta, _, _, _):
             return meta
@@ -87,6 +93,10 @@ func defineTokens() {
         return .blockBegin(meta, name: matches[2]!, params: params) }
     define("^(\\s*)#\\+end_([a-z]+)$", options: [.caseInsensitive]) { matches, lineNumber in
         .blockEnd(TokenMeta(raw: matches[0], lineNumber: lineNumber), name: matches[2]!) }
+    define("^(\\s*):end:\\s*$", options: [.caseInsensitive]) { matches, lineNumber in
+        .drawerEnd(TokenMeta(raw: matches[0], lineNumber: lineNumber)) }
+    define("^(\\s*):([a-z]+):\\s*$", options: [.caseInsensitive]) { matches, lineNumber in
+        .drawerBegin(TokenMeta(raw: matches[0], lineNumber: lineNumber), name: matches[2]!) }
     define("^(\\s*)[-+*]\\s+(.*)$") { matches, lineNumber in
         .listItem(TokenMeta(raw: matches[0], lineNumber: lineNumber),
                   indent: length(matches[1]), text: matches[2], ordered: false) }
