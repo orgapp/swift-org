@@ -57,17 +57,17 @@ public struct Section: Node {
 }
 
 public struct Block: Node {
-    public let type: String
+    public let name: String
     public let params: [String]?
     public var content: [String] = []
     
-    public init(type t: String, params p: [String]? = nil) {
-        type = t
+    public init(name n: String, params p: [String]? = nil) {
+        name = n
         params = p
     }
     
     public var description: String {
-        return "Block(type: \(type), params: \(params), content: \(content))"
+        return "Block(name: \(name), params: \(params), content: \(content))"
     }
 }
 

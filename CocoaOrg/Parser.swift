@@ -32,16 +32,16 @@ open class Parser {
     
     // MARK: Greater Elements
     func parseBlock() throws -> Node {
-        guard case let Token.blockBegin(meta, type, params) = tokens.dequeue()! else {
+        guard case let Token.blockBegin(meta, name, params) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("BlockBegin expected")
         }
-        var block = Block(type: type, params: params)
+        var block = Block(name: name, params: params)
         tokens.takeSnapshot()
         while let token = tokens.dequeue() {
             switch token {
             case let .blockEnd(_, t):
-                if t.lowercased() != type.lowercased() {
-                    throw Errors.unexpectedToken("Expecting BlockEnd of type \(type), but got \(t)")
+                if t.lowercased() != name.lowercased() {
+                    throw Errors.unexpectedToken("Expecting BlockEnd of type \(name), but got \(t)")
                 }
                 return block
             default:
@@ -101,7 +101,7 @@ open class Parser {
     func parseSection(_ parent: OrgNode) throws {
         while let token = tokens.peek() {
             switch token {
-            case let .header(_, l, t):
+            case let .headline(_, l, t):
                 if l <= getCurrentLevel(parent) {
                     return
                 }

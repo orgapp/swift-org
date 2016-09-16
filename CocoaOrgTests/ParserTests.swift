@@ -141,20 +141,20 @@ class ParserTests: XCTestCase {
             XCTFail("Expect 0 to be Block")
             return
         }
-        XCTAssertEqual(block1.type, "src")
+        XCTAssertEqual(block1.name, "src")
         XCTAssertEqual(block1.params!, ["java"])
         XCTAssertEqual(block1.content, ["  class HelloWorld {", "  # print(\"Hell World\");", "  }"])
         guard let block2 = doc.children[1].value as? Block else {
             XCTFail("Expect 1 to be Block")
             return
         }
-        XCTAssertEqual(block2.type, "src")
+        XCTAssertEqual(block2.name, "src")
         XCTAssertNil(block2.params)
         guard let block3 = doc.children[2].value as? Block else {
             XCTFail("Expect 2 to be Block")
             return
         }
-        XCTAssertEqual(block3.type, "src")
+        XCTAssertEqual(block3.name, "src")
         XCTAssertEqual(block3.params!, ["yaml", "exports:", "results",  ":results",  "value", "html"])
         guard let comment = doc.children[3].value as? Comment else {
             XCTFail("Expect 3 to be Comment")

@@ -98,6 +98,9 @@
 ** TODO Clock
 ** TODO Attachments
 
+   
+* TODO Performance Test
+
 * Maybe?
   - Latex Support
   - Macros

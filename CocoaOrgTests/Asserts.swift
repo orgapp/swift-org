@@ -50,21 +50,21 @@ func evalComment(_ content: String, text: String,
 func evalBlockEnd(_ content: String, type: String,
                   file: StaticString = #file, line: UInt = #line) {
     let token = tokenize(line: content)
-    expect(token!, toBe: .blockEnd(TokenMeta(raw: content, lineNumber: -1), type: type),
+    expect(token!, toBe: .blockEnd(TokenMeta(raw: content, lineNumber: -1), name: type),
            file: file, line: line)
 }
 
 func evalBlockBegin(_ content: String, type: String, params: [String]?,
                   file: StaticString = #file, line: UInt = #line) {
     let token = tokenize(line: content)
-    expect(token!, toBe: .blockBegin(TokenMeta(raw: content, lineNumber: -1), type: type, params: params),
+    expect(token!, toBe: .blockBegin(TokenMeta(raw: content, lineNumber: -1), name: type, params: params),
            file: file, line: line)
 }
 
 func evalHeadline(_ content: String, level: Int, text: String?,
                     file: StaticString = #file, line: UInt = #line) {
     let token = tokenize(line: content)
-    expect(token!, toBe: .header(TokenMeta(raw: content, lineNumber: -1), level: level, text: text),
+    expect(token!, toBe: .headline(TokenMeta(raw: content, lineNumber: -1), level: level, text: text),
            file: file, line: line)
 }
 

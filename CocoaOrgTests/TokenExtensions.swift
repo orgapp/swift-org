@@ -21,7 +21,7 @@ extension Token: Equatable {
 //        case (.blank(let lMeta), .blank(let rMeta)) where lMeta == rMeta: return true
 //        case (let .setting(lMeta, lKey, lValue), let .setting(rMeta, rKey, rValue))
 //            where lMeta == rMeta && lKey == rKey && lValue == rValue: return true
-//        case (let .header(lMeta, lLevel, lText), let .header(rMeta, rLevel, rText))
+//        case (let .headline(lMeta, lLevel, lText), let .header(rMeta, rLevel, rText))
 //            where lMeta == rMeta && lLevel == rLevel && lText == rText: return true
 //        default: return "\(lhs)" == "\(rhs)"
 //        }

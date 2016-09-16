@@ -21,6 +21,8 @@
 		A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22501D8A1D6A007796E2 /* Asserts.swift */; };
 		A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22521D8A204F007796E2 /* TokenExtensions.swift */; };
 		A715ED4D1D875EEE00FE6D25 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715ED4C1D875EEE00FE6D25 /* Tokens.swift */; };
+		A77968101D8B99AD00A8C19C /* test.org in Resources */ = {isa = PBXBuildFile; fileRef = A779680F1D8B99AD00A8C19C /* test.org */; };
+		A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		A70C22501D8A1D6A007796E2 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
 		A70C22521D8A204F007796E2 /* TokenExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenExtensions.swift; sourceTree = "<group>"; };
 		A715ED4C1D875EEE00FE6D25 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
+		A779680F1D8B99AD00A8C19C /* test.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.org; path = Resources/test.org; sourceTree = "<group>"; };
+		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,13 +114,23 @@
 		03F9E6AA1D60411A0080E872 /* CocoaOrgTests */ = {
 			isa = PBXGroup;
 			children = (
+				A779680E1D8B999200A8C19C /* Resources */,
 				03F9E6AB1D60411A0080E872 /* LexerTests.swift */,
 				03F9E6AD1D60411A0080E872 /* Info.plist */,
 				03D347BD1D71093C00F78D70 /* ParserTests.swift */,
 				A70C22501D8A1D6A007796E2 /* Asserts.swift */,
 				A70C22521D8A204F007796E2 /* TokenExtensions.swift */,
+				A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */,
 			);
 			path = CocoaOrgTests;
+			sourceTree = "<group>";
+		};
+		A779680E1D8B999200A8C19C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A779680F1D8B99AD00A8C19C /* test.org */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77968101D8B99AD00A8C19C /* test.org in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */,
+				A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */,
 				03F9E6AC1D60411A0080E872 /* LexerTests.swift in Sources */,
 				03D347BE1D71093C00F78D70 /* ParserTests.swift in Sources */,
 				A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */,

@@ -19,11 +19,11 @@ protocol CommonToken {
 
 public enum Token {
     case setting(TokenMeta, key: String, value: String?)
-    case header(TokenMeta, level: Int, text: String?)
+    case headline(TokenMeta, level: Int, text: String?)
     case blank(TokenMeta)
     case horizontalRule(TokenMeta)
-    case blockBegin(TokenMeta, type: String, params: [String]?)
-    case blockEnd(TokenMeta, type: String)
+    case blockBegin(TokenMeta, name: String, params: [String]?)
+    case blockEnd(TokenMeta, name: String)
     case listItem(TokenMeta, indent: Int, text: String?, ordered: Bool)
     case comment(TokenMeta, String?)
     case line(TokenMeta, text: String)
@@ -35,7 +35,7 @@ extension Token: CommonToken {
         switch self {
         case .setting(let meta, _, _):
             return meta
-        case .header(let meta, _, _):
+        case .headline(let meta, _, _):
             return meta
         case .blank(let meta):
             return meta
@@ -76,7 +76,7 @@ func defineTokens() {
     define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches, lineNumber in
         .setting(TokenMeta(raw: matches[0], lineNumber: lineNumber), key: matches[1]!, value: matches[2]) }
     define("^(\\*+)\\s+(.*)$") { matches, lineNumber in
-        .header(TokenMeta(raw: matches[0], lineNumber: lineNumber),
+        .headline(TokenMeta(raw: matches[0], lineNumber: lineNumber),
                 level: matches[1]!.characters.count, text: matches[2]) }
     define("^(\\s*)#\\+begin_([a-z]+)(:?\\s+(.*))?$", options: [.caseInsensitive]) { matches, lineNumber in
         var params: [String]?
@@ -84,9 +84,9 @@ func defineTokens() {
         if let m3 = matches[3] {
             params = m3.characters.split{$0 == " "}.map(String.init)
         }
-        return .blockBegin(meta, type: matches[2]!, params: params) }
+        return .blockBegin(meta, name: matches[2]!, params: params) }
     define("^(\\s*)#\\+end_([a-z]+)$", options: [.caseInsensitive]) { matches, lineNumber in
-        .blockEnd(TokenMeta(raw: matches[0], lineNumber: lineNumber), type: matches[2]!) }
+        .blockEnd(TokenMeta(raw: matches[0], lineNumber: lineNumber), name: matches[2]!) }
     define("^(\\s*)[-+*]\\s+(.*)$") { matches, lineNumber in
         .listItem(TokenMeta(raw: matches[0], lineNumber: lineNumber),
                   indent: length(matches[1]), text: matches[2], ordered: false) }
