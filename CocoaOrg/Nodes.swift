@@ -36,6 +36,7 @@ public struct Section: Node {
     public let title: String?
     public let level: Int
     public let state: String?
+    public var drawers: [Drawer]?
 //    public var properties: [String: String] = [:]
     
     public init(level l: Int, title t: String?, todos: [String]) {
@@ -52,7 +53,7 @@ public struct Section: Node {
     }
     
     public var description: String {
-        return "Section(level: \(level), title: \(title), state: \(state))"
+        return "Section(level: \(level), title: \(title), state: \(state))\n - \(drawers)"
     }
 }
 
@@ -129,5 +130,19 @@ public struct Paragraph: Node {
 public struct HorizontalRule: Node {
     public var description: String {
         return "HorizontalRule"
+    }
+}
+
+public struct Drawer: Node {
+    public let name: String
+    public var content: [String]?
+    
+    public init(_ name: String, content: [String]? = nil) {
+        self.name = name
+        self.content = content
+    }
+    
+    public var description: String {
+        return "Drawer(name: \(name), content: \(content))"
     }
 }

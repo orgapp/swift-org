@@ -27,10 +27,15 @@ internal struct Queue<T> {
         return array.removeFirst()
     }
     
+    mutating func swapNext(with element: T) {
+        _ = dequeue()
+        array.insert(element, at: 0)
+    }
+    
     func peek() -> T? {
         return array.first
     }
-    
+        
     mutating func takeSnapshot() {
         snapshot = array
     }

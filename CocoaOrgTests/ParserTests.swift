@@ -205,4 +205,23 @@ class ParserTests: XCTestCase {
             //                    print("-- \(t)")
         }
     }
+    
+    func testParserPOC() {
+        let lines = [
+            "* headline one",
+            "",
+            "  :LOGBOOK:",
+            "  - hello world",
+            "  - hello world again",
+            "  :END:",
+            "  :PROPERTIES:",
+            "  - property 1",
+            "  - property 2",
+            "  :END:",
+            ]
+        let doc = self.parse(lines)
+        print("+++++++++++++++")
+        print(doc)
+        print("+++++++++++++++")
+    }
 }

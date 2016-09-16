@@ -79,7 +79,7 @@ open class Parser {
     }
     
     func parseLines(_ startWith: String? = nil) throws -> Paragraph {
-        guard case Token.line(_, let text) = tokens.dequeue()! else {
+        guard case .line(_, let text) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("Line expected")
         }
         var line = Paragraph(lines: [text])
@@ -97,6 +97,29 @@ open class Parser {
         return line
     }
     
+    func lookForDrawers() throws -> [Drawer]? {
+        if tokens.isEmpty {
+            return nil
+        }
+        guard case let .drawerBegin(meta, name) = tokens.peek()! else {
+            return nil
+        }
+        tokens.takeSnapshot()
+        var content: [String] = []
+        while let token = tokens.dequeue() {
+            if case .drawerEnd = token {
+                var result = [Drawer(name, content: content)]
+                if let drawers = try lookForDrawers() {
+                    result.append(contentsOf: drawers)
+                }
+                return result
+            }
+            content.append(token.meta.raw ?? "")
+        }
+        tokens.restore()
+        tokens.swapNext(with: .line(meta, text: (meta.raw?.trimmed)!))
+        return nil
+    }
     
     func parseSection(_ parent: OrgNode) throws {
         while let token = tokens.peek() {
@@ -106,8 +129,9 @@ open class Parser {
                     return
                 }
                 _ = tokens.dequeue()
-                let subSection = parent.add(Section(
-                    level: l, title: t, todos: getTodos(parent)))
+                var sec = Section(level: l, title: t, todos: getTodos(parent))
+                sec.drawers = try lookForDrawers()
+                let subSection = parent.add(sec)
                 try parseSection(subSection)
             case .blank:
                 _ = tokens.dequeue()
@@ -121,6 +145,10 @@ open class Parser {
                 _ = parent.add(try parseBlock())
             case .listItem:
                 _ = parent.add(try parseList())
+            case .drawerBegin(let meta, _):
+                tokens.swapNext(with: .line(meta, text: (meta.raw?.trimmed)!))
+            case .drawerEnd(let meta):
+                tokens.swapNext(with: .line(meta, text: (meta.raw?.trimmed)!))
             default:
                 throw Errors.unexpectedToken("\(token) is not expected")
             }
