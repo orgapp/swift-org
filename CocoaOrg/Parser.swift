@@ -32,20 +32,20 @@ open class Parser {
     
     // MARK: Greater Elements
     func parseBlock() throws -> Node {
-        guard case let (meta, Token.blockBegin(_, name, params)) = tokens.dequeue()! else {
+        guard case let (meta, Token.blockBegin(name, params)) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("BlockBegin expected")
         }
         var block = Block(name: name, params: params)
         tokens.takeSnapshot()
-        while let (_, token) = tokens.dequeue() {
+        while let (m, token) = tokens.dequeue() {
             switch token {
-            case let .blockEnd(_, t):
-                if t.lowercased() != name.lowercased() {
-                    throw Errors.unexpectedToken("Expecting BlockEnd of type \(name), but got \(t)")
+            case let .blockEnd(n):
+                if n.lowercased() != name.lowercased() {
+                    throw Errors.unexpectedToken("Expecting BlockEnd of type \(name), but got \(n)")
                 }
                 return block
             default:
-                block.content.append(token.meta.raw ?? "")
+                block.content.append(m.raw ?? "")
             }
         }
         tokens.restore()
@@ -53,13 +53,13 @@ open class Parser {
     }
     
     func parseList() throws -> List {
-        guard case let (_, Token.listItem(_, indent, text, ordered)) = tokens.dequeue()! else {
+        guard case let (_, Token.listItem(indent, text, ordered)) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("ListItem expected")
         }
         var list = List(ordered: ordered)
         list.items = [ListItem(text: text)]
         while let (_, token) = tokens.peek() {
-            if case let .listItem(_, i, t, _) = token {
+            if case let .listItem(i, t, _) = token {
                 if i > indent {
                     var lastItem = list.items.removeLast()
                     lastItem.list = try parseList()
@@ -79,7 +79,7 @@ open class Parser {
     }
     
     func parseLines(_ startWith: String? = nil) throws -> Paragraph {
-        guard case (_, .line(_, let text)) = tokens.dequeue()! else {
+        guard case (_, .line(let text)) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("Line expected")
         }
         var line = Paragraph(lines: [text])
@@ -87,7 +87,7 @@ open class Parser {
             line.lines.insert(firstLine, at: 0)
         }
         while let (_, token) = tokens.peek() {
-            if case .line(_, let t) = token {
+            if case .line(let t) = token {
                 line.lines.append(t)
                 _ = tokens.dequeue()
             } else {
@@ -101,12 +101,12 @@ open class Parser {
         if tokens.isEmpty {
             return nil
         }
-        guard case let (_, .drawerBegin(meta, name)) = tokens.peek()! else {
+        guard case let (meta, .drawerBegin(name)) = tokens.peek()! else {
             return nil
         }
         tokens.takeSnapshot()
         var content: [String] = []
-        while let (_, token) = tokens.dequeue() {
+        while let (m, token) = tokens.dequeue() {
             if case .drawerEnd = token {
                 var result = [Drawer(name, content: content)]
                 if let drawers = try lookForDrawers() {
@@ -114,17 +114,17 @@ open class Parser {
                 }
                 return result
             }
-            content.append(token.meta.raw ?? "")
+            content.append(m.raw ?? "")
         }
         tokens.restore()
-        tokens.swapNext(with: (meta, .line(meta, text: (meta.raw?.trimmed)!)))
+        tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
         return nil
     }
     
     func parseSection(_ parent: OrgNode) throws {
-        while let (_, token) = tokens.peek() {
+        while let (meta, token) = tokens.peek() {
             switch token {
-            case let .headline(_, l, t):
+            case let .headline(l, t):
                 if l <= getCurrentLevel(parent) {
                     return
                 }
@@ -138,17 +138,17 @@ open class Parser {
                 _ = parent.add(Blank())
             case .line:
                 _ = parent.add(try parseLines())
-            case let .comment(_, t):
+            case let .comment(t):
                 _ = tokens.dequeue()
                 _ = parent.add(Comment(text: t))
             case .blockBegin:
                 _ = parent.add(try parseBlock())
             case .listItem:
                 _ = parent.add(try parseList())
-            case .drawerBegin(let meta, _):
-                tokens.swapNext(with: (meta, .line(meta, text: (meta.raw?.trimmed)!)))
-            case .drawerEnd(let meta):
-                tokens.swapNext(with: (meta, .line(meta, text: (meta.raw?.trimmed)!)))
+            case .drawerBegin:
+                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
+            case .drawerEnd:
+                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
             default:
                 throw Errors.unexpectedToken("\(token) is not expected")
             }
@@ -160,7 +160,7 @@ open class Parser {
         
         while let (_, token) = tokens.peek() {
             switch token {
-            case let .setting(_, key, value):
+            case let .setting(key, value):
                 _ = tokens.dequeue()
                 if var meta = document.value as? DocumentMeta {
                     meta.settings[key] = value

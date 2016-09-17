@@ -9,10 +9,6 @@
 import Foundation
 
 
-protocol CommonToken {
-    var meta: TokenMeta {get}
-}
-
 public struct TokenMeta {
     public let raw: String?
     public let lineNumber: Int
@@ -21,52 +17,21 @@ public struct TokenMeta {
 typealias TokenWithMeta = (TokenMeta, Token)
 
 public enum Token {
-    case setting(TokenMeta, key: String, value: String?)
-    case headline(TokenMeta, level: Int, text: String?)
-    case blank(TokenMeta)
-    case horizontalRule(TokenMeta)
-    case blockBegin(TokenMeta, name: String, params: [String]?)
-    case blockEnd(TokenMeta, name: String)
-    case drawerBegin(TokenMeta, name: String)
-    case drawerEnd(TokenMeta)
-    case listItem(TokenMeta, indent: Int, text: String?, ordered: Bool)
-    case comment(TokenMeta, String?)
-    case line(TokenMeta, text: String)
-    case raw(TokenMeta)
+    case setting(key: String, value: String?)
+    case headline(level: Int, text: String?)
+    case blank
+    case horizontalRule
+    case blockBegin(name: String, params: [String]?)
+    case blockEnd(name: String)
+    case drawerBegin(name: String)
+    case drawerEnd
+    case listItem(indent: Int, text: String?, ordered: Bool)
+    case comment(String?)
+    case line(text: String)
+    case raw
 }
 
-extension Token: CommonToken {
-    var meta: TokenMeta {
-        switch self {
-        case .setting(let meta, _, _):
-            return meta
-        case .headline(let meta, _, _):
-            return meta
-        case .blank(let meta):
-            return meta
-        case .horizontalRule(let meta):
-            return meta
-        case .blockBegin(let meta, _, _):
-            return meta
-        case .blockEnd(let meta, _):
-            return meta
-        case .drawerBegin(let meta, _):
-            return meta
-        case .drawerEnd(let meta):
-            return meta
-        case .listItem(let meta, _, _, _):
-            return meta
-        case .comment(let meta, _):
-            return meta
-        case .line(let meta, _):
-            return meta
-        case .raw(let meta):
-            return meta
-        }
-    }
-}
-
-typealias TokenGenerator = ([String?], Int) -> Token?
+typealias TokenGenerator = ([String?]) -> Token?
 
 var tokenList: [(String, NSRegularExpression.Options, TokenGenerator)] = []
 
@@ -80,35 +45,29 @@ func define(_ pattern: String, options: NSRegularExpression.Options = [], genera
 func defineTokens() {
     if tokenList.count > 0 {return}
     
-    define("^\\s*$") { matches, lineNumber in
-        .blank(TokenMeta(raw: matches[0], lineNumber: lineNumber)) }
-    define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches, lineNumber in
-        .setting(TokenMeta(raw: matches[0], lineNumber: lineNumber), key: matches[1]!, value: matches[2]) }
-    define("^(\\*+)\\s+(.*)$") { matches, lineNumber in
-        .headline(TokenMeta(raw: matches[0], lineNumber: lineNumber),
-                level: matches[1]!.characters.count, text: matches[2]) }
-    define("^(\\s*)#\\+begin_([a-z]+)(:?\\s+(.*))?$", options: [.caseInsensitive]) { matches, lineNumber in
+    define("^\\s*$") { _ in .blank }
+    define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches in
+        .setting(key: matches[1]!, value: matches[2]) }
+    define("^(\\*+)\\s+(.*)$") { matches in
+        .headline(level: matches[1]!.characters.count, text: matches[2]) }
+    define("^(\\s*)#\\+begin_([a-z]+)(:?\\s+(.*))?$", options: [.caseInsensitive]) { matches in
         var params: [String]?
-        let meta = TokenMeta(raw: matches[0], lineNumber: lineNumber)
         if let m3 = matches[3] {
             params = m3.characters.split{$0 == " "}.map(String.init)
         }
-        return .blockBegin(meta, name: matches[2]!, params: params) }
-    define("^(\\s*)#\\+end_([a-z]+)$", options: [.caseInsensitive]) { matches, lineNumber in
-        .blockEnd(TokenMeta(raw: matches[0], lineNumber: lineNumber), name: matches[2]!) }
-    define("^(\\s*):end:\\s*$", options: [.caseInsensitive]) { matches, lineNumber in
-        .drawerEnd(TokenMeta(raw: matches[0], lineNumber: lineNumber)) }
-    define("^(\\s*):([a-z]+):\\s*$", options: [.caseInsensitive]) { matches, lineNumber in
-        .drawerBegin(TokenMeta(raw: matches[0], lineNumber: lineNumber), name: matches[2]!) }
-    define("^(\\s*)[-+*]\\s+(.*)$") { matches, lineNumber in
-        .listItem(TokenMeta(raw: matches[0], lineNumber: lineNumber),
-                  indent: length(matches[1]), text: matches[2], ordered: false) }
-    define("^(\\s*)\\d+(?:\\.|\\))\\s+(.*)$") { matches, lineNumber in
-        .listItem(TokenMeta(raw: matches[0], lineNumber: lineNumber), indent: length(matches[1]), text: matches[2], ordered: true) }
-    define("^\\s*-{5,}$") { matches, lineNumber in
-        .horizontalRule(TokenMeta(raw: matches[0]!, lineNumber: lineNumber)) }
-    define("^\\s*#\\s+(.*)$") { matches, lineNumber in
-        .comment(TokenMeta(raw: matches[0], lineNumber: lineNumber), matches[1]) }
-    define("^(\\s*)(.*)$") { matches, lineNumber in
-        .line(TokenMeta(raw: matches[0], lineNumber: lineNumber), text: matches[2]!) }
+        return .blockBegin(name: matches[2]!, params: params) }
+    define("^(\\s*)#\\+end_([a-z]+)$", options: [.caseInsensitive]) { matches in
+        .blockEnd(name: matches[2]!) }
+    define("^(\\s*):end:\\s*$", options: [.caseInsensitive]) { _ in .drawerEnd }
+    define("^(\\s*):([a-z]+):\\s*$", options: [.caseInsensitive]) { matches in
+        .drawerBegin(name: matches[2]!) }
+    define("^(\\s*)[-+*]\\s+(.*)$") { matches in
+        .listItem(indent: length(matches[1]), text: matches[2], ordered: false) }
+    define("^(\\s*)\\d+(?:\\.|\\))\\s+(.*)$") { matches in
+        .listItem(indent: length(matches[1]), text: matches[2], ordered: true) }
+    define("^\\s*-{5,}$") { _ in .horizontalRule }
+    define("^\\s*#\\s+(.*)$") { matches in
+        .comment(matches[1]) }
+    define("^(\\s*)(.*)$") { matches in
+        .line(text: matches[2]!) }
 }

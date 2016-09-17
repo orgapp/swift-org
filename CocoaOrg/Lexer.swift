@@ -15,7 +15,7 @@ public enum LexerErrors: Error {
 func t(index: Int = -1, line: String) throws -> TokenWithMeta {
     for (pattern, options, generator) in tokenList {
         if let m = line.match(pattern, options: options) {
-            if let token = generator(m, index) {
+            if let token = generator(m) {
                 return (TokenMeta(raw: line, lineNumber: index), token)
             }
         }
