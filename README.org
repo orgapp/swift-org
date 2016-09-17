@@ -2,10 +2,11 @@
 
   [[https://travis-ci.org/xiaoxinghu/CocoaOrg.svg?branch=master]]
   [[https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat]]
+  [[https://img.shields.io/github/release/xiaoxinghu/CocoaOrg.svg?maxAge=2592000]]
 
-  [[http://orgmode.org/][org-mode]] is awesome, go nuts and build beautiful things with it.
-  
-* Supported Syntax (so far) [10/16]
+  [[http://orgmode.org/][org-mode]] is awesome, build beautiful things with it.
+
+* Supported Syntax (so far) [9/9]
 ** DONE Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
    
@@ -90,6 +91,7 @@
    but not any simpler -- Albert Einstein
    #+END_QUOTE
 
+* Next Move [0/7]
 ** TODO Table
 ** TODO Checkbox in list item
 ** TODO Drawer
@@ -104,3 +106,11 @@
 * Maybe?
   - Latex Support
   - Macros
+
+* Contribute
+  CocoaOrg is written in Swift 3. So you need xcode 8 to be able to build it.
+** Setup
+   #+BEGIN_SRC bash
+     ./bin/setup
+     ./bin/test
+   #+END_SRC
