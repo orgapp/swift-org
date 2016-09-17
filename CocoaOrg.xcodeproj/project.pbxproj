@@ -111,14 +111,14 @@
 			children = (
 				03F9E69F1D60411A0080E872 /* CocoaOrg.h */,
 				03F9E6A11D60411A0080E872 /* Info.plist */,
+				A715ED4C1D875EEE00FE6D25 /* Tokens.swift */,
 				03F9E6DB1D606FFD0080E872 /* Lexer.swift */,
-				03F9E6DD1D607CE30080E872 /* Regex.swift */,
-				03F9E6DF1D61C4E00080E872 /* String.swift */,
 				03A5FE991D6B097500156B26 /* Nodes.swift */,
 				03A5FE9B1D6B1ADB00156B26 /* Parser.swift */,
 				A704C53E1D739503004BB00F /* Inline.swift */,
 				03D7955C1D76E30700F0A6EB /* Data.swift */,
-				A715ED4C1D875EEE00FE6D25 /* Tokens.swift */,
+				03F9E6DD1D607CE30080E872 /* Regex.swift */,
+				03F9E6DF1D61C4E00080E872 /* String.swift */,
 			);
 			path = CocoaOrg;
 			sourceTree = "<group>";
