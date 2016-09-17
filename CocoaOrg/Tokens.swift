@@ -8,14 +8,17 @@
 
 import Foundation
 
+
+protocol CommonToken {
+    var meta: TokenMeta {get}
+}
+
 public struct TokenMeta {
     public let raw: String?
     public let lineNumber: Int
 }
 
-protocol CommonToken {
-    var meta: TokenMeta {get}
-}
+typealias TokenWithMeta = (TokenMeta, Token)
 
 public enum Token {
     case setting(TokenMeta, key: String, value: String?)

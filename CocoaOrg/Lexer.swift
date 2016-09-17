@@ -12,11 +12,11 @@ public enum LexerErrors: Error {
     case tokenizeFailed(Int, String)
 }
 
-func t(index: Int = -1, line: String) throws -> Token {
+func t(index: Int = -1, line: String) throws -> TokenWithMeta {
     for (pattern, options, generator) in tokenList {
         if let m = line.match(pattern, options: options) {
             if let token = generator(m, index) {
-                return token
+                return (TokenMeta(raw: line, lineNumber: index), token)
             }
         }
     }
@@ -29,7 +29,7 @@ open class Lexer {
         lines = ls
     }
     
-    open func tokenize() throws -> [Token] {
+    func tokenize() throws -> [TokenWithMeta] {
         defineTokens()
         return try lines.enumerated().map(t)
     }

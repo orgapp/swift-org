@@ -15,14 +15,6 @@ func expect(_ actual: Token, toBe expected: Token,
                    file: file, line: line)
 }
 
-func tokenize(line: String) -> Token? {
-    do {
-        return try t(line: line)
-    } catch {
-        XCTFail("\(error)")
-        return nil
-    }
-}
 
 func evalListItem(_ content: String, indent: Int, text: String?, ordered: Bool,
           file: StaticString = #file, line: UInt = #line) {
