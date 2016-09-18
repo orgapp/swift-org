@@ -4,7 +4,8 @@
   [[https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat]]
   [[https://img.shields.io/github/release/xiaoxinghu/CocoaOrg.svg?maxAge=2592000]]
 
-  [[http://orgmode.org/][org-mode]] is awesome, build beautiful things with it.
+  [[http://orgmode.org/][org-mode]] is awesome. This is the first step to bring it to iOS, (arguably) the
+  most popular platform on the planet.
 
 * Supported Syntax (so far) [9/9]
 ** DONE Keywords (aka In Buffer Settings)
@@ -94,13 +95,12 @@
 * Next Move [0/7]
 ** TODO Table
 ** TODO Checkbox in list item
-** NEXT Drawer
+** TODO Drawer
 ** TODO Tags
 ** TODO Footnote
 ** TODO Clock
 ** TODO Attachments
 
-   
 * TODO Performance Test
 
 * Maybe?
