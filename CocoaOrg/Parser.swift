@@ -122,7 +122,7 @@ open class Parser {
     }
     
     func parseSection(_ parent: OrgNode) throws {
-        while let (meta, token) = tokens.peek() {
+        while let (_, token) = tokens.peek() {
             switch token {
             case let .headline(l, t):
                 if l <= getCurrentLevel(parent) {
@@ -145,10 +145,9 @@ open class Parser {
                 _ = parent.add(try parseBlock())
             case .listItem:
                 _ = parent.add(try parseList())
-            case .drawerBegin:
-                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
-            case .drawerEnd:
-                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
+            case .drawerBegin, .drawerEnd:
+                _ = tokens.dequeue() // discard non-functional drawers
+//                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
             default:
                 throw Errors.unexpectedToken("\(token) is not expected")
             }

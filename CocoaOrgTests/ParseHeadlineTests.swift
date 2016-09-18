@@ -75,7 +75,7 @@ class ParseHeadlineTests: XCTestCase {
     
     func testParseDrawer() {
         let lines = [
-            "* headline one",
+            "* the headline",
             "  :LOGBOOK:",
             "  - hello world",
             "  - hello world again",
@@ -86,9 +86,36 @@ class ParseHeadlineTests: XCTestCase {
             "  :END:",
             ]
         let doc = parse(lines)
-        print("+++++++++++++++")
-        print(doc)
-        print("+++++++++++++++")
+        
+        guard let section = doc?.children[0].value as? Section else {
+            XCTFail("Expect Section")
+            return
+        }
+        XCTAssertNotNil(section.drawers)
+        XCTAssertEqual(section.drawers?.count, 2)
+        XCTAssertEqual(section.drawers?[0].name, "LOGBOOK")
+        XCTAssertEqual(section.drawers?[1].name, "PROPERTIES")
+    }
+    
+    func testMalfunctionDrawer() {
+        let lines = [
+            "* the headline",
+            "",
+            "  :LOGBOOK:",
+            "  hello world",
+            "  hello world again",
+            "  :END:",
+            ]
+        let doc = parse(lines)
+
+        let sec = doc?.children[0]
+        guard let section = sec?.value as? Section else {
+            XCTFail("Expect Section")
+            return
+        }
+        
+        XCTAssertNil(section.drawers)
+        XCTAssertEqual(sec?.children.count, 2)
     }
     
 }
