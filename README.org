@@ -82,14 +82,16 @@
 
 ** DONE Blocks
    CLOSED: [2016-09-03 Sat 12:47]
-   #+BEGIN_SRC javascript
+   #+BEGIN_SRC org
+   ,#+BEGIN_SRC javascript
      Console.log("Hello Org.")
-   #+END_SRC
+   ,#+END_SRC
    
-   #+BEGIN_QUOTE
+   ,#+BEGIN_QUOTE
    Everything should be made as simple as possible,
    but not any simpler -- Albert Einstein
-   #+END_QUOTE
+   ,#+END_QUOTE
+   #+END_SRC
 
 * Next Move [0/7]
 ** TODO Table
