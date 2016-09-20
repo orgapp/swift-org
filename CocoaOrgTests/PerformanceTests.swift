@@ -15,7 +15,7 @@ class PerformanceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         do {
-            let path = Bundle(for: type(of: self)).path(forResource: "test", ofType: "org")
+            let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
             content = try String(contentsOfFile: path!)
         } catch {
             XCTFail("ERROR: \(error)")
@@ -24,12 +24,14 @@ class PerformanceTests: XCTestCase {
     
     func testPerformanceParseSmallFile() {
         self.measure {
+            var doc: OrgDocument? = nil
             do {
                 let parser = try Parser(content: self.content)
-                _ = try parser.parse()
+                doc = try parser.parse()
             } catch {
                 XCTFail("ERROR: \(error)")
             }
+            print(doc)
         }
     }
 }

@@ -7,7 +7,7 @@
   [[http://orgmode.org/][org-mode]] is awesome. This is the first step to bring it to iOS, (arguably) the
   most popular platform on the planet.
 
-* Supported Syntax (so far) [9/9]
+* Supported Syntax (so far) [10/10]
 ** DONE Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
    
@@ -94,10 +94,23 @@
    ,#+END_QUOTE
    #+END_SRC
 
-* Next Move [0/7]
+** DONE Drawer
+   CLOSED: [2016-09-20 Tue 22:38]
+   Drawer for headlines.
+   #+BEGIN_SRC org
+     ,* WAITING Talk to Jake
+       :PROPERTIES:
+       :CATEGORY: personal
+       :END:
+       :LOGBOOK:
+       - State "WAITING"    from "TODO"       [2016-09-20 Tue 22:41] \\
+         waiting for call from Jake
+       :END:
+   #+END_SRC
+
+* Next Move [0/6]
 ** TODO Table
 ** TODO Checkbox in list item
-** TODO Drawer
 ** TODO Tags
 ** TODO Footnote
 ** TODO Clock
