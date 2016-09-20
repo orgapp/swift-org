@@ -15,6 +15,7 @@ public enum Errors: Error {
 open class Parser {
     // MARK: properties
     var tokens: Queue<TokenWithMeta>
+    var document: OrgDocument = OrgDocument()
     
     // MARK: init
     init(tokens: [TokenWithMeta]) {
@@ -62,7 +63,7 @@ open class Parser {
             if case let .listItem(i, t, _) = token {
                 if i > indent {
                     var lastItem = list.items.removeLast()
-                    lastItem.list = try parseList()
+                    lastItem.subList = try parseList()
                     list.items += [lastItem]
                 } else if i == indent {
                     _ = tokens.dequeue()
@@ -121,30 +122,32 @@ open class Parser {
         return nil
     }
     
-    func parseSection(_ parent: OrgNode) throws {
+    func parseSection(_ currentLevel: Int = 0) throws -> Node? {
         while let (_, token) = tokens.peek() {
             switch token {
             case let .headline(l, t):
-                if l <= getCurrentLevel(parent) {
-                    return
+                if l <= currentLevel {
+                    return nil
                 }
                 _ = tokens.dequeue()
-                var sec = Section(level: l, title: t, todos: getTodos(parent))
-                sec.drawers = try lookForDrawers()
-                let subSection = parent.add(sec)
-                try parseSection(subSection)
+                var section = Section(level: l, title: t, todos: document.todos)
+                section.drawers = try lookForDrawers()
+                while let subSection = try parseSection(l) {
+                    section.content.append(subSection)
+                }
+                return section
             case .blank:
                 _ = tokens.dequeue()
-                _ = parent.add(Blank())
+                return Blank()
             case .line:
-                _ = parent.add(try parseLines())
+                return try parseLines()
             case let .comment(t):
                 _ = tokens.dequeue()
-                _ = parent.add(Comment(text: t))
+                return Comment(text: t)
             case .blockBegin:
-                _ = parent.add(try parseBlock())
+                return try parseBlock()
             case .listItem:
-                _ = parent.add(try parseList())
+                return try parseList()
             case .drawerBegin, .drawerEnd:
                 _ = tokens.dequeue() // discard non-functional drawers
 //                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
@@ -152,50 +155,27 @@ open class Parser {
                 throw Errors.unexpectedToken("\(token) is not expected")
             }
         }
+        return nil
     }
     
-    func parseDocument() throws -> OrgNode {
-        let document = OrgNode(value: DocumentMeta())
+    func parseDocument() throws -> OrgDocument {
+        document = OrgDocument()
         
         while let (_, token) = tokens.peek() {
             switch token {
             case let .setting(key, value):
                 _ = tokens.dequeue()
-                if var meta = document.value as? DocumentMeta {
-                    meta.settings[key] = value
-                    document.value = meta
-                }
-            //                doc.settings[key] = value
+                document.settings[key] = value
             default:
-                try parseSection(document)
+                if let node = try parseSection() {
+                    document.content.append(node)
+                }
             }
         }
-        //        document.value = doc
         return document
     }
     
-    // MARK: helpers
-    func getCurrentLevel(_ node: OrgNode) -> Int {
-        if let section = node.value as? Section {
-            return section.level
-        }
-        if let p = node.parent {
-            return getCurrentLevel(p)
-        }
-        return 0
-    }
-    
-    func getTodos(_ node: OrgNode) -> [String] {
-        if let doc = node.lookUp(DocumentMeta.self) {
-            return doc.todos
-        }
-        // TODO make it robust
-        print("+++ Cannot find DocumentMeta")
-        return []
-    }
-    
-    
-    open func parse() throws -> OrgNode {
+    open func parse() throws -> OrgDocument {
         return try parseDocument()
     }
 }

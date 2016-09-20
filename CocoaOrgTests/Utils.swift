@@ -18,7 +18,7 @@ func tokenize(line: String) -> Token? {
     }
 }
 
-func parse(_ lines: [String]) -> OrgNode? {
+func parse(_ lines: [String]) -> OrgDocument? {
     do {
         let parser = try Parser(lines: lines)
         return try parser.parse()

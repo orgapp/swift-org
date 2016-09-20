@@ -28,27 +28,27 @@ class ParseBlockTests: XCTestCase {
             " # print(\"Hell World\");",
             ]) else { return }
         
-        XCTAssertEqual(doc.children.count, 6)
-        guard let block1 = doc.children[0].value as? Block else {
+        XCTAssertEqual(doc.content.count, 6)
+        guard let block1 = doc.content[0] as? Block else {
             XCTFail("Expect 0 to be Block")
             return
         }
         XCTAssertEqual(block1.name, "src")
         XCTAssertEqual(block1.params!, ["java"])
         XCTAssertEqual(block1.content, ["  class HelloWorld {", "  # print(\"Hell World\");", "  }"])
-        guard let block2 = doc.children[1].value as? Block else {
+        guard let block2 = doc.content[1] as? Block else {
             XCTFail("Expect 1 to be Block")
             return
         }
         XCTAssertEqual(block2.name, "src")
         XCTAssertNil(block2.params)
-        guard let block3 = doc.children[2].value as? Block else {
+        guard let block3 = doc.content[2] as? Block else {
             XCTFail("Expect 2 to be Block")
             return
         }
         XCTAssertEqual(block3.name, "src")
         XCTAssertEqual(block3.params!, ["yaml", "exports:", "results",  ":results",  "value", "html"])
-        guard let comment = doc.children[3].value as? Comment else {
+        guard let comment = doc.content[3] as? Comment else {
             XCTFail("Expect 3 to be Comment")
             return
         }

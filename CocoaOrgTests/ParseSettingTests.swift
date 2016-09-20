@@ -18,12 +18,12 @@ class ParseSettingTests: XCTestCase {
             "  ",
             "* First Head Line",
             ]) else { return }
-        guard let d = doc.lookUp(DocumentMeta.self) else {
-            XCTFail("Cannot find Document root.")
-            return
-        }
-        XCTAssertEqual(d.settings.count, 1)
-        XCTAssertEqual(d.settings["options"], "toc:nil")
-        XCTAssertNil(d.settings["TITLE"])
+//        guard let d = doc.lookUp(DocumentMeta.self) else {
+//            XCTFail("Cannot find Document root.")
+//            return
+//        }
+        XCTAssertEqual(doc.settings.count, 1)
+        XCTAssertEqual(doc.settings["options"], "toc:nil")
+        XCTAssertNil(doc.settings["TITLE"])
     }
 }

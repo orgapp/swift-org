@@ -28,43 +28,40 @@ class ParseHeadlineTests: XCTestCase {
             "* NEXT Customized todo",
             "* "
             ]) else { return }
-        XCTAssertEqual(doc.children.count, 4)
+        print(doc)
+        XCTAssertEqual(doc.content.count, 4)
         
-        let h1Section = doc.children[0]
-        guard let h1 = h1Section.value as? Section else {
+        guard let h1 = doc.content[0] as? Section else {
             XCTFail("Expect nodes[0] to be Section")
             return
         }
         XCTAssertEqual(h1.level, 1)
         XCTAssertEqual(h1.title, "Header 1")
-        XCTAssertEqual(h1Section.children.count, 0)
+        XCTAssertEqual(h1.content.count, 0)
         
-        let h2Section = doc.children[1]
-        guard let h2 = h2Section.value as? Section else {
+        guard let h2 = doc.content[1] as? Section else {
             XCTFail("Expect nodes[1] to be Section")
             return
         }
         XCTAssertEqual(h2.level, 1)
         XCTAssertEqual(h2.title, "Header 2")
         XCTAssertEqual(h2.state, "TODO")
-        XCTAssertEqual(h2Section.children.count, 3)
+        XCTAssertEqual(h2.content.count, 3)
         
-        guard let line = h2Section.children[0].value as? Paragraph else {
+        guard let line = h2.content[0] as? Paragraph else {
             XCTFail("Expect h2.nodes[0] to be Line")
             return
         }
         XCTAssertEqual(line.text, "A line of content.")
         
-        let h3Section = doc.children[2]
-        guard let h3 = h3Section.value as? Section else {
+        guard let h3 = doc.content[2] as? Section else {
             XCTFail("Expect nodes[1] to be Section")
             return
         }
         XCTAssertEqual(h3.title, "Customized todo")
         XCTAssertEqual(h3.state, "NEXT")
         
-        let h4Section = doc.children[3]
-        guard let h4 = h4Section.value as? Section else {
+        guard let h4 = doc.content[3] as? Section else {
             XCTFail("Expect nodes[1] to be Section")
             return
         }
@@ -86,8 +83,9 @@ class ParseHeadlineTests: XCTestCase {
             "  :END:",
             ]
         let doc = parse(lines)
+        print(doc)
         
-        guard let section = doc?.children[0].value as? Section else {
+        guard let section = doc?.content[0] as? Section else {
             XCTFail("Expect Section")
             return
         }
@@ -108,14 +106,13 @@ class ParseHeadlineTests: XCTestCase {
             ]
         let doc = parse(lines)
 
-        let sec = doc?.children[0]
-        guard let section = sec?.value as? Section else {
+        guard let section = doc?.content[0] as? Section else {
             XCTFail("Expect Section")
             return
         }
         
         XCTAssertNil(section.drawers)
-        XCTAssertEqual(sec?.children.count, 2)
+//        XCTAssertEqual(section.content.count, 2)
     }
     
 }
