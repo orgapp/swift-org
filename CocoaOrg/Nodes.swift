@@ -10,10 +10,9 @@ import Foundation
 
 public protocol Node: CustomStringConvertible {}
 
-public typealias OrgNode = TreeNode<Node>
-
-public struct DocumentMeta: Node {
+public struct OrgDocument: Node {
     public var settings = [String: String]()
+    public var content = [Node]()
     
     public var title: String {
         return settings["TITLE"] ?? ""
@@ -28,7 +27,7 @@ public struct DocumentMeta: Node {
     }
     
     public var description: String {
-        return "Document(settings: \(settings))"
+        return "OrgDocument(settings: \(settings))\n - \(content)"
     }
 }
 
@@ -37,7 +36,8 @@ public struct Section: Node {
     public let level: Int
     public let state: String?
     public var drawers: [Drawer]?
-//    public var properties: [String: String] = [:]
+    
+    public var content = [Node]()
     
     public init(level l: Int, title t: String?, todos: [String]) {
         level = l
@@ -53,7 +53,7 @@ public struct Section: Node {
     }
     
     public var description: String {
-        return "Section(level: \(level), title: \(title), state: \(state))\n - \(drawers)"
+        return "Section(level: \(level), title: \(title), state: \(state))\n - \(drawers)\n - \(content)"
     }
 }
 
@@ -82,14 +82,14 @@ public struct Comment: Node {
 
 public struct ListItem: Node {
     public let text: String?
-    public var list: List?
+    public var subList: List?
  
     public init(text t: String? = nil, list l: List? = nil) {
         text = t
-        list = l
+        subList = l
     }
     public var description: String {
-        return "ListItem(text: \(text), list: \(list))"
+        return "ListItem(text: \(text), subList: \(subList))"
     }
 }
 

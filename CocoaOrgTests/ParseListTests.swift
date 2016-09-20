@@ -19,7 +19,7 @@ class ParseListTests: XCTestCase {
             "- list item",
             ]
         let doc = parse(lines)
-        guard let list = doc?.children[0].value as? List else {
+        guard let list = doc?.content[0] as? List else {
             XCTFail("Expect 0 to be List")
             return
         }
@@ -27,9 +27,9 @@ class ParseListTests: XCTestCase {
         XCTAssertFalse(list.ordered)
         XCTAssertEqual(list.items[0].text, "list item")
         XCTAssertEqual(list.items[1].text, "list item")
-        XCTAssertNil(list.items[1].list)
+        XCTAssertNil(list.items[1].subList)
         
-        guard let subList = list.items[0].list else {
+        guard let subList = list.items[0].subList else {
             XCTFail("Expecting sublist")
             return
         }
