@@ -15,7 +15,7 @@ class JsonConverterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         do {
-            let path = Bundle(for: type(of: self)).path(forResource: "test", ofType: "org")
+            let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
             content = try String(contentsOfFile: path!)
         } catch {
             XCTFail("ERROR: \(error)")

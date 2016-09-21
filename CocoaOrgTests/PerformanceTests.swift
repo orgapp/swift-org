@@ -24,14 +24,12 @@ class PerformanceTests: XCTestCase {
     
     func testPerformanceParseSmallFile() {
         self.measure {
-            var doc: OrgDocument? = nil
             do {
                 let parser = OrgParser()
                 _ = try parser.parse(content: self.content)
             } catch {
                 XCTFail("ERROR: \(error)")
             }
-            print(doc)
         }
     }
 }

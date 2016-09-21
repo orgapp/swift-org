@@ -13,7 +13,7 @@
 		035EEA231D8D51B800A38F7E /* ParseSettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA221D8D51B800A38F7E /* ParseSettingTests.swift */; };
 		035EEA251D8D51FE00A38F7E /* ParseBlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA241D8D51FE00A38F7E /* ParseBlockTests.swift */; };
 		035EEA271D8D526F00A38F7E /* InlineParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */; };
-		035EEA291D91436D00A38F7E /* README.org in Resources */ = {isa = PBXBuildFile; fileRef = 035EEA281D91436D00A38F7E /* README.org */; };
+		036C5E821D928A85007484CF /* README.org in Resources */ = {isa = PBXBuildFile; fileRef = 036C5E811D928A85007484CF /* README.org */; };
 		03A5FE9A1D6B097500156B26 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE991D6B097500156B26 /* Node.swift */; };
 		03A5FE9C1D6B1ADB00156B26 /* OrgParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE9B1D6B1ADB00156B26 /* OrgParser.swift */; };
 		03D347BE1D71093C00F78D70 /* ParseParagraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */; };
@@ -57,7 +57,7 @@
 		035EEA221D8D51B800A38F7E /* ParseSettingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseSettingTests.swift; sourceTree = "<group>"; };
 		035EEA241D8D51FE00A38F7E /* ParseBlockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBlockTests.swift; sourceTree = "<group>"; };
 		035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineParsingTests.swift; sourceTree = "<group>"; };
-		035EEA281D91436D00A38F7E /* README.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.org; sourceTree = SOURCE_ROOT; };
+		036C5E811D928A85007484CF /* README.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.org; sourceTree = SOURCE_ROOT; };
 		03A5FE991D6B097500156B26 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		03A5FE9B1D6B1ADB00156B26 /* OrgParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgParser.swift; sourceTree = "<group>"; };
 		03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseParagraphTests.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 		A779680E1D8B999200A8C19C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				035EEA281D91436D00A38F7E /* README.org */,
+				036C5E811D928A85007484CF /* README.org */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -294,7 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				035EEA291D91436D00A38F7E /* README.org in Resources */,
+				036C5E821D928A85007484CF /* README.org in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
