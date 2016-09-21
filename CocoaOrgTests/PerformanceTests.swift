@@ -26,8 +26,8 @@ class PerformanceTests: XCTestCase {
         self.measure {
             var doc: OrgDocument? = nil
             do {
-                let parser = try Parser(content: self.content)
-                doc = try parser.parse()
+                let parser = OrgParser()
+                _ = try parser.parse(content: self.content)
             } catch {
                 XCTFail("ERROR: \(error)")
             }

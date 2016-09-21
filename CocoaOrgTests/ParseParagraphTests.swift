@@ -28,7 +28,7 @@ class ParseParagraphTests: XCTestCase {
         XCTAssertEqual(para1.lines.count, 3)
         XCTAssertEqual(para1.lines, ["Line one.", "Line two.", "Line three."])
         
-        guard let para2 = doc?.content[2] as? Paragraph else {
+        guard let para2 = doc?.content[1] as? Paragraph else {
             XCTFail("Expect 0 to be Paragraph")
             return
         }

@@ -108,6 +108,19 @@
        :END:
    #+END_SRC
 
+* Usage
+  An simple example will explain everything.
+
+  #+BEGIN_SRC swift
+    import CocoaOrg
+
+    let lines = [
+        "* TODO head line",
+        "  A normal line here.",
+    ]
+    let parser = Parser()
+    let doc = try parser.parse(lines: lines)
+  #+END_SRC
 * Next Move [0/6]
 ** TODO Table
 ** TODO Checkbox in list item

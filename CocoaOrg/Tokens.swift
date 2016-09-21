@@ -28,7 +28,6 @@ public enum Token {
     case listItem(indent: Int, text: String?, ordered: Bool)
     case comment(String?)
     case line(text: String)
-    case raw
 }
 
 typealias TokenGenerator = ([String?]) -> Token?

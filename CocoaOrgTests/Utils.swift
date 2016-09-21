@@ -18,10 +18,11 @@ func tokenize(line: String) -> Token? {
     }
 }
 
+let parser = OrgParser()
+
 func parse(_ lines: [String]) -> OrgDocument? {
     do {
-        let parser = try Parser(lines: lines)
-        return try parser.parse()
+        return try parser.parse(lines: lines)
     } catch {
         XCTFail("> ERROR: \(error).")
     }

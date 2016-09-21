@@ -12,24 +12,13 @@ public enum Errors: Error {
     case unexpectedToken(String)
 }
 
-open class Parser {
+public class OrgParser {
     // MARK: properties
-    var tokens: Queue<TokenWithMeta>
-    var document: OrgDocument = OrgDocument()
+    var tokens: Queue<TokenWithMeta>!
+    var document: OrgDocument!
     
     // MARK: init
-    init(tokens: [TokenWithMeta]) {
-        self.tokens = Queue<TokenWithMeta>(data: tokens)
-    }
-    
-    public convenience init(lines: [String]) throws {
-        let lexer = Lexer(lines: lines)
-        self.init(tokens: try lexer.tokenize())
-    }
-    
-    public convenience init(content: String) throws {
-        try self.init(lines: content.lines)
-    }
+    public init() {}
     
     // MARK: Greater Elements
     func parseBlock() throws -> Node {
@@ -138,7 +127,6 @@ open class Parser {
                 return section
             case .blank:
                 _ = tokens.dequeue()
-                return Blank()
             case .line:
                 return try parseLines()
             case let .comment(t):
@@ -159,8 +147,6 @@ open class Parser {
     }
     
     func parseDocument() throws -> OrgDocument {
-        document = OrgDocument()
-        
         while let (_, token) = tokens.peek() {
             switch token {
             case let .setting(key, value):
@@ -175,7 +161,19 @@ open class Parser {
         return document
     }
     
-    open func parse() throws -> OrgDocument {
+    // MARK: parse document
+    func parse(tokens: [TokenWithMeta]) throws -> OrgDocument {
+        self.tokens = Queue<TokenWithMeta>(data: tokens)
+        document = OrgDocument()
         return try parseDocument()
+    }
+    
+    public func parse(lines: [String]) throws -> OrgDocument {
+        let lexer = Lexer(lines: lines)
+        return try parse(tokens: lexer.tokenize())
+    }
+    
+    public func parse(content: String) throws -> OrgDocument {
+        return try parse(lines: content.lines)
     }
 }
