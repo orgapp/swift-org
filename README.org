@@ -118,22 +118,23 @@
         "* TODO head line",
         "  A normal line here.",
     ]
-    let parser = Parser()
+    let parser = OrgParser()
     let doc = try parser.parse(lines: lines)
   #+END_SRC
-* Next Move [0/6]
-** TODO Table
-** TODO Checkbox in list item
-** TODO Tags
-** TODO Footnote
-** TODO Clock
-** TODO Attachments
+* Next Move [1/7]
+  - [ ] Table
+  - [X] Checkbox in list item
+  - [ ] Priority
+  - [ ] Tags
+  - [ ] Footnote
+  - [ ] Clock
+  - [ ] Attachments
 
 * TODO Performance Test
 
-* Maybe?
-  - Latex Support
-  - Macros
+* Maybe? [0/2]
+  - [ ] Latex Support
+  - [ ] Macros
 
 * Contribute
   CocoaOrg is written in Swift 3. So you need xcode 8 to be able to build it.

@@ -37,5 +37,26 @@ class ParseListTests: XCTestCase {
         XCTAssertTrue(subList.ordered)
         XCTAssertEqual(subList.items[0].text, "sub list item")
         XCTAssertEqual(subList.items[1].text, "sub list item")
-    }    
+    }
+    
+    func testListItemWithCheckbox() {
+        let lines = [
+            // legal checkboxes
+            "- [ ] list item",
+            "- [X] list item",
+            "1. [-] list item",
+            // illegal checkboxes
+            "- [] list item",
+            "- [Y] list item",
+            ]
+        let doc = parse(lines)
+        guard let list = doc?.content[0] as? List else {
+            XCTFail("Expect 0 to be List")
+            return
+        }
+        XCTAssertEqual(list.items.count, 5)
+        XCTAssertFalse(list.ordered)
+        XCTAssertEqual(list.items[0].text, "list item")
+        XCTAssertEqual(list.progress, Progress(1, outof: 3))
+    }
 }

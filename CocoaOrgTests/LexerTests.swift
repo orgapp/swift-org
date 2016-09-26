@@ -71,7 +71,16 @@ class LexerTests: XCTestCase {
         evalListItem(" + list item", indent: 1, text: "list item", ordered: false)
         evalListItem("  * list item", indent: 2, text: "list item", ordered: false)
         evalListItem("1. ordered list item", indent: 0, text: "ordered list item", ordered: true)
-        evalListItem("  2) ordered list item", indent: 2, text: "ordered list item", ordered: true)
+        evalListItem("  200) ordered list item", indent: 2, text: "ordered list item", ordered: true)
+        // checkboxes
+        evalListItem("- [ ] checkbox", indent: 0, text: "checkbox", ordered: false, checked: false)
+        evalListItem("- [-] checkbox", indent: 0, text: "checkbox", ordered: false, checked: false)
+        evalListItem("- [X] checkbox", indent: 0, text: "checkbox", ordered: false, checked: true)
+        // illegal checkboxes
+        evalListItem("- [] checkbox", indent: 0, text: "[] checkbox", ordered: false, checked: nil)
+        evalListItem("- [X]checkbox", indent: 0, text: "[X]checkbox", ordered: false, checked: nil)
+        evalListItem("- [Y] checkbox", indent: 0, text: "[Y] checkbox", ordered: false, checked: nil)
+        evalLine("-[X] checkbox", text: "-[X] checkbox")
     }
     
     func testDrawer() {

@@ -116,3 +116,19 @@ extension TreeNode: CustomStringConvertible {
         return lines.joined(separator: "\n")
     }
 }
+
+public struct Progress {
+    public var total: Int = 0
+    public var done: Int = 0
+    
+    public init(_ d: Int = 0, outof t: Int = 0) {
+        total = t
+        done = d
+    }
+}
+
+extension Progress: Equatable {
+    public static func ==(lhs: Progress, rhs: Progress) -> Bool {
+        return lhs.total == rhs.total && lhs.done == rhs.done
+    }
+}

@@ -9,4 +9,3 @@
 import Foundation
 
 public protocol Node: CustomStringConvertible {}
-

@@ -25,7 +25,7 @@ public enum Token {
     case blockEnd(name: String)
     case drawerBegin(name: String)
     case drawerEnd
-    case listItem(indent: Int, text: String?, ordered: Bool)
+    case listItem(indent: Int, text: String?, ordered: Bool, checked: Bool?)
     case comment(String?)
     case line(text: String)
 }
@@ -36,9 +36,6 @@ var tokenList: [(String, NSRegularExpression.Options, TokenGenerator)] = []
 
 func define(_ pattern: String, options: NSRegularExpression.Options = [], generator: @escaping TokenGenerator) {
     tokenList.append((pattern, options, generator))
-//    tokenList += [
-//        (pattern, options, generator)
-//    ]
 }
 
 func defineTokens() {
@@ -49,7 +46,7 @@ func defineTokens() {
         .setting(key: matches[1]!, value: matches[2]) }
     define("^(\\*+)\\s+(.*)$") { matches in
         .headline(level: matches[1]!.characters.count, text: matches[2]) }
-    define("^(\\s*)#\\+begin_([a-z]+)(:?\\s+(.*))?$", options: [.caseInsensitive]) { matches in
+    define("^(\\s*)#\\+begin_([a-z]+)(?:\\s+(.*))?$", options: [.caseInsensitive]) { matches in
         var params: [String]?
         if let m3 = matches[3] {
             params = m3.characters.split{$0 == " "}.map(String.init)
@@ -60,10 +57,16 @@ func defineTokens() {
     define("^(\\s*):end:\\s*$", options: [.caseInsensitive]) { _ in .drawerEnd }
     define("^(\\s*):([a-z]+):\\s*$", options: [.caseInsensitive]) { matches in
         .drawerBegin(name: matches[2]!) }
-    define("^(\\s*)[-+*]\\s+(.*)$") { matches in
-        .listItem(indent: length(matches[1]), text: matches[2], ordered: false) }
-    define("^(\\s*)\\d+(?:\\.|\\))\\s+(.*)$") { matches in
-        .listItem(indent: length(matches[1]), text: matches[2], ordered: true) }
+    define("^(\\s*)([-+*]|\\d+(?:\\.|\\)))\\s+(?:\\[([ X-])\\]\\s+)?(.*)$") { matches in
+        var ordered = true
+        if let m = matches[2] {
+            ordered = !["-", "+", "*"].contains(m)
+        }
+        var checked: Bool? = nil
+        if let m = matches[3] {
+            checked = m == "X"
+        }
+        return .listItem(indent: length(matches[1]), text: matches[4], ordered: ordered, checked: checked) }
     define("^\\s*-{5,}$") { _ in .horizontalRule }
     define("^\\s*#\\s+(.*)$") { matches in
         .comment(matches[1]) }

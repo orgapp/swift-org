@@ -16,12 +16,12 @@ func expect(_ actual: Token, toBe expected: Token,
 }
 
 
-func evalListItem(_ content: String, indent: Int, text: String?, ordered: Bool,
+func evalListItem(_ content: String, indent: Int, text: String?, ordered: Bool, checked: Bool? = nil,
           file: StaticString = #file, line: UInt = #line) {
     
-        let token = tokenize(line: content)
-        expect(token!, toBe: .listItem(indent: indent, text: text, ordered: ordered),
-               file: file, line: line)
+    let token = tokenize(line: content)
+    expect(token!, toBe: .listItem(indent: indent, text: text, ordered: ordered, checked: checked),
+           file: file, line: line)
 }
 
 func evalHorizontalRule(_ content: String,
