@@ -111,39 +111,71 @@ public class OrgParser {
         return nil
     }
     
-    func parseSection(_ currentLevel: Int = 0) throws -> Node? {
+    func parseFootnote() throws -> Footnote {
+        guard case let (_, .footnote(label, content)) = tokens.dequeue()! else {
+            throw Errors.unexpectedToken("footnote expected")
+        }
+        
+        var footnote = Footnote(label: label, content: [try parseLines(content)])
         while let (_, token) = tokens.peek() {
             switch token {
-            case let .headline(l, t):
-                if l <= currentLevel {
-                    return nil
-                }
-                _ = tokens.dequeue()
-                var section = Section(level: l, title: t, todos: document.todos)
-                section.drawers = try lookForDrawers()
-                while let subSection = try parseSection(l) {
-                    section.content.append(subSection)
-                }
-                return section
-            case .blank:
-                _ = tokens.dequeue()
-            case .line:
-                return try parseLines()
-            case let .comment(t):
-                _ = tokens.dequeue()
-                return Comment(text: t)
-            case .blockBegin:
-                return try parseBlock()
-            case .listItem:
-                return try parseList()
-            case .drawerBegin, .drawerEnd:
-                _ = tokens.dequeue() // discard non-functional drawers
-//                tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
+            case .headline, .footnote:
+                break
             default:
-                throw Errors.unexpectedToken("\(token) is not expected")
+                if let n = try parseTheRest() {
+                    footnote.content.append(n)
+                }
             }
         }
-        return nil
+        return footnote
+    }
+    
+    func parseTheRest() throws -> Node? {
+        guard let (_, token) = tokens.peek() else {
+            return nil
+        }
+        switch token {
+        case .blank:
+            _ = tokens.dequeue()
+            return nil
+        case .line:
+            return try parseLines()
+        case let .comment(t):
+            _ = tokens.dequeue()
+            return Comment(text: t)
+        case .blockBegin:
+            return try parseBlock()
+        case .listItem:
+            return try parseList()
+        case .drawerBegin, .drawerEnd:
+            _ = tokens.dequeue() // discard non-functional drawers
+            return nil
+        default:
+            throw Errors.unexpectedToken("\(token) is not expected")
+        }
+    }
+    
+    func parseSection(_ currentLevel: Int = 0) throws -> Node? {
+        guard let (_, token) = tokens.peek() else {
+            return nil
+        }
+        switch token {
+        case let .headline(l, t):
+            if l <= currentLevel {
+                return nil
+            }
+            _ = tokens.dequeue()
+            var section = Section(level: l, title: t, todos: document.todos)
+            section.drawers = try lookForDrawers()
+            while let subSection = try parseSection(l) {
+                section.content.append(subSection)
+            }
+            return section
+        case .footnote:
+            return try parseFootnote()
+        default:
+            return try parseTheRest()
+        }
     }
     
     func parseDocument() throws -> OrgDocument {

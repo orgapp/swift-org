@@ -91,4 +91,15 @@ class LexerTests: XCTestCase {
         evalDrawerEnd("  :end:")
         evalDrawerEnd("  :end:   ")
     }
+    
+    func testFootnote() {
+        evalFootnote("[fn:1] the footnote", label: "1", content: "the footnote")
+        evalFootnote("[fn:1]  \t the footnote", label: "1", content: "the footnote")
+        evalFootnote("[fn:999] the footnote", label: "999", content: "the footnote")
+        evalFootnote("[fn:23]", label: "23", content: nil)
+        evalFootnote("[fn:23]  ", label: "23", content: nil)
+        evalLine(" [fn:1] the footnote", text: "[fn:1] the footnote")
+        evalLine("a[fn:1] the footnote", text: "a[fn:1] the footnote")
+        evalLine("[fn:1]the footnote", text: "[fn:1]the footnote")
+    }
 }

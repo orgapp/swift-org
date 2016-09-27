@@ -28,6 +28,7 @@ public enum Token {
     case listItem(indent: Int, text: String?, ordered: Bool, checked: Bool?)
     case comment(String?)
     case line(text: String)
+    case footnote(label: String, content: String?)
 }
 
 typealias TokenGenerator = ([String?]) -> Token?
@@ -70,6 +71,9 @@ func defineTokens() {
     define("^\\s*-{5,}$") { _ in .horizontalRule }
     define("^\\s*#\\s+(.*)$") { matches in
         .comment(matches[1]) }
+    define("^\\[fn:(\\d+)\\](?:\\s+(.*))?$") { matches in
+        .footnote(label: matches[1]!, content: matches[2])
+    }
     define("^(\\s*)(.*)$") { matches in
         .line(text: matches[2]!) }
 }

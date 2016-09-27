@@ -17,6 +17,7 @@ public enum InlineToken {
     case code(String)
     case link(text: String, url: String)
     case plain(String)
+    case footnote(String)
 }
 
 typealias InlineTokenGenerator = (String) -> InlineToken
@@ -69,10 +70,25 @@ open class InlineLexer {
         tokens = newTokens
     }
     
+    fileprivate func tokenizeFootnote() {
+        var newTokens = [InlineToken]()
+        for token in tokens {
+            if case let InlineToken.plain(text) = token {
+                text.tryMatch("\\[fn:(\\d+)\\]", match: { m in
+                    newTokens += [.footnote(m[1]!)]
+                    }, or: { text in newTokens.append(.plain(text)) })
+            } else {
+                newTokens += [token]
+            }
+        }
+        tokens = newTokens
+    }
+    
     open func tokenize() -> [InlineToken] {
         tokens = [InlineToken.plain(text)]
         tokenizeLink()
         tokenizeEmphasis()
+        tokenizeFootnote()
         return tokens
     }
 }

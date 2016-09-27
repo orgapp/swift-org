@@ -24,8 +24,8 @@ class JsonConverterTests: XCTestCase {
     
     func testConverter() throws {
         let parser = OrgParser()
-        let json = try parser.parse(content: content).toJson(options: .prettyPrinted)
-        print(json)
+        _ = try parser.parse(content: content).toJson(options: .prettyPrinted)
+//        print(json)
     }
     
 }

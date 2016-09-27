@@ -28,7 +28,6 @@ class ParseHeadlineTests: XCTestCase {
             "* NEXT Customized todo",
             "* "
             ]) else { return }
-        print(doc)
         XCTAssertEqual(doc.content.count, 4)
         
         guard let h1 = doc.content[0] as? Section else {
@@ -83,7 +82,6 @@ class ParseHeadlineTests: XCTestCase {
             "  :END:",
             ]
         let doc = parse(lines)
-        print(doc)
         
         guard let section = doc?.content[0] as? Section else {
             XCTFail("Expect Section")

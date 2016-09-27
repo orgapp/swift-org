@@ -9,7 +9,7 @@
 import XCTest
 @testable import CocoaOrg
 
-func tokenize(line: String) -> Token? {
+func tokenize(_ line: String) -> Token? {
     do {
         return try t(line: line).1
     } catch {

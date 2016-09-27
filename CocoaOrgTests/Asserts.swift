@@ -16,80 +16,87 @@ func expect(_ actual: Token, toBe expected: Token,
 }
 
 
-func evalListItem(_ content: String, indent: Int, text: String?, ordered: Bool, checked: Bool? = nil,
+func evalListItem(_ str: String, indent: Int, text: String?, ordered: Bool, checked: Bool? = nil,
           file: StaticString = #file, line: UInt = #line) {
     
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .listItem(indent: indent, text: text, ordered: ordered, checked: checked),
            file: file, line: line)
 }
 
-func evalHorizontalRule(_ content: String,
+func evalHorizontalRule(_ str: String,
                         file: StaticString = #file, line: UInt = #line) {
-        let token = tokenize(line: content)
+        let token = tokenize(str)
         expect(token!, toBe: .horizontalRule,
                file: file, line: line)
 }
 
-func evalComment(_ content: String, text: String,
+func evalComment(_ str: String, text: String,
                         file: StaticString = #file, line: UInt = #line) {
-        let token = tokenize(line: content)
+        let token = tokenize(str)
         expect(token!, toBe: .comment(text),
                file: file, line: line)
 }
 
-func evalBlockEnd(_ content: String, type: String,
+func evalBlockEnd(_ str: String, type: String,
                   file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .blockEnd(name: type),
            file: file, line: line)
 }
 
-func evalBlockBegin(_ content: String, type: String, params: [String]?,
+func evalBlockBegin(_ str: String, type: String, params: [String]?,
                   file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .blockBegin(name: type, params: params),
            file: file, line: line)
 }
 
-func evalHeadline(_ content: String, level: Int, text: String?,
+func evalHeadline(_ str: String, level: Int, text: String?,
                     file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .headline(level: level, text: text),
            file: file, line: line)
 }
 
-func evalSetting(_ content: String, key: String, value: String?,
+func evalSetting(_ str: String, key: String, value: String?,
                   file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .setting(key: key, value: value),
            file: file, line: line)
 }
 
-func evalBlank(_ content: String, rawIsNil: Bool = false,
+func evalBlank(_ str: String, rawIsNil: Bool = false,
                  file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .blank,
            file: file, line: line)
 }
 
-func evalLine(_ content: String, text: String,
+func evalLine(_ str: String, text: String,
               file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .line(text: text),
            file: file, line: line)
 }
 
-func evalDrawerBegin(_ content: String, name: String,
+func evalDrawerBegin(_ str: String, name: String,
               file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .drawerBegin(name: name),
            file: file, line: line)
 }
 
-func evalDrawerEnd(_ content: String,
+func evalDrawerEnd(_ str: String,
                      file: StaticString = #file, line: UInt = #line) {
-    let token = tokenize(line: content)
+    let token = tokenize(str)
     expect(token!, toBe: .drawerEnd,
+           file: file, line: line)
+}
+
+func evalFootnote(_ str: String, label: String, content: String?,
+                  file: StaticString = #file, line: UInt = #line) {
+    let token = tokenize(str)
+    expect(token!, toBe: .footnote(label: label, content: content),
            file: file, line: line)
 }

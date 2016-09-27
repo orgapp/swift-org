@@ -22,4 +22,12 @@ class InlineParsingTests: XCTestCase {
         }
     }
     
+    func testInlineFootnote() {
+        let text = "This is a footnote right here[fn:1]. And this is the rest of the line."
+        let lexer = InlineLexer(text: text)
+        let tokens = lexer.tokenize()
+        for t in tokens {
+            print("-- \(t)")
+        }
+    }
 }
