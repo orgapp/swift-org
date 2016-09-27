@@ -7,7 +7,21 @@
   [[http://orgmode.org/][org-mode]] is awesome. This is the first step to bring it to iOS, (arguably) the
   most popular platform on the planet.
 
-* Supported Syntax (so far) [10/10]
+* Usage
+  An simple example will explain everything.
+
+  #+BEGIN_SRC swift
+    import CocoaOrg
+
+    let lines = [
+        "* TODO head line",
+        "  A normal line here.",
+    ]
+    let parser = OrgParser()
+    let doc = try parser.parse(lines: lines)
+  #+END_SRC
+
+* Supported Syntax (so far) [12/17]
 ** DONE Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
    
@@ -108,33 +122,38 @@
        :END:
    #+END_SRC
 
-* Usage
-  An simple example will explain everything.
+** DONE Footnote
+   CLOSED: [2016-09-27 Tue 21:24]
+   #+BEGIN_SRC org
+   This is a footnote right here[fn:1]. And this is the rest.
 
-  #+BEGIN_SRC swift
-    import CocoaOrg
+   [fn:1] The content of the footnote here.
+   #+END_SRC
 
-    let lines = [
-        "* TODO head line",
-        "  A normal line here.",
-    ]
-    let parser = OrgParser()
-    let doc = try parser.parse(lines: lines)
-  #+END_SRC
-* Next Move [1/7]
-  - [ ] Table
-  - [X] Checkbox in list item
-  - [ ] Priority
-  - [ ] Tags
-  - [ ] Footnote
-  - [ ] Clock
-  - [ ] Attachments
+** DONE Checkbox
+   CLOSED: [2016-09-27 Tue 21:28]
+   Checkboxes in list items.
+   #+BEGIN_SRC org
+     - [X] item one
+     - [-] item two
+     - [ ] item three
+   #+END_SRC
 
-* TODO Performance Test
+** TODO Table
+
+** TODO Priority
+
+** TODO Clock
+
+** TODO Tags
+
+** TODO Attachments
 
 * Maybe? [0/2]
   - [ ] Latex Support
   - [ ] Macros
+
+* TODO Performance Test
 
 * Contribute
   CocoaOrg is written in Swift 3. So you need xcode 8 to be able to build it.
