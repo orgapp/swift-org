@@ -13,6 +13,6 @@ public struct Footnote: Node {
     public var content: [Node] = []
     
     public var description: String {
-        return "Footnote"
+        return "Footnote(content: \(content))"
     }
 }

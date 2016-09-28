@@ -39,7 +39,7 @@ public class OrgParser {
             }
         }
         tokens.restore()
-        return try self.parseLines(meta.raw?.trimmed)
+        return try self.parseLines(meta.raw?.trimmed)!
     }
     
     func parseList() throws -> List {
@@ -68,23 +68,21 @@ public class OrgParser {
         return list
     }
     
-    func parseLines(_ startWith: String? = nil) throws -> Paragraph {
-        guard case (_, .line(let text)) = tokens.dequeue()! else {
-            throw Errors.unexpectedToken("Line expected")
-        }
-        var line = Paragraph(lines: [text])
+    func parseLines(_ startWith: String? = nil) throws -> Paragraph? {
+        var paragraph: Paragraph? = nil
         if let firstLine = startWith {
-            line.lines.insert(firstLine, at: 0)
+            paragraph = Paragraph(lines: [firstLine])
         }
         while let (_, token) = tokens.peek() {
             if case .line(let t) = token {
-                line.lines.append(t)
+                paragraph = paragraph ?? Paragraph(lines: [])
+                paragraph?.lines.append(t)
                 _ = tokens.dequeue()
             } else {
                 break
             }
         }
-        return line
+        return paragraph
     }
     
     func lookForDrawers() throws -> [Drawer]? {
@@ -116,11 +114,11 @@ public class OrgParser {
             throw Errors.unexpectedToken("footnote expected")
         }
         
-        var footnote = Footnote(label: label, content: [try parseLines(content)])
+        var footnote = Footnote(label: label, content: [try parseLines(content)!])
         while let (_, token) = tokens.peek() {
             switch token {
             case .headline, .footnote:
-                break
+                return footnote
             default:
                 if let n = try parseTheRest() {
                     footnote.content.append(n)

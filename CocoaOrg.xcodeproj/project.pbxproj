@@ -16,6 +16,7 @@
 		036C5E821D928A85007484CF /* README.org in Resources */ = {isa = PBXBuildFile; fileRef = 036C5E811D928A85007484CF /* README.org */; };
 		03A5FE9A1D6B097500156B26 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE991D6B097500156B26 /* Node.swift */; };
 		03A5FE9C1D6B1ADB00156B26 /* OrgParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A5FE9B1D6B1ADB00156B26 /* OrgParser.swift */; };
+		03B34A401D9B6B7900FB6393 /* ParseFootnote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B34A3F1D9B6B7900FB6393 /* ParseFootnote.swift */; };
 		03D347BE1D71093C00F78D70 /* ParseParagraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */; };
 		03D7955D1D76E30700F0A6EB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D7955C1D76E30700F0A6EB /* Data.swift */; };
 		03F9E6A01D60411A0080E872 /* CocoaOrg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F9E69F1D60411A0080E872 /* CocoaOrg.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -61,6 +62,7 @@
 		036C5E811D928A85007484CF /* README.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.org; sourceTree = SOURCE_ROOT; };
 		03A5FE991D6B097500156B26 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		03A5FE9B1D6B1ADB00156B26 /* OrgParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgParser.swift; sourceTree = "<group>"; };
+		03B34A3F1D9B6B7900FB6393 /* ParseFootnote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseFootnote.swift; sourceTree = "<group>"; };
 		03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseParagraphTests.swift; sourceTree = "<group>"; };
 		03D7955C1D76E30700F0A6EB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		03F9E69C1D6041190080E872 /* CocoaOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +157,7 @@
 				035EEA221D8D51B800A38F7E /* ParseSettingTests.swift */,
 				035EEA241D8D51FE00A38F7E /* ParseBlockTests.swift */,
 				03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */,
+				03B34A3F1D9B6B7900FB6393 /* ParseFootnote.swift */,
 				035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */,
 				A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */,
 				A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */,
@@ -335,6 +338,7 @@
 				035EEA231D8D51B800A38F7E /* ParseSettingTests.swift in Sources */,
 				A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */,
 				035EEA211D8D510000A38F7E /* ParseListTests.swift in Sources */,
+				03B34A401D9B6B7900FB6393 /* ParseFootnote.swift in Sources */,
 				A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */,
 				A7E95E7A1D91FA4D00FC4F02 /* JsonConverterTests.swift in Sources */,
 				03F9E6AC1D60411A0080E872 /* LexerTests.swift in Sources */,

@@ -56,6 +56,11 @@ func toDict(_ node: Node) -> [String: Any] {
         json["name"] = drawer.name
         json["content"] = drawer.content
     }
+    if let footnote = node as? Footnote {
+        json["type"] = "footnote"
+        json["label"] = footnote.label
+        json["content"] = footnote.content.map { n in toDict(n) }
+    }
     return json
 }
 
