@@ -129,6 +129,12 @@ public class OrgParser {
         return footnote
     }
     
+    func skipBlanks() {
+        while let token = tokens.peek(), case .blank = token.1 {
+            _ = tokens.dequeue()
+        }
+    }
+    
     func parseTheRest() throws -> Node? {
         guard let (_, token) = tokens.peek() else {
             return nil
@@ -155,6 +161,8 @@ public class OrgParser {
     }
     
     func parseSection(_ currentLevel: Int = 0) throws -> Node? {
+        skipBlanks() // in a section, you don't care about blanks
+
         guard let (_, token) = tokens.peek() else {
             return nil
         }

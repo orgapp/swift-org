@@ -49,7 +49,11 @@ extension Paragraph: Textifiable {
 
 extension Block: Textifiable {
     func textify(indent: Int) -> [String] {
-        var lines = ["#+BEGIN_\(name.uppercased()) \(params?.joined(separator: " "))".indent(indent)]
+        var begin = ["#+BEGIN_\(name.uppercased())"]
+        if let p = params {
+            begin += p
+        }
+        var lines = [begin.joined(separator: " ").indent(indent)]
         lines += content
         lines += ["#+END_\(name.uppercased())".indent(indent)]
         return lines

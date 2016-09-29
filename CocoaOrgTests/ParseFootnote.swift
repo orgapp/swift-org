@@ -18,7 +18,7 @@ class ParseFootnote: XCTestCase {
             ]
         let doc = parse(lines)
         guard let foot1 = doc?.content[0] as? Footnote else {
-            XCTFail("Expect 0 to be Footnote")
+            XCTFail("Expect \(doc?.content[0]) to be Footnote")
             return
         }
         XCTAssertEqual(foot1.label, "1")
