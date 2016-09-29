@@ -30,6 +30,8 @@
 		A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22521D8A204F007796E2 /* TokenExtensions.swift */; };
 		A715ED4D1D875EEE00FE6D25 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715ED4C1D875EEE00FE6D25 /* Tokens.swift */; };
 		A73A4EB01D9A0B83008C33B5 /* Footnote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A4EAF1D9A0B83008C33B5 /* Footnote.swift */; };
+		A77DDD581D9C60F500120BA7 /* OrgFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DDD571D9C60F500120BA7 /* OrgFileWriter.swift */; };
+		A77DDD5A1D9C975D00120BA7 /* OrgFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */; };
 		A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */; };
 		A7E95E771D91F5FA00FC4F02 /* JsonConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E95E761D91F5FA00FC4F02 /* JsonConverter.swift */; };
 		A7E95E7A1D91FA4D00FC4F02 /* JsonConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */; };
@@ -79,6 +81,8 @@
 		A70C22521D8A204F007796E2 /* TokenExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenExtensions.swift; sourceTree = "<group>"; };
 		A715ED4C1D875EEE00FE6D25 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		A73A4EAF1D9A0B83008C33B5 /* Footnote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Footnote.swift; sourceTree = "<group>"; };
+		A77DDD571D9C60F500120BA7 /* OrgFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgFileWriter.swift; sourceTree = "<group>"; };
+		A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgFileWriterTests.swift; sourceTree = "<group>"; };
 		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		A7E95E761D91F5FA00FC4F02 /* JsonConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonConverter.swift; sourceTree = "<group>"; };
 		A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonConverterTests.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */,
 				A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */,
 				A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */,
+				A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */,
 			);
 			path = CocoaOrgTests;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 		A7E95E8A1D9232C200FC4F02 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A77DDD571D9C60F500120BA7 /* OrgFileWriter.swift */,
 				A7E95E761D91F5FA00FC4F02 /* JsonConverter.swift */,
 				03D7955C1D76E30700F0A6EB /* Data.swift */,
 				03F9E6DD1D607CE30080E872 /* Regex.swift */,
@@ -320,6 +326,7 @@
 				A715ED4D1D875EEE00FE6D25 /* Tokens.swift in Sources */,
 				03A5FE9C1D6B1ADB00156B26 /* OrgParser.swift in Sources */,
 				A7E95E771D91F5FA00FC4F02 /* JsonConverter.swift in Sources */,
+				A77DDD581D9C60F500120BA7 /* OrgFileWriter.swift in Sources */,
 				A7E95E831D92311C00FC4F02 /* Comment.swift in Sources */,
 				A7E95E851D92313200FC4F02 /* List.swift in Sources */,
 				A704C53F1D739503004BB00F /* Inline.swift in Sources */,
@@ -341,6 +348,7 @@
 				03B34A401D9B6B7900FB6393 /* ParseFootnote.swift in Sources */,
 				A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */,
 				A7E95E7A1D91FA4D00FC4F02 /* JsonConverterTests.swift in Sources */,
+				A77DDD5A1D9C975D00120BA7 /* OrgFileWriterTests.swift in Sources */,
 				03F9E6AC1D60411A0080E872 /* LexerTests.swift in Sources */,
 				035EEA271D8D526F00A38F7E /* InlineParsingTests.swift in Sources */,
 				035EEA1F1D8D504A00A38F7E /* Utils.swift in Sources */,

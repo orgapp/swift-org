@@ -1,3 +1,5 @@
+#+TITLE: CocoaOrg
+
 * org-mode Parser for Cocoa
 
   [[https://travis-ci.org/xiaoxinghu/CocoaOrg.svg?branch=master]]
@@ -110,7 +112,9 @@
 
 ** DONE Drawer
    CLOSED: [2016-09-20 Tue 22:38]
+
    Drawer for headlines.
+
    #+BEGIN_SRC org
      ,* WAITING Talk to Jake
        :PROPERTIES:

@@ -17,6 +17,10 @@ extension String {
     var trimmed: String {
         return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
+    
+    func indent(_ n: Int) -> String {
+        return "\(String(repeating: " ", count: n))\(self)"
+    }
 }
 
 func length(_ text: String?) -> Int {

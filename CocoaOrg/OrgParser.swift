@@ -93,6 +93,7 @@ public class OrgParser {
             return nil
         }
         tokens.takeSnapshot()
+        _ = tokens.dequeue()
         var content: [String] = []
         while let (m, token) = tokens.dequeue() {
             if case .drawerEnd = token {
@@ -102,7 +103,7 @@ public class OrgParser {
                 }
                 return result
             }
-            content.append(m.raw ?? "")
+            content.append((m.raw ?? "").trimmed)
         }
         tokens.restore()
         tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
