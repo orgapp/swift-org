@@ -22,3 +22,26 @@ public struct Block: Node {
         return "Block(name: \(name), params: \(params), content: \(content))"
     }
 }
+
+extension OrgParser {
+    func parseBlock() throws -> Node {
+        guard case let (meta, Token.blockBegin(name, params)) = tokens.dequeue()! else {
+            throw Errors.unexpectedToken("BlockBegin expected")
+        }
+        var block = Block(name: name, params: params)
+        tokens.takeSnapshot()
+        while let (m, token) = tokens.dequeue() {
+            switch token {
+            case let .blockEnd(n):
+                if n.lowercased() != name.lowercased() {
+                    throw Errors.unexpectedToken("Expecting BlockEnd of type \(name), but got \(n)")
+                }
+                return block
+            default:
+                block.content.append(m.raw ?? "")
+            }
+        }
+        tokens.restore()
+        return try self.parseParagraph(meta.raw?.trimmed)!
+    }
+}

@@ -29,3 +29,19 @@ public struct OrgDocument: Node {
     }
 }
 
+extension OrgParser {
+    func parseDocument() throws -> OrgDocument {
+        while let (_, token) = tokens.peek() {
+            switch token {
+            case let .setting(key, value):
+                _ = tokens.dequeue()
+                document.settings[key] = value
+            default:
+                if let node = try parseSection() {
+                    document.content.append(node)
+                }
+            }
+        }
+        return document
+    }
+}

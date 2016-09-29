@@ -34,16 +34,29 @@ public struct Section: Node {
     }
 }
 
-public struct Drawer: Node {
-    public let name: String
-    public var content: [String]?
-    
-    public init(_ name: String, content: [String]? = nil) {
-        self.name = name
-        self.content = content
-    }
-    
-    public var description: String {
-        return "Drawer(name: \(name), content: \(content))"
+extension OrgParser {    
+    func parseSection(_ currentLevel: Int = 0) throws -> Node? {
+        skipBlanks() // in a section, you don't care about blanks
+        
+        guard let (_, token) = tokens.peek() else {
+            return nil
+        }
+        switch token {
+        case let .headline(l, t):
+            if l <= currentLevel {
+                return nil
+            }
+            _ = tokens.dequeue()
+            var section = Section(level: l, title: t, todos: document.todos)
+            section.drawers = try lookForDrawers()
+            while let subSection = try parseSection(l) {
+                section.content.append(subSection)
+            }
+            return section
+        case .footnote:
+            return try parseFootnote()
+        default:
+            return try parseTheRest()
+        }
     }
 }
