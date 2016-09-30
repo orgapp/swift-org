@@ -33,10 +33,10 @@ class LexerTests: XCTestCase {
     }
     
     func testTokenHeading() {
-        evalHeadline("* Level One", level: 1, text: "Level One")
-        evalHeadline("** Level Two", level: 2, text: "Level Two")
-        evalHeadline("* TODO Level One with todo", level: 1, text: "TODO Level One with todo")
-        evalHeadline("* ", level: 1, text: nil)
+        evalHeadline("* Level One", stars: 1, text: "Level One")
+        evalHeadline("** Level Two", stars: 2, text: "Level Two")
+        evalHeadline("* TODO Level One with todo", stars: 1, text: "TODO Level One with todo")
+        evalHeadline("* ", stars: 1, text: nil)
         evalLine("*", text: "*")
         evalListItem(" * ", indent: 1, text: nil, ordered: false)
     }

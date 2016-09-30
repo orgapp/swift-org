@@ -8,22 +8,24 @@
 
 import Foundation
 
-public struct Drawer: Node {
-    public let name: String
-    public var content: [String]?
-    
-    public init(_ name: String, content: [String]? = nil) {
-        self.name = name
-        self.content = content
-    }
-    
-    public var description: String {
-        return "Drawer(name: \(name), content: \(content))"
+extension Section {
+    public struct Drawer: Node {
+        public let name: String
+        public var content: [String]?
+        
+        public init(_ name: String, content: [String]? = nil) {
+            self.name = name
+            self.content = content
+        }
+        
+        public var description: String {
+            return "Drawer(name: \(name), content: \(content))"
+        }
     }
 }
 
 extension OrgParser {
-    func lookForDrawers() throws -> [Drawer]? {
+    func lookForDrawers() throws -> [Section.Drawer]? {
         if tokens.isEmpty {
             return nil
         }
@@ -35,7 +37,7 @@ extension OrgParser {
         var content: [String] = []
         while let (m, token) = tokens.dequeue() {
             if case .drawerEnd = token {
-                var result = [Drawer(name, content: content)]
+                var result = [Section.Drawer(name, content: content)]
                 if let drawers = try lookForDrawers() {
                     result.append(contentsOf: drawers)
                 }

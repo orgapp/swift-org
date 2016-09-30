@@ -12,7 +12,7 @@ import CocoaOrg
 class InlineParsingTests: XCTestCase {
     
     func testInlineParsing() {
-        // TODO finish this
+        // TODO impl tests
         let text = "hello *world*, and /Welcome/ to *org* world. and [[http://google.com][this]] is a link. and [[/image/logo.png][this]] is a image."
         //                let splitted = text.matchSplit("(\\*)([\\s\\S]*?)\\1", options: [])
         let lexer = InlineLexer(text: text)

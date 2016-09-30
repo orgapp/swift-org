@@ -19,8 +19,8 @@ func toDict(_ node: Node) -> [String: Any] {
     if let section = node as? Section {
         json["type"] = "section"
         json["title"] = section.title
-        json["level"] = section.level
-        json["state"] = section.state
+        json["stars"] = section.stars
+        json["keyword"] = section.keyword
         if let drawers = section.drawers {
             json["drawers"] = drawers.map { n in toDict(n) }
         }
@@ -52,7 +52,7 @@ func toDict(_ node: Node) -> [String: Any] {
         json["type"] = "comment"
         json["text"] = comment.text
     }
-    if let drawer = node as? Drawer {
+    if let drawer = node as? Section.Drawer {
         json["name"] = drawer.name
         json["content"] = drawer.content
     }

@@ -23,7 +23,7 @@
     let doc = try parser.parse(lines: lines)
   #+END_SRC
 
-* Supported Syntax (so far) [12/17]
+* Supported Syntax (so far) [14/17]
 ** DONE Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
    
@@ -112,6 +112,8 @@
 
 ** DONE Drawer
    CLOSED: [2016-09-20 Tue 22:38]
+   :PROPERTIES:
+   :END:
 
    Drawer for headlines.
 
@@ -138,22 +140,36 @@
    CLOSED: [2016-09-27 Tue 21:28]
    Checkboxes in list items.
    #+BEGIN_SRC org
-     - [X] item one
-     - [-] item two
-     - [ ] item three
+     - [X] item one checked
+     - [-] item two not checked
+     - [ ] item three not checked
    #+END_SRC
+
+** DONE [#A] Priority
+   CLOSED: [2016-09-30 Fri 12:17]
+   #+BEGIN_SRC org
+     ,* TODO [#A] Top Priority Task
+     ,* [#B] Medium Priority Item
+     ,* TODO [#c] Low Priority Task
+     ,* TODO [#D] No Priority Task
+   #+END_SRC
+
+** DONE Tags
+   CLOSED: [2016-09-30 Fri 14:52]
+   
+   #+BEGIN_SRC org
+     ,* Section with One Tag                                                :tag1:
+     ,* Section with multiple tags                                 :tag1:tag2:tag3:
+   #+END_SRC
+
 
 ** TODO Table
 
-** TODO Priority
-
 ** TODO Clock
-
-** TODO Tags
 
 ** TODO Attachments
 
-* Maybe? [0/2]
+* [#c] Maybe? [0/2]
   - [ ] Latex Support
   - [ ] Macros
 

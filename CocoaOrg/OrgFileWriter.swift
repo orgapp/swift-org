@@ -16,9 +16,12 @@ extension Section: Textifiable {
     func textify(indent: Int) -> [String] {
         var lines = [String]()
         var headlineComponents = [String]()
-        headlineComponents.append(String(repeating: "*", count: level))
-        if let s = state {
-            headlineComponents.append(s)
+        headlineComponents.append(String(repeating: "*", count: stars))
+        if let k = keyword {
+            headlineComponents.append(k)
+        }
+        if let p = priority {
+            headlineComponents.append("[#\(p)]")
         }
         if let t = title {
             headlineComponents.append(t)
@@ -28,12 +31,12 @@ extension Section: Textifiable {
         // write drawers
         
         for d in drawers ?? [] {
-            lines += d.textify(indent: level + 1)
+            lines += d.textify(indent: stars + 1)
         }
         
         for n in content {
             if let tn = n as? Textifiable {
-                lines += tn.textify(indent: level + 1)
+                lines += tn.textify(indent: stars + 1)
             }
         }
         lines += ["\n"]
@@ -62,7 +65,7 @@ extension Block: Textifiable {
 
 extension List: Textifiable {
     func textify(indent: Int) -> [String] {
-        // TODO impl sublist
+        // TODO impl sublist for Textifiable
         
         return items.enumerated().map { index, item in
             var parts = [ordered ? "\(index)." : "-"]
@@ -89,12 +92,12 @@ extension Comment: Textifiable {
 
 extension Footnote: Textifiable {
     func textify(indent: Int) -> [String] {
-        // TODO impl this
+        // TODO impl footnote for Textifiable
         return []
     }
 }
 
-extension Drawer: Textifiable {
+extension Section.Drawer: Textifiable {
     func textify(indent: Int) -> [String] {
         var lines = [":\(name.uppercased()):"]
         lines += content ?? []

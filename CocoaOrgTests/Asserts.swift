@@ -52,10 +52,10 @@ func evalBlockBegin(_ str: String, type: String, params: [String]?,
            file: file, line: line)
 }
 
-func evalHeadline(_ str: String, level: Int, text: String?,
+func evalHeadline(_ str: String, stars: Int, text: String?,
                     file: StaticString = #file, line: UInt = #line) {
     let token = tokenize(str)
-    expect(token!, toBe: .headline(level: level, text: text),
+    expect(token!, toBe: .headline(stars: stars, text: text),
            file: file, line: line)
 }
 

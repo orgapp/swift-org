@@ -18,7 +18,7 @@ typealias TokenWithMeta = (TokenMeta, Token)
 
 public enum Token {
     case setting(key: String, value: String?)
-    case headline(level: Int, text: String?)
+    case headline(stars: Int, text: String?)
     case blank
     case horizontalRule
     case blockBegin(name: String, params: [String]?)
@@ -46,7 +46,7 @@ func defineTokens() {
     define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches in
         .setting(key: matches[1]!, value: matches[2]) }
     define("^(\\*+)\\s+(.*)$") { matches in
-        .headline(level: matches[1]!.characters.count, text: matches[2]) }
+        .headline(stars: matches[1]!.characters.count, text: matches[2]) }
     define("^(\\s*)#\\+begin_([a-z]+)(?:\\s+(.*))?$", options: [.caseInsensitive]) { matches in
         var params: [String]?
         if let m3 = matches[3] {
