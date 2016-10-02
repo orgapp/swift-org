@@ -182,3 +182,5 @@
      ./bin/setup
      ./bin/test
    #+END_SRC
+* License
+  Carthage is released under the [[LICENSE.md][MIT License]].
