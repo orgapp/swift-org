@@ -45,7 +45,7 @@ open class InlineLexer {
             var newTokens = [InlineToken]()
             for token in tokens {
                 if case let InlineToken.plain(text) = token {
-                    text.tryMatch("([\(marker)])([\\s\\S]*?)\\1", match: { m in
+                    text.tryMatch("([\(marker)]+)([\\s\\S]+?)\\1", match: { m in
                         newTokens.append(generator(m[2]!))
                         }, or: { text in newTokens.append(.plain(text)) })
                 } else {

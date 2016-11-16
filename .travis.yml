@@ -24,4 +24,5 @@ deploy:
   skip_cleanup: true
   on:
     repo: xiaoxinghu/CocoaOrg
+    branch: master
     tags: true
