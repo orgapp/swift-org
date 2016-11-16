@@ -18,12 +18,20 @@ class ParseSettingTests: XCTestCase {
             "  ",
             "* First Head Line",
             ]) else { return }
-//        guard let d = doc.lookUp(DocumentMeta.self) else {
-//            XCTFail("Cannot find Document root.")
-//            return
-//        }
         XCTAssertEqual(doc.settings.count, 1)
         XCTAssertEqual(doc.settings["options"], "toc:nil")
         XCTAssertNil(doc.settings["TITLE"])
+    }
+    
+    func testTodos() {
+        guard let doc = parse([
+            "#+TODO: TODO NEXT | DONE CANCELED",
+            "#+TITLE: ",
+            "  ",
+            "* First Head Line",
+            ]) else { return }
+        ["TODO", "NEXT", "DONE", "CANCELED"].forEach { keyword in
+            XCTAssert(doc.todos.contains(keyword))
+        }
     }
 }

@@ -17,11 +17,12 @@ public struct OrgDocument: Node {
     }
     
     public var todos: [String] {
-        var todos = ["TODO", "DONE"]
         if let todo = settings["TODO"] {
-            todos.append(todo)
+            // TODO deal with the pipe
+            return todo.components(separatedBy: .whitespaces)
         }
-        return todos
+        // TODO get this from outside
+        return ["TODO", "DONE"]
     }
     
     public var description: String {
