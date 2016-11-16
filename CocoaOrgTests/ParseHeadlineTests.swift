@@ -26,7 +26,7 @@ class ParseHeadlineTests: XCTestCase {
     
     func testParseHeadline() {
         guard let doc = parse([
-            "#+TODO: NEXT",
+            "#+TODO: NEXT TODO",
             "* Header 1",
             "* TODO Header 2",
             "  A line of content.",
