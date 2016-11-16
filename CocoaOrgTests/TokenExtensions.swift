@@ -27,3 +27,9 @@ extension Token: Equatable {
 //        }
     }
 }
+
+extension InlineToken: Equatable {
+    public static func ==(lhs: InlineToken, rhs: InlineToken) -> Bool {
+        return "\(lhs)" == "\(rhs)"
+    }
+}

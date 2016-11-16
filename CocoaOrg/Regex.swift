@@ -76,9 +76,9 @@ public extension String {
                 or(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.characters.index(self.startIndex, offsetBy: m.range.location)))
             }
             match(getMatches(m))
-            cursor = (m.range.toRange()?.upperBound)! + 1
+            cursor = (m.range.toRange()?.upperBound)!
         }
-        if cursor <= self.characters.count {
+        if cursor < self.characters.count {
             or(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
         }
     }
