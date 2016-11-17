@@ -15,6 +15,8 @@ public struct Section: Node {
         case B = "B"
         case C = "C"
     }
+    
+    public var index: OrgIndex?
 
     public var title: String?
     public var stars: Int
@@ -44,12 +46,12 @@ public struct Section: Node {
     }
     
     public var description: String {
-        return "Section(stars: \(stars), keyword: \(keyword)), priority: \(priority)), title: \(title)\n - tags: \(tags)\n - \(drawers)\n - \(content)"
+        return "Section[\(index)](stars: \(stars), keyword: \(keyword)), priority: \(priority)), title: \(title)\n - tags: \(tags)\n - \(drawers)\n - \(content)"
     }
 }
 
 extension OrgParser {    
-    func parseSection(_ currentstars: Int = 0) throws -> Node? {
+    func parseSection(_ index: OrgIndex) throws -> Node? {
         skipBlanks() // in a section, you don't care about blanks
         
         guard let (_, token) = tokens.peek() else {
@@ -57,14 +59,17 @@ extension OrgParser {
         }
         switch token {
         case let .headline(l, t):
-            if l <= currentstars {
+            if l < index.indexes.count {
                 return nil
             }
             _ = tokens.dequeue()
             var section = Section(stars: l, title: t, todos: document.todos)
+            section.index = index
             section.drawers = try lookForDrawers()
-            while let subSection = try parseSection(l) {
+            var subIndex = index.in
+            while let subSection = try parseSection(subIndex) {
                 section.content.append(subSection)
+                subIndex = subIndex.next
             }
             return section
         case .footnote:

@@ -32,14 +32,16 @@ public struct OrgDocument: Node {
 
 extension OrgParser {
     func parseDocument() throws -> OrgDocument {
+        var index = OrgIndex([0])
         while let (_, token) = tokens.peek() {
             switch token {
             case let .setting(key, value):
                 _ = tokens.dequeue()
                 document.settings[key] = value
             default:
-                if let node = try parseSection() {
+                if let node = try parseSection(index) {
                     document.content.append(node)
+                    index = index.next
                 }
             }
         }
