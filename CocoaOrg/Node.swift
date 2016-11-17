@@ -8,7 +8,13 @@
 
 import Foundation
 
-public protocol Node: CustomStringConvertible {}
+public protocol Node: CustomStringConvertible {
+    var index: OrgIndex? { get }
+}
+
+extension Node {
+    public var index: OrgIndex? { return nil }
+}
 
 extension OrgParser {
     func parseTheRest() throws -> Node? {
