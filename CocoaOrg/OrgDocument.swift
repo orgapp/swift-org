@@ -16,13 +16,21 @@ public struct OrgDocument: Node {
         return settings["TITLE"] ?? ""
     }
     
-    public var todos: [String] {
+    public var todos: [[String]] {
         if let todo = settings["TODO"] {
-            // TODO deal with the pipe
-            return todo.components(separatedBy: .whitespaces)
+            let keywords = todo.components(separatedBy: .whitespaces)
+            var result: [[String]] = [[]]
+            for keyword in keywords {
+                if keyword == "|" {
+                    result.append([])
+                } else {
+                    result[result.endIndex - 1].append(keyword)
+                }
+            }
+            return result
         }
         // TODO get this from outside
-        return ["TODO", "DONE"]
+        return [["TODO"], ["DONE"]]
     }
     
     public var description: String {

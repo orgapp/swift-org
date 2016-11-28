@@ -63,7 +63,7 @@ extension OrgParser {
                 return nil
             }
             _ = tokens.dequeue()
-            var section = Section(stars: l, title: t, todos: document.todos)
+            var section = Section(stars: l, title: t, todos: document.todos.flatMap{ $0 })
             section.index = index
             section.drawers = try lookForDrawers()
             var subIndex = index.in

@@ -30,8 +30,12 @@ class ParseSettingTests: XCTestCase {
             "  ",
             "* First Head Line",
             ]) else { return }
-        ["TODO", "NEXT", "DONE", "CANCELED"].forEach { keyword in
-            XCTAssert(doc.todos.contains(keyword))
+        ["TODO", "NEXT"].forEach { keyword in
+            XCTAssert(doc.todos[0].contains(keyword))
         }
+        ["DONE", "CANCELED"].forEach { keyword in
+            XCTAssert(doc.todos[1].contains(keyword))
+        }
+
     }
 }
