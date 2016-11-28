@@ -20,7 +20,7 @@ func tokenize(_ line: String) -> Token? {
 
 let parser = OrgParser()
 
-func parse(_ lines: [String]) -> OrgDocument? {
+func parse(_ lines: [String], with parser: OrgParser = parser) -> OrgDocument? {
     do {
         return try parser.parse(lines: lines)
     } catch {

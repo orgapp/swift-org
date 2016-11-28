@@ -23,19 +23,26 @@ class ParseSettingTests: XCTestCase {
         XCTAssertNil(doc.settings["TITLE"])
     }
     
-    func testTodos() {
+    func testDefaultTodos() {
+        let parser = OrgParser(defaultTodos: [["TODO", "NEXT"], ["DONE", "CANCELED"]])
+        let content = ["Use Default TODOs"]
+        guard let docWithDefaultParser = parse(content) else { return }
+        guard let docWithModifiedParser = parse(content, with: parser) else { return }
+        
+        XCTAssertEqual(2, docWithDefaultParser.todos.count)
+        XCTAssertEqual(["TODO"], docWithDefaultParser.todos[0])
+        XCTAssertEqual(["DONE"], docWithDefaultParser.todos[1])
+        XCTAssertEqual(2, docWithModifiedParser.todos.count)
+        XCTAssertEqual(["TODO", "NEXT"], docWithModifiedParser.todos[0])
+        XCTAssertEqual(["DONE", "CANCELED"], docWithModifiedParser.todos[1])
+    }
+    
+    func testInBufferTodos() {
         guard let doc = parse([
-            "#+TODO: TODO NEXT | DONE CANCELED",
-            "#+TITLE: ",
-            "  ",
-            "* First Head Line",
+            "#+TODO: HELLO WORLD | ORG MODE",
             ]) else { return }
-        ["TODO", "NEXT"].forEach { keyword in
-            XCTAssert(doc.todos[0].contains(keyword))
-        }
-        ["DONE", "CANCELED"].forEach { keyword in
-            XCTAssert(doc.todos[1].contains(keyword))
-        }
-
+        XCTAssertEqual(2, doc.todos.count)
+        XCTAssertEqual(["HELLO", "WORLD"], doc.todos[0])
+        XCTAssertEqual(["ORG", "MODE"], doc.todos[1])
     }
 }

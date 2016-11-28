@@ -12,9 +12,11 @@ public struct OrgDocument: Node {
     public var settings = [String: String]()
     public var content = [Node]()
     
-    public var title: String {
-        return settings["TITLE"] ?? ""
+    public var title: String? {
+        return settings["TITLE"]
     }
+    
+    public let defaultTodos: [[String]]
     
     public var todos: [[String]] {
         if let todo = settings["TODO"] {
@@ -29,8 +31,11 @@ public struct OrgDocument: Node {
             }
             return result
         }
-        // TODO get this from outside
-        return [["TODO"], ["DONE"]]
+        return defaultTodos
+    }
+    
+    public init(todos: [[String]]) {
+        defaultTodos = todos
     }
     
     public var description: String {

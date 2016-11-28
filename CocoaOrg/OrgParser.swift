@@ -16,9 +16,12 @@ public class OrgParser {
     // MARK: properties
     var tokens: Queue<TokenWithMeta>!
     var document: OrgDocument!
+    public var defaultTodos: [[String]]
     
     // MARK: init
-    public init() {}
+    public init(defaultTodos: [[String]] = [["TODO"], ["DONE"]]) {
+        self.defaultTodos = defaultTodos
+    }
     
     func skipBlanks() {
         while let token = tokens.peek(), case .blank = token.1 {
@@ -29,7 +32,7 @@ public class OrgParser {
     // MARK: parse document
     func parse(tokens: [TokenWithMeta]) throws -> OrgDocument {
         self.tokens = Queue<TokenWithMeta>(data: tokens)
-        document = OrgDocument()
+        document = OrgDocument(todos: defaultTodos)
         return try parseDocument()
     }
     
