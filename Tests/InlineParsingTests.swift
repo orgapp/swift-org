@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import CocoaOrg
+import SwiftOrg
 
 class InlineParsingTests: XCTestCase {
     

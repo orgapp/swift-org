@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CocoaOrg
+@testable import SwiftOrg
 
 func expect(_ actual: Token, toBe expected: Token,
             file: StaticString = #file, line: UInt = #line) {

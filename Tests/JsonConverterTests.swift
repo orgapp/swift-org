@@ -7,10 +7,10 @@
 //
 
 import XCTest
-import CocoaOrg
+import SwiftOrg
 
 class JsonConverterTests: XCTestCase {
-    
+
     var content: String = ""
     override func setUp() {
         super.setUp()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0810"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03F9E69B1D6041190080E872"
+               BlueprintIdentifier = "03BBC3BC1DF81104003FCB3C"
                BuildableName = "SwiftOrg.framework"
-               BlueprintName = "SwiftOrg"
+               BlueprintName = "SwiftOrg-macOS"
                ReferencedContainer = "container:SwiftOrg.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03F9E6A51D60411A0080E872"
-               BuildableName = "SwiftOrgTests-iOS.xctest"
-               BlueprintName = "SwiftOrgTests-iOS"
+               BlueprintIdentifier = "0382A1821DF826730015B475"
+               BuildableName = "SwiftOrgTests-macOS.xctest"
+               BlueprintName = "SwiftOrgTests-macOS"
                ReferencedContainer = "container:SwiftOrg.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03F9E69B1D6041190080E872"
+            BlueprintIdentifier = "03BBC3BC1DF81104003FCB3C"
             BuildableName = "SwiftOrg.framework"
-            BlueprintName = "SwiftOrg"
+            BlueprintName = "SwiftOrg-macOS"
             ReferencedContainer = "container:SwiftOrg.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03F9E69B1D6041190080E872"
+            BlueprintIdentifier = "03BBC3BC1DF81104003FCB3C"
             BuildableName = "SwiftOrg.framework"
-            BlueprintName = "SwiftOrg"
+            BlueprintName = "SwiftOrg-macOS"
             ReferencedContainer = "container:SwiftOrg.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03F9E69B1D6041190080E872"
+            BlueprintIdentifier = "03BBC3BC1DF81104003FCB3C"
             BuildableName = "SwiftOrg.framework"
-            BlueprintName = "SwiftOrg"
+            BlueprintName = "SwiftOrg-macOS"
             ReferencedContainer = "container:SwiftOrg.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

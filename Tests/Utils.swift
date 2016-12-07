@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CocoaOrg
+@testable import SwiftOrg
 
 func tokenize(_ line: String) -> Token? {
     do {

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import CocoaOrg
+import SwiftOrg
 
 class ParseSettingTests: XCTestCase {
     

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.
 //
 
-import CocoaOrg
+import SwiftOrg
 
 extension TokenMeta: Equatable {
     public static func ==(lhs: TokenMeta, rhs: TokenMeta) -> Bool {

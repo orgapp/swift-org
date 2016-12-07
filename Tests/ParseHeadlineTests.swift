@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import CocoaOrg
+import SwiftOrg
 
 fileprivate func eval(_ node: Node?, makesure: (Section) -> Void) {
     guard let section = node as? Section else {

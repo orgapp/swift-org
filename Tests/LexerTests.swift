@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CocoaOrg
+@testable import SwiftOrg
 
 
 class LexerTests: XCTestCase {
