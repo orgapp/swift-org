@@ -1,11 +1,11 @@
 language: objective-c
 osx_image: xcode8.1
-xcode_workspace: CocoaOrg.xcworkspace
-xcode_scheme: CocoaOrg
+xcode_project: SwiftOrg-iOS.xcodeproj
+xcode_scheme: SwiftOrg-iOS
 xcode_sdk: iphonesimulator10.0
 env:
   global:
-    - FRAMEWORK_NAME=CocoaOrg
+    - FRAMEWORK_NAME=SwiftOrg
 before_install:
   - brew update
   - brew outdated carthage || brew upgrade carthage
@@ -23,6 +23,6 @@ deploy:
   file: "$FRAMEWORK_NAME.framework.zip"
   skip_cleanup: true
   on:
-    repo: xiaoxinghu/CocoaOrg
+    repo: xiaoxinghu/swift-org
     branch: master
     tags: true
