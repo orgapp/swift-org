@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03F9E69B1D6041190080E872"
-               BuildableName = "CocoaOrg.framework"
-               BlueprintName = "CocoaOrg"
-               ReferencedContainer = "container:CocoaOrg.xcodeproj">
+               BuildableName = "SwiftOrg.framework"
+               BlueprintName = "SwiftOrg"
+               ReferencedContainer = "container:SwiftOrg.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03F9E6A51D60411A0080E872"
-               BuildableName = "CocoaOrgTests.xctest"
-               BlueprintName = "CocoaOrgTests"
-               ReferencedContainer = "container:CocoaOrg.xcodeproj">
+               BuildableName = "SwiftOrgTests.xctest"
+               BlueprintName = "SwiftOrgTests"
+               ReferencedContainer = "container:SwiftOrg.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03F9E69B1D6041190080E872"
-            BuildableName = "CocoaOrg.framework"
-            BlueprintName = "CocoaOrg"
-            ReferencedContainer = "container:CocoaOrg.xcodeproj">
+            BuildableName = "SwiftOrg.framework"
+            BlueprintName = "SwiftOrg"
+            ReferencedContainer = "container:SwiftOrg.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03F9E69B1D6041190080E872"
-            BuildableName = "CocoaOrg.framework"
-            BlueprintName = "CocoaOrg"
-            ReferencedContainer = "container:CocoaOrg.xcodeproj">
+            BuildableName = "SwiftOrg.framework"
+            BlueprintName = "SwiftOrg"
+            ReferencedContainer = "container:SwiftOrg.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03F9E69B1D6041190080E872"
-            BuildableName = "CocoaOrg.framework"
-            BlueprintName = "CocoaOrg"
-            ReferencedContainer = "container:CocoaOrg.xcodeproj">
+            BuildableName = "SwiftOrg.framework"
+            BlueprintName = "SwiftOrg"
+            ReferencedContainer = "container:SwiftOrg.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
