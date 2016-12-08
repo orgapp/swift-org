@@ -10,12 +10,7 @@ import XCTest
 @testable import SwiftOrg
 
 func tokenize(_ line: String) -> Token? {
-    do {
-        return try t(line: line).1
-    } catch {
-        XCTFail("\(error)")
-        return nil
-    }
+    return t(line: line)
 }
 
 let parser = OrgParser()

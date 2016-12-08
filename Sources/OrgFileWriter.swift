@@ -97,10 +97,10 @@ extension Footnote: Textifiable {
     }
 }
 
-extension Section.Drawer: Textifiable {
+extension Drawer: Textifiable {
     func textify(indent: Int) -> [String] {
         var lines = [":\(name.uppercased()):"]
-        lines += content ?? []
+        lines += content
         lines += [":END:"]
         return lines.map { line in line.indent(indent) }
     }

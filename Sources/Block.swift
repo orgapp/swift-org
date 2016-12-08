@@ -25,11 +25,10 @@ public struct Block: Node {
 
 extension OrgParser {
     func parseBlock() throws -> Node {
-        guard case let (meta, Token.blockBegin(name, params)) = tokens.dequeue()! else {
+        guard case let (_, Token.blockBegin(name, params)) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("BlockBegin expected")
         }
         var block = Block(name: name, params: params)
-        tokens.takeSnapshot()
         while let (m, token) = tokens.dequeue() {
             switch token {
             case let .blockEnd(n):
@@ -41,7 +40,6 @@ extension OrgParser {
                 block.content.append(m.raw ?? "")
             }
         }
-        tokens.restore()
-        return try self.parseParagraph(meta.raw?.trimmed)!
+        throw Errors.cannotFindToken("BlockEnd")
     }
 }

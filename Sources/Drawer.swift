@@ -8,45 +8,75 @@
 
 import Foundation
 
-extension Section {
-    public struct Drawer: Node {
-        public let name: String
-        public var content: [String]?
-        
-        public init(_ name: String, content: [String]? = nil) {
-            self.name = name
-            self.content = content
-        }
-        
-        public var description: String {
-            return "Drawer(name: \(name), content: \(content))"
-        }
+public struct Drawer: Node {
+    public let name: String
+    public var content: [String]
+    
+    public init(_ name: String, content: [String] = []) {
+        self.name = name
+        self.content = content
+    }
+    
+    public var description: String {
+        return "Drawer(name: \(name), content: \(content))"
     }
 }
 
+//extension Section {
+//    public struct Drawer: Node {
+//        public let name: String
+//        public var content: [String]?
+//        
+//        public init(_ name: String, content: [String]? = nil) {
+//            self.name = name
+//            self.content = content
+//        }
+//        
+//        public var description: String {
+//            return "Drawer(name: \(name), content: \(content))"
+//        }
+//    }
+//}
+//
 extension OrgParser {
-    func lookForDrawers() throws -> [Section.Drawer]? {
-        if tokens.isEmpty {
-            return nil
+    func parseDrawer() throws -> Drawer {
+        guard case let (_, Token.drawerBegin(name)) = tokens.dequeue()! else {
+            throw Errors.unexpectedToken("drawerBegin expected")
         }
-        guard case let (meta, .drawerBegin(name)) = tokens.peek()! else {
-            return nil
-        }
-        tokens.takeSnapshot()
-        _ = tokens.dequeue()
-        var content: [String] = []
+        var drawer = Drawer(name)
         while let (m, token) = tokens.dequeue() {
-            if case .drawerEnd = token {
-                var result = [Section.Drawer(name, content: content)]
-                if let drawers = try lookForDrawers() {
-                    result.append(contentsOf: drawers)
-                }
-                return result
+            switch token {
+            case .drawerEnd:
+                return drawer
+            default:
+                drawer.content.append(m.raw ?? "")
             }
-            content.append((m.raw ?? "").trimmed)
         }
-        tokens.restore()
-        tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
-        return nil
+        throw Errors.cannotFindToken("BlockEnd")
+
     }
+//    func lookForDrawers() throws -> [Drawer]? {
+//        if tokens.isEmpty {
+//            return nil
+//        }
+//        guard case let (meta, .drawerBegin(name)) = tokens.peek()! else {
+//            return nil
+//        }
+//        tokens.takeSnapshot()
+//        _ = tokens.dequeue()
+//        var content: [String] = []
+//        while let (m, token) = tokens.dequeue() {
+//            if case .drawerEnd = token {
+//                var result = [Drawer(name, content: content)]
+//                if let drawers = try lookForDrawers() {
+//                    result.append(contentsOf: drawers)
+//                }
+//                return result
+//            }
+//            content.append((m.raw ?? "").trimmed)
+//        }
+//        tokens.restore()
+//        tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
+//        return nil
+//    }
 }

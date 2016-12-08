@@ -10,6 +10,7 @@ import Foundation
 
 public enum Errors: Error {
     case unexpectedToken(String)
+    case cannotFindToken(String)
 }
 
 public class OrgParser {

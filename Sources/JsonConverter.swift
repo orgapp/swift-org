@@ -52,7 +52,7 @@ func toDict(_ node: Node) -> [String: Any] {
         json["type"] = "comment"
         json["text"] = comment.text
     }
-    if let drawer = node as? Section.Drawer {
+    if let drawer = node as? Drawer {
         json["name"] = drawer.name
         json["content"] = drawer.content
     }

@@ -101,7 +101,7 @@ class ParseHeadlineTests: XCTestCase {
         let doc = parse(lines)
 
         eval(doc?.content[0]) { section in
-            XCTAssertNil(section.drawers)
+            XCTAssertEqual(1, section.drawers?.count)
         }
 //        XCTAssertEqual(section.content.count, 2)
     }

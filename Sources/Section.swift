@@ -22,7 +22,15 @@ public struct Section: Node {
     public var stars: Int
     public var keyword: String?
     public var priority: Priority?
-    public var drawers: [Drawer]?
+    
+    public var drawers: [Drawer]? {
+        let ds = content.filter { node in
+            return node is Drawer
+            }.map { node in
+                return node as! Drawer
+        }
+        return ds
+    }
     public var tags: [String]?
     
     public var content = [Node]()
@@ -65,7 +73,6 @@ extension OrgParser {
             _ = tokens.dequeue()
             var section = Section(stars: l, title: t, todos: document.todos.flatMap{ $0 })
             section.index = index
-            section.drawers = try lookForDrawers()
             var subIndex = index.in
             while let subSection = try parseSection(subIndex) {
                 section.content.append(subSection)
