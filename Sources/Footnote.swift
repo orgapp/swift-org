@@ -19,12 +19,12 @@ public struct Footnote: Node {
 
 extension OrgParser {
     func parseFootnote() throws -> Footnote {
-        guard case let (_, .footnote(label, content)) = tokens.dequeue()! else {
+        guard case let .footnote(label, content) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("footnote expected")
         }
         
         var footnote = Footnote(label: label, content: [try parseParagraph(content)!])
-        while let (_, token) = tokens.peek() {
+        while let token = tokens.peek() {
             switch token {
             case .headline, .footnote:
                 return footnote

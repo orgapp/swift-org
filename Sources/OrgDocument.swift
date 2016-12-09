@@ -46,7 +46,7 @@ public struct OrgDocument: Node {
 extension OrgParser {
     func parseDocument() throws -> OrgDocument {
         var index = OrgIndex([0])
-        while let (_, token) = tokens.peek() {
+        while let token = tokens.peek() {
             switch token {
             case let .setting(key, value):
                 _ = tokens.dequeue()

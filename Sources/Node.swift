@@ -65,7 +65,7 @@ extension Node {
 
 extension OrgParser {
     func parseTheRest() throws -> Node? {
-        guard let (_, token) = tokens.peek() else {
+        guard let token = tokens.peek() else {
             return nil
         }
         switch token {
@@ -83,9 +83,6 @@ extension OrgParser {
             return try parseDrawer()
         case .listItem:
             return try parseList()
-        case .drawerBegin, .drawerEnd:
-            _ = tokens.dequeue() // discard non-functional drawers
-            return nil
         default:
             throw Errors.unexpectedToken("\(token) is not expected")
         }

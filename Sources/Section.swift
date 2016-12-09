@@ -62,7 +62,7 @@ extension OrgParser {
     func parseSection(_ index: OrgIndex) throws -> Node? {
         skipBlanks() // in a section, you don't care about blanks
         
-        guard let (_, token) = tokens.peek() else {
+        guard let token = tokens.peek() else {
             return nil
         }
         switch token {

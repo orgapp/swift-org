@@ -8,11 +8,11 @@
 
 import SwiftOrg
 
-extension TokenMeta: Equatable {
-    public static func ==(lhs: TokenMeta, rhs: TokenMeta) -> Bool {
-        return lhs.lineNumber == rhs.lineNumber && lhs.raw == rhs.raw
-    }
-}
+//extension TokenMeta: Equatable {
+//    public static func ==(lhs: TokenMeta, rhs: TokenMeta) -> Bool {
+//        return lhs.lineNumber == rhs.lineNumber && lhs.raw == rhs.raw
+//    }
+//}
 
 extension Token: Equatable {
     public static func ==(lhs: Token, rhs: Token) -> Bool {

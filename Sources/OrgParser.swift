@@ -15,7 +15,7 @@ public enum Errors: Error {
 
 public class OrgParser {
     // MARK: properties
-    var tokens: Queue<TokenWithMeta>!
+    var tokens: Queue<Token>!
     var document: OrgDocument!
     public var defaultTodos: [[String]]
     
@@ -25,14 +25,14 @@ public class OrgParser {
     }
     
     func skipBlanks() {
-        while let token = tokens.peek(), case .blank = token.1 {
+        while let token = tokens.peek(), case .blank = token {
             _ = tokens.dequeue()
         }
     }
         
     // MARK: parse document
-    func parse(tokens: [TokenWithMeta]) throws -> OrgDocument {
-        self.tokens = Queue<TokenWithMeta>(data: tokens)
+    func parse(tokens: [Token]) throws -> OrgDocument {
+        self.tokens = Queue<Token>(data: tokens)
         document = OrgDocument(todos: defaultTodos)
         return try parseDocument()
     }

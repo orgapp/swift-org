@@ -25,19 +25,21 @@ public struct Block: Node {
 
 extension OrgParser {
     func parseBlock() throws -> Node {
-        guard case let (_, Token.blockBegin(name, params)) = tokens.dequeue()! else {
+        guard case let Token.blockBegin(name, params) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("BlockBegin expected")
         }
         var block = Block(name: name, params: params)
-        while let (m, token) = tokens.dequeue() {
+        while let token = tokens.dequeue() {
             switch token {
             case let .blockEnd(n):
                 if n.lowercased() != name.lowercased() {
                     throw Errors.unexpectedToken("Expecting BlockEnd of type \(name), but got \(n)")
                 }
                 return block
+            case .line(let text):
+                block.content.append(text)
             default:
-                block.content.append(m.raw ?? "")
+                throw Errors.unexpectedToken("\(token)")
             }
         }
         throw Errors.cannotFindToken("BlockEnd")

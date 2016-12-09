@@ -40,16 +40,18 @@ public struct Drawer: Node {
 //
 extension OrgParser {
     func parseDrawer() throws -> Drawer {
-        guard case let (_, Token.drawerBegin(name)) = tokens.dequeue()! else {
+        guard case let Token.drawerBegin(name) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("drawerBegin expected")
         }
         var drawer = Drawer(name)
-        while let (m, token) = tokens.dequeue() {
+        while let token = tokens.dequeue() {
             switch token {
             case .drawerEnd:
                 return drawer
+            case .line(let text):
+                drawer.content.append(text)
             default:
-                drawer.content.append(m.raw ?? "")
+                throw Errors.unexpectedToken("\(token)")
             }
         }
         throw Errors.cannotFindToken("BlockEnd")
