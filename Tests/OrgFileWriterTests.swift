@@ -11,23 +11,14 @@ import SwiftOrg
 
 class OrgFileWriterTests: XCTestCase {
 
-    var doc: OrgDocument?
-    
-    override func setUp() {
-        super.setUp()
-        do {
-            let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
-            let content = try String(contentsOfFile: path!)
-            let parser = OrgParser()
-            doc = try parser.parse(content: content)
+    func testOrgFileWriter() throws {
+        
+        let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
+        let content = try String(contentsOfFile: path!)
+        let parser = OrgParser()
+        let doc = try parser.parse(content: content)
 
-        } catch {
-            XCTFail("ERROR: \(error)")
-        }
-    }
-
-    func testOrgFileWriter() {
-        let text = doc!.toText()
+        let text = doc.toText()
         print(text)
     }
     

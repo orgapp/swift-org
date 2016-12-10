@@ -36,7 +36,7 @@ extension OrgParser {
                     throw Errors.unexpectedToken("Expecting BlockEnd of type \(name), but got \(n)")
                 }
                 return block
-            case .line(let text):
+            case .raw(let text):
                 block.content.append(text)
             default:
                 throw Errors.unexpectedToken("\(token)")

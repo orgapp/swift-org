@@ -27,29 +27,25 @@ public enum Token {
     case comment(String?)
     case line(text: String)
     case footnote(label: String, content: String?)
+    case raw(String)
 }
 
 typealias TokenGenerator = ([String?]) -> Token
-typealias TokenParing = (Token) -> ((Token) -> Bool)?
 
 struct TokenDescriptor {
     let pattern: String
     let options: NSRegularExpression.Options
-    var generator: TokenGenerator
-    var pairing: TokenParing
+    let generator: TokenGenerator
+    
     
     init(_ thePattern: String,
          options theOptions: NSRegularExpression.Options = [],
-         pairing thePairing: @escaping TokenParing = { _ in nil },
-         generator theGenerator: @escaping TokenGenerator = { matches in .line(text: matches[0]!)}) {
+         generator theGenerator: @escaping TokenGenerator = { matches in .raw(matches[0]!) }) {
         pattern = thePattern
         options = theOptions
-        pairing = thePairing
         generator = theGenerator
     }
 }
-
-var tokenDescriptors: [TokenDescriptor] = []
 
 func define(_ pattern: String,
             options: NSRegularExpression.Options = [],
@@ -60,21 +56,46 @@ func define(_ pattern: String,
                         generator: generator))
 }
 
-func advDefine(_ pattern: String,
-               options: NSRegularExpression.Options = [],
-               that tweak: (TokenDescriptor) -> TokenDescriptor) {
-    let td = TokenDescriptor(pattern, options: options)
-    tokenDescriptors.append(tweak(td))
+struct PairedTokenProcessor {
+    let closureMatcher: (Token) -> Bool
+    let contentToken: (String) -> Token
+    let fallbackToken: (String) -> Token
+    
+    init(closureMatcher cm: @escaping (Token) -> Bool,
+         contentToken ct: @escaping (String) -> Token = { line in .raw(line) },
+         fallbackToken ft: @escaping (String) -> Token = { line in .line(text: line)}) {
+        closureMatcher = cm
+        contentToken = ct
+        fallbackToken = ft
+    }
 }
+
+func pairing(_ token: Token) -> PairedTokenProcessor? {
+    switch token {
+    case .blockBegin(let name, _):
+        return PairedTokenProcessor(
+            closureMatcher: { token in
+                if case .blockEnd(let blockEndName) = token {
+                    return blockEndName.lowercased() == name.lowercased()
+                }
+                return false
+        })
+    case .drawerBegin:
+        return PairedTokenProcessor(
+            closureMatcher: { token in
+                if case .drawerEnd = token { return true }
+                return false
+        })
+    default:
+        return nil
+    }
+}
+
+var tokenDescriptors: [TokenDescriptor] = []
 
 func defineTokens() {
     if tokenDescriptors.count > 0 {return}
-    
-//    tokenDescriptors.append(TokenDescriptor("^\\s*$") { _ in .blank })
-//    tokenDescriptors.append(
-//        TokenDescriptor("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches in
-//            .setting(key: matches[1]!, value: matches[2]) })
-    
+        
     define("^\\s*$") { _ in .blank }
     
     define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches in
@@ -84,30 +105,14 @@ func defineTokens() {
         .headline(stars: matches[1]!.characters.count, text: matches[2]) }
     
     // Block
-    
-    advDefine("^(\\s*)#\\+begin_([a-z]+)(?:\\s+(.*))?$",
+    define("^(\\s*)#\\+begin_([a-z]+)(?:\\s+(.*))?$",
            options: [.caseInsensitive])
-    { tokenDescriptor in
-        var td = tokenDescriptor
-        td.pairing = { token in
-            if case .blockBegin(let name, _) = token {
-                return { token in
-                    if case .blockEnd(let n) = token {
-                        return n.lowercased() == name.lowercased()
-                    }
-                    return false
-                }
-            }
-            return nil
+    { matches in
+        var params: [String]?
+        if let m3 = matches[3] {
+            params = m3.characters.split{$0 == " "}.map(String.init)
         }
-        td.generator = { matches in
-            var params: [String]?
-            if let m3 = matches[3] {
-                params = m3.characters.split{$0 == " "}.map(String.init)
-            }
-            return .blockBegin(name: matches[2]!, params: params)
-        }
-        return td
+        return .blockBegin(name: matches[2]!, params: params)
     }
     
     define("^(\\s*)#\\+end_([a-z]+)$", options: [.caseInsensitive]) { matches in
@@ -117,21 +122,9 @@ func defineTokens() {
     
     define("^(\\s*):end:\\s*$", options: [.caseInsensitive]) { _ in .drawerEnd }
     
-    advDefine("^(\\s*):([a-z]+):\\s*$",
-           options: [.caseInsensitive])
-    { tokenDescriptor in
-        var td = tokenDescriptor
-        td.pairing = { _ in
-            return { token in
-                if case .drawerEnd = token { return true }
-                return false
-            }
-        }
-        td.generator = { matches in
-            .drawerBegin(name: matches[2]!)
-        }
-        return td
-    }
+    define("^(\\s*):([a-z]+):\\s*$",
+           options: [.caseInsensitive]) { matches in
+            .drawerBegin(name: matches[2]!) }
     
     define("^(\\s*)([-+*]|\\d+(?:\\.|\\)))\\s+(?:\\[([ X-])\\]\\s+)?(.*)$") { matches in
         var ordered = true
@@ -157,12 +150,3 @@ func defineTokens() {
         .line(text: matches[2]!) }
     
 }
-
-func tokenize(line: String) -> Token? {
-    for td in tokenDescriptors {
-        guard let m = line.match(td.pattern, options: td.options) else { continue }
-        return td.generator(m)
-    }
-    return nil
-}
-

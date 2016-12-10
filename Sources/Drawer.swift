@@ -48,7 +48,7 @@ extension OrgParser {
             switch token {
             case .drawerEnd:
                 return drawer
-            case .line(let text):
+            case .raw(let text):
                 drawer.content.append(text)
             default:
                 throw Errors.unexpectedToken("\(token)")
