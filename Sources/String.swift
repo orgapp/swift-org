@@ -1,6 +1,6 @@
 //
 //  String.swift
-//  CocoaOrg
+//  SwiftOrg
 //
 //  Created by Xiaoxing Hu on 15/08/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.

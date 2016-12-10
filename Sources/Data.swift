@@ -1,6 +1,6 @@
 //
 //  Data.swift
-//  CocoaOrg
+//  SwiftOrg
 //
 //  Created by Xiaoxing Hu on 31/08/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.

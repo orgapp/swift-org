@@ -1,6 +1,6 @@
 //
 //  ParserTests.swift
-//  CocoaOrg
+//  SwiftOrg
 //
 //  Created by Xiaoxing Hu on 27/08/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.

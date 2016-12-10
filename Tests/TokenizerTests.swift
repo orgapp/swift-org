@@ -1,6 +1,6 @@
 //
-//  CocoaOrgTests.swift
-//  CocoaOrgTests
+//  SwiftOrgTests.swift
+//  SwiftOrgTests
 //
 //  Created by Xiaoxing Hu on 14/08/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  Asserts.swift
-//  CocoaOrg
+//  SwiftOrg
 //
 //  Created by Xiaoxing Hu on 15/09/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.

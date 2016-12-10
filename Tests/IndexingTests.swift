@@ -1,6 +1,6 @@
 //
 //  IndexingTests.swift
-//  CocoaOrg
+//  SwiftOrg
 //
 //  Created by Xiaoxing Hu on 17/11/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.

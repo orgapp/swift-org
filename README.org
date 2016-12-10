@@ -1,11 +1,11 @@
-#+TITLE: CocoaOrg
+#+TITLE: SwiftOrg
 
-* org-mode Parser for Cocoa
+* org-mode Parser for Swift
 
-  [[https://travis-ci.org/xiaoxinghu/CocoaOrg.svg?branch=master]]
+  [[https://travis-ci.org/xiaoxinghu/SwiftOrg.svg?branch=master]]
   [[https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000]]
   [[https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat]]
-  [[https://img.shields.io/github/release/xiaoxinghu/CocoaOrg.svg?maxAge=2592000]]
+  [[https://img.shields.io/github/release/xiaoxinghu/SwiftOrg.svg?maxAge=2592000]]
 
   [[http://orgmode.org/][org-mode]] is awesome. This is the first step to bring it to iOS, (arguably) the
   most popular platform on the planet.
@@ -14,7 +14,7 @@
   An simple example will explain everything.
 
   #+BEGIN_SRC swift
-    import CocoaOrg
+    import SwiftOrg
 
     let lines = [
         "* TODO head line",
@@ -177,7 +177,7 @@
 * TODO Performance Test
 
 * Contribute
-  CocoaOrg is written in Swift 3. So you need xcode 8 to be able to build it.
+  SwiftOrg is written in Swift 3. So you need xcode 8 to be able to build it.
 ** Setup
    #+BEGIN_SRC bash
      ./bin/setup

@@ -1,6 +1,6 @@
 //
 //  ListTests.swift
-//  CocoaOrg
+//  SwiftOrg
 //
 //  Created by Xiaoxing Hu on 17/09/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.
