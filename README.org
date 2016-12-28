@@ -2,10 +2,10 @@
 
 * org-mode Parser for Swift
 
-  [[https://travis-ci.org/xiaoxinghu/SwiftOrg.svg?branch=master]]
+  [[https://travis-ci.org/xiaoxinghu/swift-org.svg?branch=master]]
   [[https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000]]
   [[https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat]]
-  [[https://img.shields.io/github/release/xiaoxinghu/SwiftOrg.svg?maxAge=2592000]]
+  [[https://img.shields.io/github/release/xiaoxinghu/swift-org.svg?maxAge=2592000]]
 
   [[http://orgmode.org/][org-mode]] is awesome. This is the first step to bring it to iOS, (arguably) the
   most popular platform on the planet.
@@ -185,3 +185,4 @@
    #+END_SRC
 * License
   Carthage is released under the [[LICENSE.md][MIT License]].
+
