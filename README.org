@@ -24,8 +24,8 @@
     let doc = try parser.parse(lines: lines)
   #+END_SRC
 
-* Supported Syntax (so far) [14/17]
-** DONE Keywords (aka In Buffer Settings)
+* Supported Syntax (so far) [15/18]
+** DONE Affiliated Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
    
    #+BEGIN_SRC org
@@ -40,6 +40,34 @@
    * Head Line 2
    ** Head Line 2.1
    *** Head Line 2.1.1
+   #+END_SRC
+
+** DONE TODO Keywords
+   CLOSED: [2016-12-31 Sat 14:12]
+   #+BEGIN_SRC org
+     ,#+TODO: TODO NEXT | DONE
+
+     ,* TODO Head Line 1
+     ,* NEXT Head Line 2
+     ,** DONE Head Line 2.1
+        CLOSED: [2016-12-31 Sat 14:12]
+   #+END_SRC
+
+** DONE [#A] Priority
+   CLOSED: [2016-09-30 Fri 12:17]
+   #+BEGIN_SRC org
+     ,* TODO [#A] Top Priority Task
+     ,* [#B] Medium Priority Item
+     ,* TODO [#c] Low Priority Task
+     ,* TODO [#D] No Priority Task
+   #+END_SRC
+
+** DONE Tags
+   CLOSED: [2016-09-30 Fri 14:52]
+   
+   #+BEGIN_SRC org
+     ,* Section with One Tag                                                :tag1:
+     ,* Section with multiple tags                                 :tag1:tag2:tag3:
    #+END_SRC
 
 ** DONE Paragraph
@@ -146,24 +174,6 @@
      - [ ] item three not checked
    #+END_SRC
 
-** DONE [#A] Priority
-   CLOSED: [2016-09-30 Fri 12:17]
-   #+BEGIN_SRC org
-     ,* TODO [#A] Top Priority Task
-     ,* [#B] Medium Priority Item
-     ,* TODO [#c] Low Priority Task
-     ,* TODO [#D] No Priority Task
-   #+END_SRC
-
-** DONE Tags
-   CLOSED: [2016-09-30 Fri 14:52]
-   
-   #+BEGIN_SRC org
-     ,* Section with One Tag                                                :tag1:
-     ,* Section with multiple tags                                 :tag1:tag2:tag3:
-   #+END_SRC
-
-
 ** TODO Table
 
 ** TODO Clock
@@ -184,5 +194,6 @@
      ./bin/test
    #+END_SRC
 * License
-  Carthage is released under the [[LICENSE.md][MIT License]].
+  Carthage is released under the [[https://github.com/xiaoxinghu/swift-org/blob/master/LICENSE][MIT LIcense]].
 
+  
