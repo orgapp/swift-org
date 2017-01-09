@@ -61,6 +61,18 @@ func toDict(_ node: Node) -> [String: Any] {
         json["label"] = footnote.label
         json["content"] = footnote.content.map { n in toDict(n) }
     }
+    if let planning = node as? Planning {
+        json["type"] = "planning"
+        json["keyword"] = planning.keyword.rawValue
+        // TODO: jsonfiy timestamp
+//        if let timestamp = planning.timestamp {
+//            var ts = [String: Any]()
+//            ts["active"] = timestamp.active
+//            ts["date"] = timestamp.date
+//            ts["repeater"] = timestamp.repeater
+//            json["timestamp"] = ts
+//        }
+    }
     return json
 }
 

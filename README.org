@@ -24,7 +24,7 @@
     let doc = try parser.parse(lines: lines)
   #+END_SRC
 
-* Supported Syntax (so far) [15/18]
+* Supported Syntax (so far) [16/19]
 ** DONE Affiliated Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
    
@@ -68,6 +68,20 @@
    #+BEGIN_SRC org
      ,* Section with One Tag                                                :tag1:
      ,* Section with multiple tags                                 :tag1:tag2:tag3:
+   #+END_SRC
+
+** DONE Planning
+   CLOSED: [2017-01-09 Mon 16:09]
+
+   #+BEGIN_SRC org
+     ,* DONE Closed task
+       CLOSED: [2017-01-09 Mon 15:58]
+
+     ,* Scheduled task
+       SCHEDULED: <2017-01-09 Mon>
+
+     ,* TODO task that has a deadline
+       DEADLINE: <2017-01-16 Mon +1w>
    #+END_SRC
 
 ** DONE Paragraph

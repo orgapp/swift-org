@@ -83,6 +83,9 @@ extension OrgParser {
             return try parseDrawer()
         case .listItem:
             return try parseList()
+        case .planning(let keyword, let timestamp):
+            _ = tokens.dequeue()
+            return Planning(keyword: keyword, timestamp: timestamp)
         default:
             throw Errors.unexpectedToken("\(token) is not expected")
         }
