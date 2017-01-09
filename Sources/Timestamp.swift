@@ -9,14 +9,14 @@
 import Foundation
 
 public struct Timestamp {
-    let active: Bool
-    let date: Date
-    let repeater: String?
+    public let active: Bool
+    public let date: Date
+    public let repeater: String?
     
     static func from(string: String) -> Timestamp? {
         let markPattern = "\\+|\\+\\+|\\.\\+|-|--"
         let pattern = "^(<|\\[)(.+?)(?: (\(markPattern))(\\d+)([hdwmy])\\s*)?(>|])$"
-        guard let m = string.match(pattern) else {
+        guard let m = string.trimmed.match(pattern) else {
             print("'\(string)' doesn't match.")
             return nil
         }
@@ -24,15 +24,23 @@ public struct Timestamp {
         print("match: \(m)")
         
         let formater = DateFormatter()
-        formater.dateFormat = "yyyy-MM-dd EEE H:mm"
-        guard let date = formater.date(from: m[2]!) else { return nil }
-        let active = m[1]! == "<"
+        let formats = [
+            "yyyy-MM-dd EEE H:mm",
+            "yyyy-MM-dd EEE",
+        ]
         
-        var repeater: String? = nil
-        if let mark = m[3], let value = m[4], let unit = m[5] {
-            repeater = "\(mark)\(value)\(unit)"
+        for format in formats {
+            formater.dateFormat = format
+            guard let date = formater.date(from: m[2]!) else { continue }
+            let active = m[1]! == "<"
+            
+            var repeater: String? = nil
+            if let mark = m[3], let value = m[4], let unit = m[5] {
+                repeater = "\(mark)\(value)\(unit)"
+            }
+            let timestamp = Timestamp(active: active, date: date, repeater: repeater)
+            return timestamp
         }
-        let timestamp = Timestamp(active: active, date: date, repeater: repeater)
-        return timestamp
+        return nil
     }
 }

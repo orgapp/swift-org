@@ -15,17 +15,9 @@ public struct TokenMeta {
 }
 
 public enum Token {
-    public enum Planning: String {
-        case deadline = "DEADLINE"
-        case scheduled = "SCHEDULED"
-        case closed = "CLOSED"
-        
-        static let all = [deadline.rawValue, scheduled.rawValue, closed.rawValue]
-    }
-    
     case setting(key: String, value: String?)
     case headline(stars: Int, text: String?)
-    case planning(keyword: Planning, timestamp: Timestamp?)
+    case planning(keyword: PlanningKeyword, timestamp: Timestamp?)
     case blank
     case horizontalRule
     case blockBegin(name: String, params: [String]?)
@@ -113,10 +105,9 @@ func defineTokens() {
     define("^(\\*+)\\s+(.*)$") { matches in
         .headline(stars: matches[1]!.characters.count, text: matches[2]) }
     
-    define("^(\(Token.Planning.all.joined(separator: "|"))):\\s+(.+)$") { matches in
-        let df = DateFormatter()
-        let timestamp = df.date(from: matches[2]!)
-        return .planning(keyword: Token.Planning(rawValue: matches[1]!)!, timestamp: timestamp)
+    define("^\\s*(\(PlanningKeyword.all.joined(separator: "|"))):\\s+(.+)$") { matches in
+        let timestamp = Timestamp.from(string: matches[2]!)
+        return .planning(keyword: PlanningKeyword(rawValue: matches[1]!)!, timestamp: timestamp)
     }
     // Block
     define("^(\\s*)#\\+begin_([a-z]+)(?:\\s+(.*))?$",

@@ -159,4 +159,31 @@ class ParseHeadlineTests: XCTestCase {
         }
     }
     
+    func testPlanning() {
+        let keyword = "CLOSED"
+        let date = "2017-01-09"
+        let day = "Tue"
+        let time = "18:00"
+        guard let doc = parse([
+            "* line with planning",
+            "  \(keyword): [\(date) \(day) \(time)]",
+            "* line without planning",
+            ]) else { XCTFail("failed to parse lines."); return }
+        
+        eval(doc.content[0]) { sec in
+            XCTAssertNotNil(sec.planning)
+            guard let planning = sec.planning else {
+                XCTFail("Failed to parse planning")
+                return
+            }
+            XCTAssertEqual(planning.keyword.rawValue, keyword)
+            XCTAssertFalse(planning.timestamp!.active)
+            XCTAssertEqual(planning.timestamp?.date, quickDate(date: date, time: time))
+        }
+        
+        eval(doc.content[1]) { sec in
+            XCTAssertNil(sec.planning)
+        }
+    }
+    
 }

@@ -42,7 +42,37 @@ class TokenizerTests: XCTestCase {
     }
     
     func testTokenPlanning() {
-        evalPlanning("CLOSED: hello world", keyword: "CLOSED", timestamp: Date())
+        let date = "2017-01-09"
+        let time = "18:00"
+        let day = "Tue"
+        
+        let theDate = quickDate(date: date, time: time)
+
+        evalPlanning("CLOSED: [\(date) \(day) \(time)]",
+            keyword: "CLOSED",
+            timestamp: Timestamp(active: false, date: theDate, repeater: nil))
+        evalPlanning("SCHEDULED: <\(date) \(day) \(time) +2w>", // with repeater
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("SCHEDULED:   <\(date) \(day) \(time) +2w>", // with extra spaces before timestamp
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("   SCHEDULED: <\(date) \(day) \(time) +2w>", // with leading space
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("SCHEDULED: <\(date) \(day) \(time) +2w>     ", // with trailing space
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("    SCHEDULED: <\(date) \(day) \(time) +2w>     ", // with leading & trailing space
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+
+        // illegal ones are considered normal line
+        evalLine("closed: <\(date) \(day) \(time)>", // case sensitive
+            text: "closed: <\(date) \(day) \(time)>")
+        
+        evalLine("OPEN: <\(date) \(day) \(time)>", // illegal keyword
+            text: "OPEN: <\(date) \(day) \(time)>")
     }
     
     func testTokenBlockBegin() {

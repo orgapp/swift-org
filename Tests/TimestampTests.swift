@@ -16,19 +16,6 @@ let _day = "Tue"
 let _time = "18:00"
 let _repeater = "+2w"
 
-fileprivate func quickDate(date: String, time: String) -> Date {
-    let dateParts = date.components(separatedBy: "-").map { Int($0) }
-    let timeParts = time.components(separatedBy: ":").map { Int($0) }
-    let components = DateComponents(
-        calendar: calendar,
-        year: dateParts[0],
-        month: dateParts[1],
-        day: dateParts[2],
-        hour: timeParts[0],
-        minute: timeParts[1])
-    return components.date!
-}
-
 class TimestampTests: XCTestCase {
 
     func testParseTimestamp() {
@@ -51,6 +38,17 @@ class TimestampTests: XCTestCase {
             XCTAssertFalse(timestamp.active)
         } else {
             XCTFail("Failed to parse \(inactiveTimestamp)")
+            return
+        }
+        
+        let timstampWithoutTime = "[\(_date) \(_day)]"
+        if let timestamp = Timestamp.from(string: timstampWithoutTime) {
+            XCTAssertNotNil(timestamp)
+            let date = quickDate(date: _date)
+            XCTAssertEqual(date, timestamp.date)
+            XCTAssertFalse(timestamp.active)
+        } else {
+            XCTFail("Failed to parse \(timstampWithoutTime)")
             return
         }
     }
