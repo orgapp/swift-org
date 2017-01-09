@@ -59,6 +59,13 @@ func evalHeadline(_ str: String, stars: Int, text: String?,
            file: file, line: line)
 }
 
+func evalPlanning(_ str: String, keyword: String, timestamp: Timestamp?,
+                  file: StaticString = #file, line: UInt = #line) {
+    let token = Lexer.tokenize(line: str)
+    expect(token!, toBe: .planning(keyword: PlanningKeyword(rawValue: keyword)!, timestamp: timestamp),
+           file: file, line: line)
+}
+
 func evalSetting(_ str: String, key: String, value: String?,
                   file: StaticString = #file, line: UInt = #line) {
     let token = Lexer.tokenize(line: str)

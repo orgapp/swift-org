@@ -8,20 +8,17 @@
 
 import Foundation
 
-
 public struct Section: Node {
-    public enum Priority: String {
-        case A = "A"
-        case B = "B"
-        case C = "C"
-    }
     
+    // MARK: properties
     public var index: OrgIndex?
 
     public var title: String?
     public var stars: Int
     public var keyword: String?
     public var priority: Priority?
+    public var tags: [String]?
+    public var content = [Node]()
     
     public var drawers: [Drawer]? {
         let ds = content.filter { node in
@@ -31,10 +28,12 @@ public struct Section: Node {
         }
         return ds
     }
-    public var tags: [String]?
     
-    public var content = [Node]()
+    public var planning: Planning? {
+        return content.first { $0 is Planning } as? Planning
+    }
     
+    // MARK: func
     public init(stars l: Int, title t: String?, todos: [String]) {
         stars = l
         // TODO limit charset on tags
@@ -55,6 +54,15 @@ public struct Section: Node {
     
     public var description: String {
         return "Section[\(index)](stars: \(stars), keyword: \(keyword)), priority: \(priority)), title: \(title)\n - tags: \(tags)\n - \(drawers)\n - \(content)"
+    }
+}
+
+public struct Planning: Node {
+    public let keyword: PlanningKeyword
+    public let timestamp: Timestamp?
+    
+    public var description: String {
+        return "Planning(keyword: \(keyword), timestamp: \(timestamp))"
     }
 }
 

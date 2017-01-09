@@ -41,6 +41,40 @@ class TokenizerTests: XCTestCase {
         evalListItem(" * ", indent: 1, text: nil, ordered: false)
     }
     
+    func testTokenPlanning() {
+        let date = "2017-01-09"
+        let time = "18:00"
+        let day = "Tue"
+        
+        let theDate = quickDate(date: date, time: time)
+
+        evalPlanning("CLOSED: [\(date) \(day) \(time)]",
+            keyword: "CLOSED",
+            timestamp: Timestamp(active: false, date: theDate, repeater: nil))
+        evalPlanning("SCHEDULED: <\(date) \(day) \(time) +2w>", // with repeater
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("SCHEDULED:   <\(date) \(day) \(time) +2w>", // with extra spaces before timestamp
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("   SCHEDULED: <\(date) \(day) \(time) +2w>", // with leading space
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("SCHEDULED: <\(date) \(day) \(time) +2w>     ", // with trailing space
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+        evalPlanning("    SCHEDULED: <\(date) \(day) \(time) +2w>     ", // with leading & trailing space
+            keyword: "SCHEDULED",
+            timestamp: Timestamp(active: true, date: theDate, repeater: "+2w"))
+
+        // illegal ones are considered normal line
+        evalLine("closed: <\(date) \(day) \(time)>", // case sensitive
+            text: "closed: <\(date) \(day) \(time)>")
+        
+        evalLine("OPEN: <\(date) \(day) \(time)>", // illegal keyword
+            text: "OPEN: <\(date) \(day) \(time)>")
+    }
+    
     func testTokenBlockBegin() {
         evalBlockBegin("#+begin_src java", type: "src", params: ["java"])
         evalBlockBegin("  #+begin_src", type: "src", params: nil)

@@ -10,7 +10,14 @@ import Foundation
 
 var expressions = [String: NSRegularExpression]()
 public extension String {
-    func getExpression(_ regex: String, options: NSRegularExpression.Options) -> NSRegularExpression {
+    
+    /// Cache regex (for performance and resource sake)
+    ///
+    /// - Parameters:
+    ///   - regex: regex pattern
+    ///   - options: options
+    /// - Returns: the regex
+    private func getExpression(_ regex: String, options: NSRegularExpression.Options) -> NSRegularExpression {
         let expression: NSRegularExpression
         if let exists = expressions[regex] {
             expression = exists
@@ -21,7 +28,7 @@ public extension String {
         return expression
     }
     
-    func getMatches(_ match: NSTextCheckingResult) -> [String?] {
+    private func getMatches(_ match: NSTextCheckingResult) -> [String?] {
         var matches = [String?]()
         switch match.numberOfRanges {
         case 0:

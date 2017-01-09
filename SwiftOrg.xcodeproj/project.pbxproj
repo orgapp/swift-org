@@ -74,6 +74,12 @@
 		03BBC42C1DF8191E003FCB3C /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3E91DF81863003FCB3C /* Lexer.swift */; };
 		03BBC42D1DF8191E003FCB3C /* OrgParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3EE1DF81863003FCB3C /* OrgParser.swift */; };
 		03BBC42E1DF8191E003FCB3C /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3F31DF81863003FCB3C /* Tokens.swift */; };
+		03C091121E21A4D100002E2F /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C091111E21A4D100002E2F /* Timestamp.swift */; };
+		03C091141E220DF500002E2F /* TimestampTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C091131E220DF500002E2F /* TimestampTests.swift */; };
+		03C091151E220ECD00002E2F /* TimestampTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C091131E220DF500002E2F /* TimestampTests.swift */; };
+		03C091161E220F2700002E2F /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C091111E21A4D100002E2F /* Timestamp.swift */; };
+		03C091181E2321FB00002E2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C091171E2321FB00002E2F /* Constants.swift */; };
+		03C091191E23222500002E2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C091171E2321FB00002E2F /* Constants.swift */; };
 		03D347BE1D71093C00F78D70 /* ParseParagraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */; };
 		03F9E6AC1D60411A0080E872 /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6AB1D60411A0080E872 /* TokenizerTests.swift */; };
 		A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22501D8A1D6A007796E2 /* Asserts.swift */; };
@@ -130,6 +136,9 @@
 		03BBC3F11DF81863003FCB3C /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		03BBC3F21DF81863003FCB3C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		03BBC3F31DF81863003FCB3C /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
+		03C091111E21A4D100002E2F /* Timestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
+		03C091131E220DF500002E2F /* TimestampTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimestampTests.swift; sourceTree = "<group>"; };
+		03C091171E2321FB00002E2F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseParagraphTests.swift; sourceTree = "<group>"; };
 		03F9E6A61D60411A0080E872 /* SwiftOrgTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftOrgTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F9E6AB1D60411A0080E872 /* TokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
@@ -212,10 +221,12 @@
 			isa = PBXGroup;
 			children = (
 				03BBC3E31DF81863003FCB3C /* Data.swift */,
+				03C091171E2321FB00002E2F /* Constants.swift */,
 				03BBC3E81DF81863003FCB3C /* JsonConverter.swift */,
 				03BBC3ED1DF81863003FCB3C /* OrgFileWriter.swift */,
 				03BBC3F01DF81863003FCB3C /* Regex.swift */,
 				03BBC3F21DF81863003FCB3C /* String.swift */,
+				03C091111E21A4D100002E2F /* Timestamp.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -262,6 +273,7 @@
 				A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */,
 				A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */,
 				A78044F31DDD06D000C8CE46 /* IndexingTests.swift */,
+				03C091131E220DF500002E2F /* TimestampTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -500,6 +512,7 @@
 				0382A1931DF827080015B475 /* TokenizerTests.swift in Sources */,
 				0382A1921DF827080015B475 /* TokenExtensions.swift in Sources */,
 				03AF26331DF97342002E71A7 /* LexerTests.swift in Sources */,
+				03C091151E220ECD00002E2F /* TimestampTests.swift in Sources */,
 				0382A19E1DF827080015B475 /* IndexingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,10 +527,12 @@
 				03BBC40D1DF818E6003FCB3C /* HorizontalRule.swift in Sources */,
 				03BBC4201DF818F1003FCB3C /* Regex.swift in Sources */,
 				03BBC4101DF818E6003FCB3C /* OrgDocument.swift in Sources */,
+				03C091161E220F2700002E2F /* Timestamp.swift in Sources */,
 				03BBC41E1DF818F1003FCB3C /* JsonConverter.swift in Sources */,
 				03BBC4271DF8191E003FCB3C /* Inline.swift in Sources */,
 				03BBC41D1DF818F1003FCB3C /* Data.swift in Sources */,
 				03BBC40A1DF818E6003FCB3C /* Comment.swift in Sources */,
+				03C091191E23222500002E2F /* Constants.swift in Sources */,
 				03BBC4121DF818E6003FCB3C /* Section.swift in Sources */,
 				03BBC4281DF8191E003FCB3C /* Lexer.swift in Sources */,
 				03BBC40C1DF818E6003FCB3C /* Footnote.swift in Sources */,
@@ -540,10 +555,12 @@
 				03BBC4171DF818E7003FCB3C /* HorizontalRule.swift in Sources */,
 				03BBC4251DF818F1003FCB3C /* Regex.swift in Sources */,
 				03BBC41A1DF818E7003FCB3C /* OrgDocument.swift in Sources */,
+				03C091121E21A4D100002E2F /* Timestamp.swift in Sources */,
 				03BBC4231DF818F1003FCB3C /* JsonConverter.swift in Sources */,
 				03BBC42B1DF8191E003FCB3C /* Inline.swift in Sources */,
 				03BBC4221DF818F1003FCB3C /* Data.swift in Sources */,
 				03BBC4141DF818E7003FCB3C /* Comment.swift in Sources */,
+				03C091181E2321FB00002E2F /* Constants.swift in Sources */,
 				03BBC41C1DF818E7003FCB3C /* Section.swift in Sources */,
 				03BBC42C1DF8191E003FCB3C /* Lexer.swift in Sources */,
 				03BBC4161DF818E7003FCB3C /* Footnote.swift in Sources */,
@@ -575,6 +592,7 @@
 				035EEA1D1D8D4FBB00A38F7E /* ParseHeadlineTests.swift in Sources */,
 				035EEA251D8D51FE00A38F7E /* ParseBlockTests.swift in Sources */,
 				0382A1A11DF9713B0015B475 /* LexerTests.swift in Sources */,
+				03C091141E220DF500002E2F /* TimestampTests.swift in Sources */,
 				A78044F41DDD06D000C8CE46 /* IndexingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
