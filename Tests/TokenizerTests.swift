@@ -41,6 +41,10 @@ class TokenizerTests: XCTestCase {
         evalListItem(" * ", indent: 1, text: nil, ordered: false)
     }
     
+    func testTokenPlanning() {
+        evalPlanning("CLOSED: hello world", keyword: "CLOSED", timestamp: Date())
+    }
+    
     func testTokenBlockBegin() {
         evalBlockBegin("#+begin_src java", type: "src", params: ["java"])
         evalBlockBegin("  #+begin_src", type: "src", params: nil)
