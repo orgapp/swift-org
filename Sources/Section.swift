@@ -37,7 +37,7 @@ public struct Section: Node {
     public init(stars l: Int, title t: String?, todos: [String]) {
         stars = l
         // TODO limit charset on tags
-        let pattern = "^(?:(\(todos.joined(separator: "|")))\\s+)?(?:\\[#([ABCabc])\\]\\s+)?(.*?)(?:\\s+((?:\\:.+)+\\:))?$"
+        let pattern = "^(?:(\(todos.joined(separator: "|")))\\s+)?(?:\\[#([ABCabc])\\]\\s+)?(.*?)(?:\\s+((?:\\:.+)+\\:)\\s*)?$"
         if let text = t, let m = text.match(pattern) {
             keyword = m[1]
             if let p = m[2] {
