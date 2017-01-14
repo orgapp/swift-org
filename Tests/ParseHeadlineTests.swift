@@ -149,12 +149,18 @@ class ParseHeadlineTests: XCTestCase {
         guard let doc = parse([
             "* line with one tag.   :tag1:",
             "* line with multiple tags.   :tag1:tag2:tag3:",
+            "* line with trailing spaces.   :tag1:tag2:tag3:  ",
             ]) else { XCTFail("failed to parse lines."); return }
 
         eval(doc.content[0]) { sec in
+            XCTAssertNotNil(sec.tags)
             XCTAssertEqual(sec.tags!, ["tag1"])
         }
         eval(doc.content[1]) { sec in
+            XCTAssertEqual(sec.tags!, ["tag1", "tag2", "tag3"])
+        }
+        
+        eval(doc.content[2]) { sec in
             XCTAssertEqual(sec.tags!, ["tag1", "tag2", "tag3"])
         }
     }
