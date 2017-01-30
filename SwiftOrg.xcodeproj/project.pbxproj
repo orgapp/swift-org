@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		035A617E1E3F11C7001CE563 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A617D1E3F11C7001CE563 /* Queue.swift */; };
 		035A617F1E3F11C7001CE563 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A617D1E3F11C7001CE563 /* Queue.swift */; };
+		035A61811E3F3BBA001CE563 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A61801E3F3BBA001CE563 /* Table.swift */; };
+		035A61821E3F3BBA001CE563 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A61801E3F3BBA001CE563 /* Table.swift */; };
+		035A61841E3F4928001CE563 /* ParseTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A61831E3F4928001CE563 /* ParseTableTests.swift */; };
+		035A61851E3F4928001CE563 /* ParseTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A61831E3F4928001CE563 /* ParseTableTests.swift */; };
 		035EEA1D1D8D4FBB00A38F7E /* ParseHeadlineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA1C1D8D4FBB00A38F7E /* ParseHeadlineTests.swift */; };
 		035EEA1F1D8D504A00A38F7E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA1E1D8D504A00A38F7E /* Utils.swift */; };
 		035EEA211D8D510000A38F7E /* ParseListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA201D8D510000A38F7E /* ParseListTests.swift */; };
@@ -104,6 +108,8 @@
 
 /* Begin PBXFileReference section */
 		035A617D1E3F11C7001CE563 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		035A61801E3F3BBA001CE563 /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		035A61831E3F4928001CE563 /* ParseTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseTableTests.swift; sourceTree = "<group>"; };
 		035EEA1C1D8D4FBB00A38F7E /* ParseHeadlineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHeadlineTests.swift; sourceTree = "<group>"; };
 		035EEA1E1D8D504A00A38F7E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		035EEA201D8D510000A38F7E /* ParseListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseListTests.swift; sourceTree = "<group>"; };
@@ -216,6 +222,7 @@
 				03BBC3EC1DF81863003FCB3C /* OrgDocument.swift */,
 				03BBC3EF1DF81863003FCB3C /* Paragraph.swift */,
 				03BBC3F11DF81863003FCB3C /* Section.swift */,
+				035A61801E3F3BBA001CE563 /* Table.swift */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -270,6 +277,7 @@
 				035EEA201D8D510000A38F7E /* ParseListTests.swift */,
 				035EEA221D8D51B800A38F7E /* ParseSettingTests.swift */,
 				035EEA241D8D51FE00A38F7E /* ParseBlockTests.swift */,
+				035A61831E3F4928001CE563 /* ParseTableTests.swift */,
 				03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */,
 				03B34A3F1D9B6B7900FB6393 /* ParseFootnote.swift */,
 				035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */,
@@ -509,6 +517,7 @@
 				0382A19D1DF827080015B475 /* OrgFileWriterTests.swift in Sources */,
 				0382A1991DF827080015B475 /* ParseFootnote.swift in Sources */,
 				0382A1901DF827080015B475 /* Asserts.swift in Sources */,
+				035A61851E3F4928001CE563 /* ParseTableTests.swift in Sources */,
 				0382A19A1DF827080015B475 /* InlineParsingTests.swift in Sources */,
 				0382A1951DF827080015B475 /* ParseListTests.swift in Sources */,
 				0382A1941DF827080015B475 /* ParseHeadlineTests.swift in Sources */,
@@ -541,6 +550,7 @@
 				03BBC4121DF818E6003FCB3C /* Section.swift in Sources */,
 				03BBC4281DF8191E003FCB3C /* Lexer.swift in Sources */,
 				03BBC40C1DF818E6003FCB3C /* Footnote.swift in Sources */,
+				035A61821E3F3BBA001CE563 /* Table.swift in Sources */,
 				03BBC4111DF818E6003FCB3C /* Paragraph.swift in Sources */,
 				03BBC40E1DF818E6003FCB3C /* List.swift in Sources */,
 				03BBC4211DF818F1003FCB3C /* String.swift in Sources */,
@@ -570,6 +580,7 @@
 				03BBC41C1DF818E7003FCB3C /* Section.swift in Sources */,
 				03BBC42C1DF8191E003FCB3C /* Lexer.swift in Sources */,
 				03BBC4161DF818E7003FCB3C /* Footnote.swift in Sources */,
+				035A61811E3F3BBA001CE563 /* Table.swift in Sources */,
 				03BBC41B1DF818E7003FCB3C /* Paragraph.swift in Sources */,
 				03BBC4181DF818E7003FCB3C /* List.swift in Sources */,
 				03BBC4261DF818F1003FCB3C /* String.swift in Sources */,
@@ -591,6 +602,7 @@
 				A7E95E7A1D91FA4D00FC4F02 /* JsonConverterTests.swift in Sources */,
 				A77DDD5A1D9C975D00120BA7 /* OrgFileWriterTests.swift in Sources */,
 				03F9E6AC1D60411A0080E872 /* TokenizerTests.swift in Sources */,
+				035A61841E3F4928001CE563 /* ParseTableTests.swift in Sources */,
 				035EEA271D8D526F00A38F7E /* InlineParsingTests.swift in Sources */,
 				035EEA1F1D8D504A00A38F7E /* Utils.swift in Sources */,
 				03D347BE1D71093C00F78D70 /* ParseParagraphTests.swift in Sources */,
