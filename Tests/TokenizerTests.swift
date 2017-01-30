@@ -137,4 +137,26 @@ class TokenizerTests: XCTestCase {
         evalLine("[fn:1]the footnote", text: "[fn:1]the footnote")
     }
     
+    func testTable() {
+        // valid table rows
+        evalTableRow("| hello | world | y'all |", cells: ["hello", "world", "y'all"])
+        evalTableRow("   | hello | world | y'all |", cells: ["hello", "world", "y'all"])
+        evalTableRow("|     hello | world       |y'all |", cells: ["hello", "world", "y'all"])
+        evalTableRow("| hello | world | y'all", cells: ["hello", "world", "y'all"])
+        evalTableRow("|+", cells: ["+"])
+        
+        // invalid table rows
+        evalLine(" hello | world | y'all |", text: "hello | world | y'all |")
+        
+        // horizontal separator
+        evalHorizontalSeparator("|----+---+----|")
+        evalHorizontalSeparator("|---=+---+----|")
+        evalHorizontalSeparator("   |----+---+----|")
+        evalHorizontalSeparator("|----+---+---")
+        evalHorizontalSeparator("|-")
+        evalHorizontalSeparator("|---")
+        
+        // invalud horizontal separator
+        evalLine("----+---+----|", text: "----+---+----|")
+    }
 }
