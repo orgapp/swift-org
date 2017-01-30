@@ -65,7 +65,7 @@ extension Node {
 
 extension OrgParser {
     func parseTheRest() throws -> Node? {
-        guard let token = tokens.peek() else {
+        guard let (_, token) = tokens.peek() else {
             return nil
         }
         switch token {

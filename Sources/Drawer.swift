@@ -22,63 +22,25 @@ public struct Drawer: Node {
     }
 }
 
-//extension Section {
-//    public struct Drawer: Node {
-//        public let name: String
-//        public var content: [String]?
-//        
-//        public init(_ name: String, content: [String]? = nil) {
-//            self.name = name
-//            self.content = content
-//        }
-//        
-//        public var description: String {
-//            return "Drawer(name: \(name), content: \(content))"
-//        }
-//    }
-//}
-//
 extension OrgParser {
-    func parseDrawer() throws -> Drawer {
-        guard case let Token.drawerBegin(name) = tokens.dequeue()! else {
+    func parseDrawer() throws -> Node? {
+        guard case let (meta, Token.drawerBegin(name)) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("drawerBegin expected")
         }
+        tokens.takeSnapshot()
         var drawer = Drawer(name)
-        while let token = tokens.dequeue() {
-            switch token {
-            case .drawerEnd:
-                return drawer
-            case .raw(let text):
-                drawer.content.append(text)
-            default:
-                throw Errors.unexpectedToken("\(token)")
-            }
-        }
-        throw Errors.cannotFindToken("BlockEnd")
-
+        var result: Node!
+        try lookAhead(match: { token in
+            if case .drawerEnd = token { return true }
+            return false
+        }, found: { token in
+            result = drawer
+        }, notYet: { tokenMeta in
+            drawer.content.append(tokenMeta.raw!)
+        }, failed: {
+            tokens.restore()
+            result = try parseParagraph(meta.raw!)
+        })
+        return result
     }
-//    func lookForDrawers() throws -> [Drawer]? {
-//        if tokens.isEmpty {
-//            return nil
-//        }
-//        guard case let (meta, .drawerBegin(name)) = tokens.peek()! else {
-//            return nil
-//        }
-//        tokens.takeSnapshot()
-//        _ = tokens.dequeue()
-//        var content: [String] = []
-//        while let (m, token) = tokens.dequeue() {
-//            if case .drawerEnd = token {
-//                var result = [Drawer(name, content: content)]
-//                if let drawers = try lookForDrawers() {
-//                    result.append(contentsOf: drawers)
-//                }
-//                return result
-//            }
-//            content.append((m.raw ?? "").trimmed)
-//        }
-//        tokens.restore()
-//        tokens.swapNext(with: (meta, .line(text: (meta.raw?.trimmed)!)))
-//        return nil
-//    }
 }

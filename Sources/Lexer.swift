@@ -32,41 +32,7 @@ open class Lexer {
         return nil
     }
     
-    
-    /// look ahead for matching tokens
-    ///
-    /// - Parameters:
-    ///   - index: start index
-    ///   - match: matcher
-    ///   - found: callback when found the target
-    ///   - notYet: callback for not yet
-    ///   - Failed: failed to find the match
-    /// - Throws: Lexer Error
-    func lookAhead(
-        index: Int,
-        match: (Token) -> Bool,
-        found: (Int, Token, String) -> Void,
-        notYet: (String) -> Void,
-        Failed: () -> Void) throws {
-        if index == lines.count {
-            Failed()
-            return
-        }
-        
-        let line = lines[index]
-        guard let token = Lexer.tokenize(line: line) else {
-            throw LexerErrors.tokenizeFailed(index, line)
-        }
-        
-        if match(token) {
-            found(index, token, line)
-        } else {
-            notYet(line)
-            try lookAhead(index: index + 1, match: match, found: found, notYet: notYet, Failed: Failed)
-        }
-    }
-    
-    func tokenize(cursor: Int = 0, tokens: [Token] = []) throws -> [Token] {
+    func tokenize(cursor: Int = 0, tokens: [TokenInfo] = []) throws -> [TokenInfo] {
         
         if lines.count == cursor { return tokens }
         let line = lines[cursor]
@@ -74,25 +40,9 @@ open class Lexer {
         guard let token = Lexer.tokenize(line: line) else {
             throw LexerErrors.tokenizeFailed(cursor, line)
         }
-        var newTokens = tokens
         
-        guard let pProcessor = pairing(token) else {
-            newTokens.append(token)
-            return try tokenize(cursor: cursor + 1, tokens: newTokens)
-        }
-        
-        var newCursor = cursor + 1
-        var tmpTokens = newTokens
-        tmpTokens.append(token)
-        
-        try lookAhead(index: cursor + 1,
-                      match: pProcessor.closureMatcher,
-                      found: { index, t, l in
-                        tmpTokens.append(t)
-                        newTokens = tmpTokens
-                        newCursor = index + 1
-        }, notYet: { tmpTokens.append(pProcessor.contentToken($0)) },
-           Failed: { newTokens.append(pProcessor.fallbackToken(line)) })
-        return try tokenize(cursor: newCursor, tokens: newTokens)        
+        return try tokenize(
+            cursor: cursor + 1,
+            tokens: tokens + [(TokenMeta(raw: line, lineNumber: cursor), token)])
     }
 }

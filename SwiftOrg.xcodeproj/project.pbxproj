@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		035A617E1E3F11C7001CE563 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A617D1E3F11C7001CE563 /* Queue.swift */; };
+		035A617F1E3F11C7001CE563 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035A617D1E3F11C7001CE563 /* Queue.swift */; };
 		035EEA1D1D8D4FBB00A38F7E /* ParseHeadlineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA1C1D8D4FBB00A38F7E /* ParseHeadlineTests.swift */; };
 		035EEA1F1D8D504A00A38F7E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA1E1D8D504A00A38F7E /* Utils.swift */; };
 		035EEA211D8D510000A38F7E /* ParseListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA201D8D510000A38F7E /* ParseListTests.swift */; };
@@ -101,6 +103,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		035A617D1E3F11C7001CE563 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		035EEA1C1D8D4FBB00A38F7E /* ParseHeadlineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHeadlineTests.swift; sourceTree = "<group>"; };
 		035EEA1E1D8D504A00A38F7E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		035EEA201D8D510000A38F7E /* ParseListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseListTests.swift; sourceTree = "<group>"; };
@@ -227,6 +230,7 @@
 				03BBC3F01DF81863003FCB3C /* Regex.swift */,
 				03BBC3F21DF81863003FCB3C /* String.swift */,
 				03C091111E21A4D100002E2F /* Timestamp.swift */,
+				035A617D1E3F11C7001CE563 /* Queue.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -524,6 +528,7 @@
 				03BBC4091DF818E6003FCB3C /* Block.swift in Sources */,
 				03BBC42A1DF8191E003FCB3C /* Tokens.swift in Sources */,
 				03BBC40B1DF818E6003FCB3C /* Drawer.swift in Sources */,
+				035A617F1E3F11C7001CE563 /* Queue.swift in Sources */,
 				03BBC40D1DF818E6003FCB3C /* HorizontalRule.swift in Sources */,
 				03BBC4201DF818F1003FCB3C /* Regex.swift in Sources */,
 				03BBC4101DF818E6003FCB3C /* OrgDocument.swift in Sources */,
@@ -552,6 +557,7 @@
 				03BBC4131DF818E7003FCB3C /* Block.swift in Sources */,
 				03BBC42E1DF8191E003FCB3C /* Tokens.swift in Sources */,
 				03BBC4151DF818E7003FCB3C /* Drawer.swift in Sources */,
+				035A617E1E3F11C7001CE563 /* Queue.swift in Sources */,
 				03BBC4171DF818E7003FCB3C /* HorizontalRule.swift in Sources */,
 				03BBC4251DF818F1003FCB3C /* Regex.swift in Sources */,
 				03BBC41A1DF818E7003FCB3C /* OrgDocument.swift in Sources */,

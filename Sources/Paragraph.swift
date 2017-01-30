@@ -28,7 +28,7 @@ extension OrgParser {
         if let firstLine = startWith {
             paragraph = Paragraph(lines: [firstLine])
         }
-        while let token = tokens.peek() {
+        while let (_, token) = tokens.peek() {
             if case .line(let t) = token {
                 paragraph = paragraph ?? Paragraph(lines: [])
                 paragraph?.lines.append(t)

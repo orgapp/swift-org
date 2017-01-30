@@ -21,7 +21,7 @@ fileprivate func eval(_ node: Node?, makesure: (Section) -> Void) {
         return
     }
     XCTAssertNotNil(section.index)
-    print(">> eval: \(section.index!)")
+    // print(">> eval: \(section.index!)")
 //    print("   hash: \(section.index!.hashValue)")
     makesure(section)
     for n in section.content {
@@ -32,7 +32,7 @@ fileprivate func eval(_ node: Node?, makesure: (Section) -> Void) {
 }
 
 class IndexingTests: XCTestCase {
-    
+
     func testIndexing() {
         let index = OrgIndex([0, 1, 2])
         XCTAssertEqual(index.in.description, "0.1.2.0")
@@ -40,7 +40,7 @@ class IndexingTests: XCTestCase {
         XCTAssertEqual(index.next.description, "0.1.3")
         XCTAssertEqual(index.prev.description, "0.1.1")
     }
-    
+
     func testSectionIndexing() {
         guard let doc = parse([
             "* Section 0",

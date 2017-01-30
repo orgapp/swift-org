@@ -17,12 +17,12 @@ class LexerTests: XCTestCase {
             "print hello world.",
 //            "#+end_src",
             ])
-        
-        let tokens = try lexer.tokenize()
-        print("--------------------------------------")
-        print("\(tokens)")
-        print("--------------------------------------")
+
+        _ = try lexer.tokenize()
+        // print("--------------------------------------")
+        // print("\(tokens)")
+        // print("--------------------------------------")
     }
-    
+
 
 }
