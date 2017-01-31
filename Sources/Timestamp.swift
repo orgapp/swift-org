@@ -17,11 +17,8 @@ public struct Timestamp {
         let markPattern = "\\+|\\+\\+|\\.\\+|-|--"
         let pattern = "^(<|\\[)(.+?)(?: (\(markPattern))(\\d+)([hdwmy])\\s*)?(>|])$"
         guard let m = string.trimmed.match(pattern) else {
-            print("'\(string)' doesn't match.")
             return nil
         }
-        
-        print("match: \(m)")
         
         let formater = DateFormatter()
         let formats = [

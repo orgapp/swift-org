@@ -51,12 +51,12 @@ public struct List: Node {
 
 extension OrgParser {
     func parseList() throws -> List {
-        guard case let Token.listItem(indent, text, ordered, checked) = tokens.dequeue()! else {
+        guard case let (_, Token.listItem(indent, text, ordered, checked)) = tokens.dequeue()! else {
             throw Errors.unexpectedToken("ListItem expected")
         }
         var list = List(ordered: ordered)
         list.items = [ListItem(text: text, checked: checked)]
-        while let token = tokens.peek() {
+        while let (_, token) = tokens.peek() {
             if case let .listItem(i, t, _, c) = token {
                 if i > indent {
                     var lastItem = list.items.removeLast()

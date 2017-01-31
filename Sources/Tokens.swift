@@ -14,6 +14,8 @@ public struct TokenMeta {
     public let lineNumber: Int
 }
 
+typealias TokenInfo = (TokenMeta, Token)
+
 public enum Token {
     case setting(key: String, value: String?)
     case headline(stars: Int, text: String?)
@@ -28,6 +30,8 @@ public enum Token {
     case comment(String?)
     case line(text: String)
     case footnote(label: String, content: String?)
+    case tableRow(cells: [String])
+    case horizontalSeparator
     case raw(String)
 }
 
@@ -55,41 +59,6 @@ func define(_ pattern: String,
         TokenDescriptor(pattern,
                         options: options,
                         generator: generator))
-}
-
-struct PairedTokenProcessor {
-    let closureMatcher: (Token) -> Bool
-    let contentToken: (String) -> Token
-    let fallbackToken: (String) -> Token
-    
-    init(closureMatcher cm: @escaping (Token) -> Bool,
-         contentToken ct: @escaping (String) -> Token = { line in .raw(line) },
-         fallbackToken ft: @escaping (String) -> Token = { line in .line(text: line)}) {
-        closureMatcher = cm
-        contentToken = ct
-        fallbackToken = ft
-    }
-}
-
-func pairing(_ token: Token) -> PairedTokenProcessor? {
-    switch token {
-    case .blockBegin(let name, _):
-        return PairedTokenProcessor(
-            closureMatcher: { token in
-                if case .blockEnd(let blockEndName) = token {
-                    return blockEndName.lowercased() == name.lowercased()
-                }
-                return false
-        })
-    case .drawerBegin:
-        return PairedTokenProcessor(
-            closureMatcher: { token in
-                if case .drawerEnd = token { return true }
-                return false
-        })
-    default:
-        return nil
-    }
 }
 
 var tokenDescriptors: [TokenDescriptor] = []
@@ -150,6 +119,20 @@ func defineTokens() {
     define("^\\[fn:(\\d+)\\](?:\\s+(.*))?$") { matches in
         .footnote(label: matches[1]!, content: matches[2])
     }
+    
+    // Table
+    
+    define("\\s*\\|-.*$") { matches in
+        return .horizontalSeparator
+    }
+    
+    define("^\\s*\\|(?:[^\\r\\n\\|]*\\|?)+$") { matches in
+        let cells = matches[0]!
+            .components(separatedBy: "|")
+            .map { $0.trimmed }
+            .filter { !$0.isEmpty }
+        return .tableRow(cells: cells)
+    }    
     
     define("^(\\s*)(.*)$") { matches in
         .line(text: matches[2]!) }

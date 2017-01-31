@@ -34,9 +34,6 @@ class InlineParsingTests: XCTestCase {
     func testCornerCases() {
         let text = "hello **world** ****world****"
         let tokens = InlineLexer(text: text).tokenize()
-        for t in tokens {
-            print(t)
-        }
         var index = 0
         XCTAssertEqual(tokens[index], .plain("hello ")); index += 1
         XCTAssertEqual(tokens[index], .bold("world")); index += 1

@@ -13,16 +13,14 @@ class LexerTests: XCTestCase {
 
     func testTokenBlock() throws {
         let lexer = Lexer(lines: [
-            "#+begin_src java",
-            "print hello world.",
-//            "#+end_src",
+            "| hello | world | y'all |",
             ])
-        
+
         let tokens = try lexer.tokenize()
-        print("--------------------------------------")
-        print("\(tokens)")
-        print("--------------------------------------")
+         print("--------------------------------------")
+         print("\(tokens)")
+         print("--------------------------------------")
     }
-    
+
 
 }
