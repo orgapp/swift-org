@@ -24,10 +24,10 @@
     let doc = try parser.parse(lines: lines)
   #+END_SRC
 
-* Supported Syntax (so far) [16/19]
+* Supported Syntax (so far) [17/19]
 ** DONE Affiliated Keywords (aka In Buffer Settings)
    CLOSED: [2016-09-03 Sat 12:47]
-   
+
    #+BEGIN_SRC org
    #+TITLE: Hello World
    #+OPTIONS: Hello World
@@ -64,7 +64,7 @@
 
 ** DONE Tags
    CLOSED: [2016-09-30 Fri 14:52]
-   
+
    #+BEGIN_SRC org
      ,* Section with One Tag                                                :tag1:
      ,* Section with multiple tags                                 :tag1:tag2:tag3:
@@ -91,7 +91,7 @@
 ** DONE Emphasis
    CLOSED: [2016-09-03 Sat 12:47]
    #+BEGIN_SRC org
-   *bold* 
+   *bold*
    /italic/
    _underlined_
    =verbatim=
@@ -112,7 +112,7 @@
    1. first
    2) second
    3. 3rd
-   
+
    # unordered list
    - item
    + item
@@ -146,7 +146,7 @@
    ,#+BEGIN_SRC javascript
      Console.log("Hello Org.")
    ,#+END_SRC
-   
+
    ,#+BEGIN_QUOTE
    Everything should be made as simple as possible,
    but not any simpler -- Albert Einstein
@@ -188,7 +188,15 @@
      - [ ] item three not checked
    #+END_SRC
 
-** TODO Table
+** DONE Table
+   CLOSED: [2017-01-31 Tue 20:15]
+   #+BEGIN_SRC org
+     | Name         | Species    | Gender | Role         |
+     |--------------+------------+--------+--------------|
+     | Bruce Wayne  | Human      | M      | Batman       |
+     | Clark Kent   | Kryptonian | M      | Superman     |
+     | Diana Prince | Amazonian  | F      | Wonder Woman |
+   #+END_SRC
 
 ** TODO Clock
 
@@ -209,5 +217,3 @@
    #+END_SRC
 * License
   Carthage is released under the [[https://github.com/xiaoxinghu/swift-org/blob/master/LICENSE][MIT LIcense]].
-
-  
