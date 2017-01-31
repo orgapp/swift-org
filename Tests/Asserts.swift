@@ -107,3 +107,18 @@ func evalFootnote(_ str: String, label: String, content: String?,
     expect(token!, toBe: .footnote(label: label, content: content),
            file: file, line: line)
 }
+
+func evalTableRow(_ str: String, cells: [String],
+                  file: StaticString = #file, line: UInt = #line) {
+    let token = Lexer.tokenize(line: str)
+    expect(token!, toBe: .tableRow(cells: cells),
+           file: file, line: line)
+}
+
+func evalHorizontalSeparator(_ str: String,
+                        file: StaticString = #file, line: UInt = #line) {
+    let token = Lexer.tokenize(line: str)
+    expect(token!, toBe: .horizontalSeparator,
+           file: file, line: line)
+}
+
