@@ -215,5 +215,11 @@
      ./bin/setup
      ./bin/test
    #+END_SRC
+** TODO Release
+   To bump up version number.
+   #+BEGIN_SRC sh
+     agvtool new-marketing-version 0.7.2
+   #+END_SRC
+
 * License
   Carthage is released under the [[https://github.com/xiaoxinghu/swift-org/blob/master/LICENSE][MIT LIcense]].
