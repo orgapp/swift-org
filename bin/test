@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEST_CMD="xcodebuild -scheme SwiftOrg-iOS -project SwiftOrg.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.1' build test"
+TEST_CMD="xcodebuild -scheme SwiftOrg-iOS -project SwiftOrg.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.2' build test"
 
 which -s xcpretty
 XCPRETTY_INSTALLED=$?

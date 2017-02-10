@@ -1,8 +1,7 @@
 language: objective-c
-osx_image: xcode8.1
-xcode_project: SwiftOrg-iOS.xcodeproj
+osx_image: xcode8.2
+xcode_project: SwiftOrg.xcodeproj
 xcode_scheme: SwiftOrg-iOS
-xcode_sdk: iphonesimulator10.0
 env:
   global:
     - FRAMEWORK_NAME=SwiftOrg
@@ -15,14 +14,9 @@ script:
   - ./bin/test
 before_deploy:
   - carthage build --no-skip-current
-  - carthage archive $FRAMEWORK_NAME
 deploy:
-  provider: releases
-  api_key:
-    secure: cRc6i49h5GD5EbyCGbpgjdF6ZKjy1ufls4YsACyqM79EjAOezJh5xg0+FBIsPHv96U6IcpfdIQgZ7fgxI0t3aEOmRDYsEhbUamP9Qjut5+yZY8OEaMBY1JffHwt4GeIS8n03M0biTmi8vkugUGJt8DjY788N1EInLy/wBmTCdzfNz/4XxYMRVGHivP60RqTpudgici+XABvhOEJ++DGYTWdFwSmqzGZE+R/+gI+wkOxkedv8V0dhJ8/RfVV2muqXdRgr3aUzoPINVO7Nh5TwjTNilQFP7DZbalakve6569wSwysSyadqAA6GteypxQcsrKPAZyvgL9AIWAAMuLGS0DjuBbhi/IiqhObYs+P6s+yjqNPxnSpXuxBOHc6RgukzhuGwx+wbxcU9E3HoKoWQvQ1DRwmpCfZu1nNbYgomZGvQxRp+ahOEWMpLWK4dltDj+B9HGSHGrz2y7MQZuXNfyrcyFGu/2RmIJuOhAViBVPaIMT0cpTpHPpLhAhIvEl5dDZ38Z+XuZOv3gfr6rp+brR3i2kM2jnYnr7t/LjN+i18gjzh92W9o5khXIrKKvhkNjy0yiq/9UeHPrcCxwUTDuUXaw0/w4FLMtto4Jco6spSNvHRvrpjZmMp+ylDCDYadQi7mvNLGdjVJgckFRYf/QNXS6AwnuBTf0Q45XJ6PlJc=
-  file: "$FRAMEWORK_NAME.framework.zip"
-  skip_cleanup: true
-  on:
-    repo: xiaoxinghu/swift-org
-    branch: master
-    tags: true
+  - provider: script
+    script: ./bin/push
+    on:
+      branch: master
+      tags: true
