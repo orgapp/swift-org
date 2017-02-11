@@ -1,15 +1,15 @@
 //
-//  JsonConverterTests.swift
+//  Performance.swift
 //  SwiftOrg
 //
-//  Created by Xiaoxing Hu on 21/09/16.
+//  Created by Xiaoxing Hu on 16/09/16.
 //  Copyright © 2016 Xiaoxing Hu. All rights reserved.
 //
 
 import XCTest
 import SwiftOrg
 
-class JsonConverterTests: XCTestCase {
+class PerformanceTests: XCTestCase {
 
     var content: String = ""
     override func setUp() {
@@ -21,11 +21,15 @@ class JsonConverterTests: XCTestCase {
             XCTFail("ERROR: \(error)")
         }
     }
-    
-    func testConverter() throws {
-        let parser = OrgParser()
-        _ = try parser.parse(content: content).toJson(options: .prettyPrinted)
-//        print(json)
-    }
-    
+
+    // func testPerformanceParseSmallFile() {
+    //     self.measure {
+    //         do {
+    //             let parser = OrgParser()
+    //             _ = try parser.parse(content: self.content)
+    //         } catch {
+    //             XCTFail("ERROR: \(error)")
+    //         }
+    //     }
+    // }
 }

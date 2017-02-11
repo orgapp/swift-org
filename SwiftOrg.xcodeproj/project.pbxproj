@@ -115,18 +115,18 @@
 		03520B591E4D9209003345D5 /* SwiftOrg.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftOrg.podspec; sourceTree = "<group>"; };
 		035A617D1E3F11C7001CE563 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		035A61801E3F3BBA001CE563 /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
-		035A61831E3F4928001CE563 /* ParseTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseTableTests.swift; sourceTree = "<group>"; };
-		035EEA1C1D8D4FBB00A38F7E /* ParseHeadlineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHeadlineTests.swift; sourceTree = "<group>"; };
-		035EEA1E1D8D504A00A38F7E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		035EEA201D8D510000A38F7E /* ParseListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseListTests.swift; sourceTree = "<group>"; };
-		035EEA221D8D51B800A38F7E /* ParseSettingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseSettingTests.swift; sourceTree = "<group>"; };
-		035EEA241D8D51FE00A38F7E /* ParseBlockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseBlockTests.swift; sourceTree = "<group>"; };
-		035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineParsingTests.swift; sourceTree = "<group>"; };
+		035A61831E3F4928001CE563 /* ParseTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseTableTests.swift; path = SwiftOrgTests/ParseTableTests.swift; sourceTree = "<group>"; };
+		035EEA1C1D8D4FBB00A38F7E /* ParseHeadlineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseHeadlineTests.swift; path = SwiftOrgTests/ParseHeadlineTests.swift; sourceTree = "<group>"; };
+		035EEA1E1D8D504A00A38F7E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = SwiftOrgTests/Utils.swift; sourceTree = "<group>"; };
+		035EEA201D8D510000A38F7E /* ParseListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseListTests.swift; path = SwiftOrgTests/ParseListTests.swift; sourceTree = "<group>"; };
+		035EEA221D8D51B800A38F7E /* ParseSettingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseSettingTests.swift; path = SwiftOrgTests/ParseSettingTests.swift; sourceTree = "<group>"; };
+		035EEA241D8D51FE00A38F7E /* ParseBlockTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseBlockTests.swift; path = SwiftOrgTests/ParseBlockTests.swift; sourceTree = "<group>"; };
+		035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InlineParsingTests.swift; path = SwiftOrgTests/InlineParsingTests.swift; sourceTree = "<group>"; };
 		036C5E811D928A85007484CF /* README.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.org; sourceTree = SOURCE_ROOT; };
 		0382A1831DF826730015B475 /* SwiftOrgTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftOrgTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0382A18E1DF826A10015B475 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
-		0382A1A01DF9713B0015B475 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexerTests.swift; sourceTree = "<group>"; };
-		03B34A3F1D9B6B7900FB6393 /* ParseFootnote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseFootnote.swift; sourceTree = "<group>"; };
+		0382A1A01DF9713B0015B475 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LexerTests.swift; path = SwiftOrgTests/LexerTests.swift; sourceTree = "<group>"; };
+		03B34A3F1D9B6B7900FB6393 /* ParseFootnote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseFootnote.swift; path = SwiftOrgTests/ParseFootnote.swift; sourceTree = "<group>"; };
 		03BBC3BD1DF81104003FCB3C /* SwiftOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03BBC3CA1DF8127C003FCB3C /* SwiftOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03BBC3D71DF817DB003FCB3C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -152,18 +152,18 @@
 		03BBC3F21DF81863003FCB3C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		03BBC3F31DF81863003FCB3C /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		03C091111E21A4D100002E2F /* Timestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
-		03C091131E220DF500002E2F /* TimestampTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimestampTests.swift; sourceTree = "<group>"; };
+		03C091131E220DF500002E2F /* TimestampTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimestampTests.swift; path = SwiftOrgTests/TimestampTests.swift; sourceTree = "<group>"; };
 		03C091171E2321FB00002E2F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseParagraphTests.swift; sourceTree = "<group>"; };
+		03D347BD1D71093C00F78D70 /* ParseParagraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseParagraphTests.swift; path = SwiftOrgTests/ParseParagraphTests.swift; sourceTree = "<group>"; };
 		03F9E6A61D60411A0080E872 /* SwiftOrgTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftOrgTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		03F9E6AB1D60411A0080E872 /* TokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
+		03F9E6AB1D60411A0080E872 /* TokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenizerTests.swift; path = SwiftOrgTests/TokenizerTests.swift; sourceTree = "<group>"; };
 		03F9E6AD1D60411A0080E872 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
-		A70C22501D8A1D6A007796E2 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
-		A70C22521D8A204F007796E2 /* TokenExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenExtensions.swift; sourceTree = "<group>"; };
-		A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrgFileWriterTests.swift; sourceTree = "<group>"; };
-		A78044F31DDD06D000C8CE46 /* IndexingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexingTests.swift; sourceTree = "<group>"; };
-		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
-		A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonConverterTests.swift; sourceTree = "<group>"; };
+		A70C22501D8A1D6A007796E2 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Asserts.swift; path = SwiftOrgTests/Asserts.swift; sourceTree = "<group>"; };
+		A70C22521D8A204F007796E2 /* TokenExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenExtensions.swift; path = SwiftOrgTests/TokenExtensions.swift; sourceTree = "<group>"; };
+		A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrgFileWriterTests.swift; path = SwiftOrgTests/OrgFileWriterTests.swift; sourceTree = "<group>"; };
+		A78044F31DDD06D000C8CE46 /* IndexingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexingTests.swift; path = SwiftOrgTests/IndexingTests.swift; sourceTree = "<group>"; };
+		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformanceTests.swift; path = SwiftOrgTests/PerformanceTests.swift; sourceTree = "<group>"; };
+		A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonConverterTests.swift; path = SwiftOrgTests/JsonConverterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
