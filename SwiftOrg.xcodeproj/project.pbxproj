@@ -102,6 +102,8 @@
 		03520B581E4D9209003345D5 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		03520B591E4D9209003345D5 /* SwiftOrg.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftOrg.podspec; sourceTree = "<group>"; };
 		03520BE71E5C3785003345D5 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParserTests.swift; path = SwiftOrgTests/ParserTests.swift; sourceTree = "<group>"; };
+		03520BEA1E5C39A2003345D5 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
+		03520BEC1E5C39CB003345D5 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XCTestManifests.swift; path = SwiftOrgTests/XCTestManifests.swift; sourceTree = "<group>"; };
 		035A617D1E3F11C7001CE563 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		035A61801E3F3BBA001CE563 /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		035EEA1E1D8D504A00A38F7E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = SwiftOrgTests/Utils.swift; sourceTree = "<group>"; };
@@ -191,6 +193,15 @@
 			name = Meta;
 			sourceTree = "<group>";
 		};
+		03520BEE1E5C39F3003345D5 /* Linux */ = {
+			isa = PBXGroup;
+			children = (
+				03520BEC1E5C39CB003345D5 /* XCTestManifests.swift */,
+				03520BEA1E5C39A2003345D5 /* LinuxMain.swift */,
+			);
+			name = Linux;
+			sourceTree = "<group>";
+		};
 		03BBC3D61DF817A2003FCB3C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +275,7 @@
 		03F9E6AA1D60411A0080E872 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				03520BEE1E5C39F3003345D5 /* Linux */,
 				A779680E1D8B999200A8C19C /* Resources */,
 				0382A18E1DF826A10015B475 /* Info-macOS.plist */,
 				03F9E6AD1D60411A0080E872 /* Info-iOS.plist */,

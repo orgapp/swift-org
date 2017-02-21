@@ -1,10 +1,9 @@
-#if os(Linux)
 extension TokenizerTests {
     static var allTests = [
       ("testTokenBlank", testTokenBlank),
       ("testTokenSetting", testTokenSetting),
       ("testTokenHeading", testTokenHeading),
-      //("testTokenPlanning", testTokenPlanning), // TODO fix this
+      ("testTokenPlanning", testTokenPlanning),
       ("testTokenBlockBegin", testTokenBlockBegin),
       ("testTokenBlockEnd", testTokenBlockEnd),
       ("testTokenComment", testTokenComment),
@@ -13,6 +12,30 @@ extension TokenizerTests {
       ("testDrawer", testDrawer),
       ("testFootnote", testFootnote),
       ("testTable", testTable),
+    ]
+}
+
+// extension LexerTests {
+//     static var allTests = []
+// }
+
+extension ParserTests {
+    static var allTests = [
+      ("testParseSettings", testParseSettings),
+      ("testDefaultTodos", testDefaultTodos),
+      ("testInBufferTodos", testInBufferTodos),
+      ("testParseHeadline", testParseHeadline),
+      ("testParseDrawer", testParseDrawer),
+      ("testMalfunctionDrawer", testMalfunctionDrawer),
+      ("testPriority", testPriority),
+      ("testTags", testTags),
+      ("testPlanning", testPlanning),
+      ("testParseBlock", testParseBlock),
+      ("testParseList", testParseList),
+      ("testListItemWithCheckbox", testListItemWithCheckbox),
+      ("testParseParagraph", testParseParagraph),
+      ("testParseTable", testParseTable),
+      ("testOnelineFootnote", testOnelineFootnote),
     ]
 }
 
@@ -31,4 +54,12 @@ extension InlineParsingTests {
     ]
 }
 
-#endif
+extension TimestampTests {
+    static var allTests = [
+      ("testParseTimestamp", testParseTimestamp),
+      ("testTimestampWithSpacing", testTimestampWithSpacing),
+      ("testTimestampWithRepeater", testTimestampWithRepeater),
+      ("testTimestampWithInvalidRepeater", testTimestampWithInvalidRepeater),
+      ("testInvalidTimestamp", testInvalidTimestamp),
+    ]
+}
