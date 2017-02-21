@@ -8,27 +8,39 @@
 
 import Foundation
 
-var expressions = [String: NSRegularExpression]()
+#if !os(Linux)
+typealias RegularExpression = NSRegularExpression
+typealias TextCheckingResult = NSTextCheckingResult
+#else
+    extension TextCheckingResult {
+        func rangeAt(_ idx: Int) -> NSRange {
+            return range(at: idx)
+        }
+    }
+#endif
+
+var expressions = [String: RegularExpression]()
+
 public extension String {
-    
+
     /// Cache regex (for performance and resource sake)
     ///
     /// - Parameters:
     ///   - regex: regex pattern
     ///   - options: options
     /// - Returns: the regex
-    private func getExpression(_ regex: String, options: NSRegularExpression.Options) -> NSRegularExpression {
-        let expression: NSRegularExpression
+    private func getExpression(_ regex: String, options: RegularExpression.Options) -> RegularExpression {
+        let expression: RegularExpression
         if let exists = expressions[regex] {
             expression = exists
         } else {
-            expression = try! NSRegularExpression(pattern: regex, options: options)
+            expression = try! RegularExpression(pattern: regex, options: options)
             expressions[regex] = expression
         }
         return expression
     }
-    
-    private func getMatches(_ match: NSTextCheckingResult) -> [String?] {
+
+    private func getMatches(_ match: TextCheckingResult) -> [String?] {
         var matches = [String?]()
         switch match.numberOfRanges {
         case 0:
@@ -36,24 +48,24 @@ public extension String {
         case let n where n > 0:
             for i in 0..<n {
                 let r = match.rangeAt(i)
-                matches.append(r.length > 0 ? (self as NSString).substring(with: r) : nil)
+                matches.append(r.length > 0 ? NSString(string: self).substring(with: r) : nil)
             }
         default:
             return []
         }
         return matches
     }
-    
-    public func match(_ regex: String, options: NSRegularExpression.Options = []) -> [String?]? {
+
+    public func match(_ regex: String, options: RegularExpression.Options = []) -> [String?]? {
         let expression = self.getExpression(regex, options: options)
-        
+
         if let match = expression.firstMatch(in: self, options: [], range: NSMakeRange(0, self.utf16.count)) {
             return getMatches(match)
         }
         return nil
     }
-    
-    public func matchSplit(_ regex: String, options: NSRegularExpression.Options) -> [String] {
+
+    public func matchSplit(_ regex: String, options: RegularExpression.Options) -> [String] {
         let expression = self.getExpression(regex, options: options)
         let matches = expression.matches(in: self, options: [], range: NSMakeRange(0, self.utf16.count))
         var splitted = [String]()
@@ -62,7 +74,7 @@ public extension String {
             if m.range.location > cursor {
                 splitted.append(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.characters.index(self.startIndex, offsetBy: m.range.location)))
             }
-            splitted.append((self as NSString).substring(with: m.range))
+            splitted.append(NSString(string: self).substring(with: m.range))
             cursor = (m.range.toRange()?.upperBound)! + 1
         }
         if cursor <= self.characters.count {
@@ -70,9 +82,9 @@ public extension String {
         }
         return splitted
     }
-    
+
     public func tryMatch(_ regex: String,
-                        options: NSRegularExpression.Options = [],
+                        options: RegularExpression.Options = [],
                         match: ([String?]) -> Void,
                         or: (String) -> Void) {
         let expression = self.getExpression(regex, options: options)

@@ -11,16 +11,4 @@ import XCTest
 
 class LexerTests: XCTestCase {
 
-    func testTokenBlock() throws {
-        let lexer = Lexer(lines: [
-            "| hello | world | y'all |",
-            ])
-
-        let tokens = try lexer.tokenize()
-         print("--------------------------------------")
-         print("\(tokens)")
-         print("--------------------------------------")
-    }
-
-
 }
