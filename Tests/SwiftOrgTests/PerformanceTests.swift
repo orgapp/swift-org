@@ -12,15 +12,15 @@ import SwiftOrg
 class PerformanceTests: XCTestCase {
 
     var content: String = ""
-    override func setUp() {
-        super.setUp()
-        do {
-            let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
-            content = try String(contentsOfFile: path!)
-        } catch {
-            XCTFail("ERROR: \(error)")
-        }
-    }
+    // override func setUp() {
+    //     super.setUp()
+    //     do {
+    //         let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
+    //         content = try String(contentsOfFile: path!)
+    //     } catch {
+    //         XCTFail("ERROR: \(error)")
+    //     }
+    // }
 
     // func testPerformanceParseSmallFile() {
     //     self.measure {

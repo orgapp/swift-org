@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Foundation
 @testable import SwiftOrg
 
 let calendar = Calendar.current
@@ -29,7 +30,7 @@ class TimestampTests: XCTestCase {
             XCTFail("Failed to parse \(activeTimestamp)")
             return
         }
-        
+
         let inactiveTimestamp = "[\(_date) \(_day) \(_time)]"
         if let timestamp = Timestamp.from(string: inactiveTimestamp) {
             XCTAssertNotNil(timestamp)
@@ -40,7 +41,7 @@ class TimestampTests: XCTestCase {
             XCTFail("Failed to parse \(inactiveTimestamp)")
             return
         }
-        
+
         let timstampWithoutTime = "[\(_date) \(_day)]"
         if let timestamp = Timestamp.from(string: timstampWithoutTime) {
             XCTAssertNotNil(timestamp)
@@ -52,7 +53,7 @@ class TimestampTests: XCTestCase {
             return
         }
     }
-    
+
     func testTimestampWithSpacing() {
         let candidates = [
             "<\(_date) \(_day) \(_time) \(_repeater)>", // normal spacing
@@ -61,7 +62,7 @@ class TimestampTests: XCTestCase {
             "<\(_date)  \(_day)   \(_time)    \(_repeater)    >", // tail spaces
             "<  \(_date)  \(_day)   \(_time)    \(_repeater)    >", // leading & tail spaces
         ]
-        
+
         for str in candidates {
             guard let timestamp = Timestamp.from(string: str) else {
                 XCTFail("Failed to parse \(str)")
@@ -72,7 +73,7 @@ class TimestampTests: XCTestCase {
             XCTAssertEqual(_repeater, timestamp.repeater)
         }
     }
-    
+
     func testTimestampWithRepeater() {
         let repeaters = [
             "+2h",
@@ -85,7 +86,7 @@ class TimestampTests: XCTestCase {
             "--2d",
             ".+2d",
         ]
-        
+
         for repeater in repeaters {
             let str = "[\(_date) \(_day) \(_time) \(repeater)]"
             guard let timestamp = Timestamp.from(string: str) else {
@@ -97,7 +98,7 @@ class TimestampTests: XCTestCase {
             XCTAssertEqual(repeater, timestamp.repeater)
         }
     }
-    
+
     func testTimestampWithInvalidRepeater() {
         let repeaters = [
             "+2ah",
@@ -105,19 +106,19 @@ class TimestampTests: XCTestCase {
             "2+2d",
             "S+2d",
             ]
-        
+
         for repeater in repeaters {
             let str = "[\(_date) \(_day) \(_time) \(repeater)]"
             let timestamp = Timestamp.from(string: str)
             XCTAssertNil(timestamp, "\(str) should be invalid")
         }
     }
-    
+
     func testInvalidTimestamp() {
         let candidates = [
             "[\(_date) \(_day) \(_time) +2a]", // invalid repeater
         ]
-        
+
         for str in candidates {
             let timestamp = Timestamp.from(string: str)
             XCTAssertNil(timestamp, "\(str) should be invalid")
