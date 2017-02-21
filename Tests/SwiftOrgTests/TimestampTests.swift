@@ -110,7 +110,11 @@ class TimestampTests: XCTestCase {
         for repeater in repeaters {
             let str = "[\(_date) \(_day) \(_time) \(repeater)]"
             let timestamp = Timestamp.from(string: str)
-            XCTAssertNil(timestamp, "\(str) should be invalid")
+            #if os(Linux)
+                XCTAssertNil(timestamp?.repeater, "\(str) should be invalid")
+            #else
+                XCTAssertNil(timestamp, "\(str) should be invalid")
+            #endif
         }
     }
 
@@ -121,7 +125,11 @@ class TimestampTests: XCTestCase {
 
         for str in candidates {
             let timestamp = Timestamp.from(string: str)
-            XCTAssertNil(timestamp, "\(str) should be invalid")
+            #if os(Linux)
+                XCTAssertNil(timestamp?.repeater, "\(str) should be invalid")
+            #else
+                XCTAssertNil(timestamp, "\(str) should be invalid")
+            #endif
         }
     }
 
