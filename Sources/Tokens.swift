@@ -39,12 +39,12 @@ typealias TokenGenerator = ([String?]) -> Token
 
 struct TokenDescriptor {
     let pattern: String
-    let options: NSRegularExpression.Options
+    let options: RegularExpression.Options
     let generator: TokenGenerator
-    
-    
+
+
     init(_ thePattern: String,
-         options theOptions: NSRegularExpression.Options = [],
+         options theOptions: RegularExpression.Options = [],
          generator theGenerator: @escaping TokenGenerator = { matches in .raw(matches[0]!) }) {
         pattern = thePattern
         options = theOptions
@@ -53,7 +53,7 @@ struct TokenDescriptor {
 }
 
 func define(_ pattern: String,
-            options: NSRegularExpression.Options = [],
+            options: RegularExpression.Options = [],
             generator: @escaping TokenGenerator) {
     tokenDescriptors.append(
         TokenDescriptor(pattern,
@@ -65,15 +65,15 @@ var tokenDescriptors: [TokenDescriptor] = []
 
 func defineTokens() {
     if tokenDescriptors.count > 0 {return}
-        
+
     define("^\\s*$") { _ in .blank }
-    
+
     define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches in
         .setting(key: matches[1]!, value: matches[2]) }
-    
+
     define("^(\\*+)\\s+(.*)$") { matches in
         .headline(stars: matches[1]!.characters.count, text: matches[2]) }
-    
+
     define("^\\s*(\(PlanningKeyword.all.joined(separator: "|"))):\\s+(.+)$") { matches in
         let timestamp = Timestamp.from(string: matches[2]!)
         return .planning(keyword: PlanningKeyword(rawValue: matches[1]!)!, timestamp: timestamp)
@@ -88,18 +88,18 @@ func defineTokens() {
         }
         return .blockBegin(name: matches[2]!, params: params)
     }
-    
+
     define("^(\\s*)#\\+end_([a-z]+)$", options: [.caseInsensitive]) { matches in
         .blockEnd(name: matches[2]!) }
-    
+
     // Drawer
-    
+
     define("^(\\s*):end:\\s*$", options: [.caseInsensitive]) { _ in .drawerEnd }
-    
+
     define("^(\\s*):([a-z]+):\\s*$",
            options: [.caseInsensitive]) { matches in
             .drawerBegin(name: matches[2]!) }
-    
+
     define("^(\\s*)([-+*]|\\d+(?:\\.|\\)))\\s+(?:\\[([ X-])\\]\\s+)?(.*)$") { matches in
         var ordered = true
         if let m = matches[2] {
@@ -110,31 +110,31 @@ func defineTokens() {
             checked = m == "X"
         }
         return .listItem(indent: length(matches[1]), text: matches[4], ordered: ordered, checked: checked) }
-    
+
     define("^\\s*-{5,}$") { _ in .horizontalRule }
-    
+
     define("^\\s*#\\s+(.*)$") { matches in
         .comment(matches[1]) }
-    
+
     define("^\\[fn:(\\d+)\\](?:\\s+(.*))?$") { matches in
         .footnote(label: matches[1]!, content: matches[2])
     }
-    
+
     // Table
-    
+
     define("\\s*\\|-.*$") { matches in
         return .horizontalSeparator
     }
-    
+
     define("^\\s*\\|(?:[^\\r\\n\\|]*\\|?)+$") { matches in
         let cells = matches[0]!
             .components(separatedBy: "|")
             .map { $0.trimmed }
             .filter { !$0.isEmpty }
         return .tableRow(cells: cells)
-    }    
-    
+    }
+
     define("^(\\s*)(.*)$") { matches in
         .line(text: matches[2]!) }
-    
+
 }

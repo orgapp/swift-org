@@ -28,6 +28,7 @@ public struct Timestamp {
         
         for format in formats {
             formater.dateFormat = format
+            // It acts differently in Linux and !Linux env
             guard let date = formater.date(from: m[2]!) else { continue }
             let active = m[1]! == "<"
             

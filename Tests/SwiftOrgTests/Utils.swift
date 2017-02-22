@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Foundation
 @testable import SwiftOrg
 
 let parser = OrgParser()
@@ -21,17 +22,12 @@ func parse(_ lines: [String], with parser: OrgParser = parser) -> OrgDocument? {
 }
 
 func quickDate(date: String, time: String? = nil) -> Date {
-    let dateParts = date.components(separatedBy: "-").map { Int($0) }
-    var components = DateComponents(
-        calendar: calendar,
-        year: dateParts[0],
-        month: dateParts[1],
-        day: dateParts[2])
-    
+    let formater = DateFormatter()
+    formater.dateFormat = "yyyy-MM-dd"
+    var dt = date
     if let t = time {
-       let timeParts = t.components(separatedBy: ":").map { Int($0) }
-        components.hour = timeParts[0]
-        components.minute = timeParts[1]
+        dt = "\(date) \(t)"
+        formater.dateFormat = "yyyy-MM-dd HH:mm"
     }
-    return components.date!
+    return formater.date(from: dt)!
 }

@@ -11,19 +11,19 @@ import XCTest
 
 
 class TokenizerTests: XCTestCase {
-    
+
     override func setUp() {
         super.setUp()
         defineTokens()
     }
-    
+
     func testTokenBlank() {
         evalBlank("", rawIsNil: true)
         evalBlank(" ")
         evalBlank("\t")
         evalBlank("  \t  ")
     }
-    
+
     func testTokenSetting() {
         evalSetting("#+options: toc:nil", key: "options", value: "toc:nil")
         evalSetting("#+options:    toc:nil", key: "options", value: "toc:nil")
@@ -31,7 +31,7 @@ class TokenizerTests: XCTestCase {
         evalSetting("#+TITLE: ", key: "TITLE", value: nil)
         evalSetting("#+TITLE:", key: "TITLE", value: nil)
     }
-    
+
     func testTokenHeading() {
         evalHeadline("* Level One", stars: 1, text: "Level One")
         evalHeadline("** Level Two", stars: 2, text: "Level Two")
@@ -40,12 +40,12 @@ class TokenizerTests: XCTestCase {
         evalLine("*", text: "*")
         evalListItem(" * ", indent: 1, text: nil, ordered: false)
     }
-    
+
     func testTokenPlanning() {
         let date = "2017-01-09"
         let time = "18:00"
         let day = "Tue"
-        
+
         let theDate = quickDate(date: date, time: time)
 
         evalPlanning("CLOSED: [\(date) \(day) \(time)]",
@@ -70,11 +70,11 @@ class TokenizerTests: XCTestCase {
         // illegal ones are considered normal line
         evalLine("closed: <\(date) \(day) \(time)>", // case sensitive
             text: "closed: <\(date) \(day) \(time)>")
-        
+
         evalLine("OPEN: <\(date) \(day) \(time)>", // illegal keyword
             text: "OPEN: <\(date) \(day) \(time)>")
     }
-    
+
     func testTokenBlockBegin() {
         evalBlockBegin("#+begin_src java", type: "src", params: ["java"])
         evalBlockBegin("  #+begin_src", type: "src", params: nil)
@@ -82,24 +82,24 @@ class TokenizerTests: XCTestCase {
                        type: "src",
                        params: ["yaml", "exports:", "results", ":results", "value", "html"])
     }
-    
+
     func testTokenBlockEnd() {
         evalBlockEnd("#+END_SRC", type: "SRC")
         evalBlockEnd("  #+end_src", type: "src")
     }
-    
+
     func testTokenComment() {
         evalComment("# a line of comment", text: "a line of comment")
         evalComment("#    a line of comment", text: "a line of comment")
         evalLine("#not comment", text: "#not comment")
     }
-    
+
     func testTokenHorizontalRule() {
         evalHorizontalRule("-----")
         evalHorizontalRule("----------")
         evalHorizontalRule("  -----")
     }
-    
+
     func testTokenListItem() {
         evalListItem("- list item", indent: 0, text: "list item", ordered: false)
         evalListItem(" + list item", indent: 1, text: "list item", ordered: false)
@@ -116,7 +116,7 @@ class TokenizerTests: XCTestCase {
         evalListItem("- [Y] checkbox", indent: 0, text: "[Y] checkbox", ordered: false, checked: nil)
         evalLine("-[X] checkbox", text: "-[X] checkbox")
     }
-    
+
     func testDrawer() {
         evalDrawerBegin(":PROPERTY:", name: "PROPERTY")
         evalDrawerBegin("  :properties:", name: "properties")
@@ -125,7 +125,7 @@ class TokenizerTests: XCTestCase {
         evalDrawerEnd("  :end:")
         evalDrawerEnd("  :end:   ")
     }
-    
+
     func testFootnote() {
         evalFootnote("[fn:1] the footnote", label: "1", content: "the footnote")
         evalFootnote("[fn:1]  \t the footnote", label: "1", content: "the footnote")
@@ -136,7 +136,7 @@ class TokenizerTests: XCTestCase {
         evalLine("a[fn:1] the footnote", text: "a[fn:1] the footnote")
         evalLine("[fn:1]the footnote", text: "[fn:1]the footnote")
     }
-    
+
     func testTable() {
         // valid table rows
         evalTableRow("| hello | world | y'all |", cells: ["hello", "world", "y'all"])
@@ -144,10 +144,10 @@ class TokenizerTests: XCTestCase {
         evalTableRow("|     hello | world       |y'all |", cells: ["hello", "world", "y'all"])
         evalTableRow("| hello | world | y'all", cells: ["hello", "world", "y'all"])
         evalTableRow("|+", cells: ["+"])
-        
+
         // invalid table rows
         evalLine(" hello | world | y'all |", text: "hello | world | y'all |")
-        
+
         // horizontal separator
         evalHorizontalSeparator("|----+---+----|")
         evalHorizontalSeparator("|---=+---+----|")
@@ -155,7 +155,7 @@ class TokenizerTests: XCTestCase {
         evalHorizontalSeparator("|----+---+---")
         evalHorizontalSeparator("|-")
         evalHorizontalSeparator("|---")
-        
+
         // invalud horizontal separator
         evalLine("----+---+----|", text: "----+---+----|")
     }
