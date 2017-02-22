@@ -217,8 +217,8 @@
    #+END_SRC
 ** TODO Release
    To bump up version number.
-   #+BEGIN_SRC sh
-     agvtool new-marketing-version 0.7.2
+   #+BEGIN_SRC sh :results silent
+     agvtool new-marketing-version 0.7.3
    #+END_SRC
 
 * License
