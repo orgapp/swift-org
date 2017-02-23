@@ -1,19 +1,12 @@
-language: objective-c
-osx_image: xcode8.2
-xcode_project: SwiftOrg.xcodeproj
-xcode_scheme: SwiftOrg-iOS
-env:
-  global:
-    - FRAMEWORK_NAME=SwiftOrg
-before_install:
-  - brew update
-  - brew outdated carthage || brew upgrade carthage
-before_script:
-  - carthage bootstrap
+os: linux
+language: generic
+sudo: required
+dist: trusty
+install:
+  - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
 script:
-  - ./bin/test
-before_deploy:
-  - carthage build --no-skip-current
+  - swift build
+  - swift test
 deploy:
   - provider: script
     script: ./bin/push
