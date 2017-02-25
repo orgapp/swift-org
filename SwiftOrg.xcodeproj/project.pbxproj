@@ -26,7 +26,6 @@
 		0382A1931DF827080015B475 /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9E6AB1D60411A0080E872 /* TokenizerTests.swift */; };
 		0382A19A1DF827080015B475 /* InlineParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */; };
 		0382A19B1DF827080015B475 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */; };
-		0382A19C1DF827080015B475 /* JsonConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */; };
 		0382A19D1DF827080015B475 /* OrgFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */; };
 		0382A19E1DF827080015B475 /* IndexingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78044F31DDD06D000C8CE46 /* IndexingTests.swift */; };
 		0382A19F1DF828700015B475 /* README.org in Resources */ = {isa = PBXBuildFile; fileRef = 036C5E811D928A85007484CF /* README.org */; };
@@ -55,12 +54,10 @@
 		03BBC41B1DF818E7003FCB3C /* Paragraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3EF1DF81863003FCB3C /* Paragraph.swift */; };
 		03BBC41C1DF818E7003FCB3C /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3F11DF81863003FCB3C /* Section.swift */; };
 		03BBC41D1DF818F1003FCB3C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3E31DF81863003FCB3C /* Data.swift */; };
-		03BBC41E1DF818F1003FCB3C /* JsonConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3E81DF81863003FCB3C /* JsonConverter.swift */; };
 		03BBC41F1DF818F1003FCB3C /* OrgFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3ED1DF81863003FCB3C /* OrgFileWriter.swift */; };
 		03BBC4201DF818F1003FCB3C /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3F01DF81863003FCB3C /* Regex.swift */; };
 		03BBC4211DF818F1003FCB3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3F21DF81863003FCB3C /* String.swift */; };
 		03BBC4221DF818F1003FCB3C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3E31DF81863003FCB3C /* Data.swift */; };
-		03BBC4231DF818F1003FCB3C /* JsonConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3E81DF81863003FCB3C /* JsonConverter.swift */; };
 		03BBC4241DF818F1003FCB3C /* OrgFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3ED1DF81863003FCB3C /* OrgFileWriter.swift */; };
 		03BBC4251DF818F1003FCB3C /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3F01DF81863003FCB3C /* Regex.swift */; };
 		03BBC4261DF818F1003FCB3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3F21DF81863003FCB3C /* String.swift */; };
@@ -84,7 +81,6 @@
 		A77DDD5A1D9C975D00120BA7 /* OrgFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */; };
 		A78044F41DDD06D000C8CE46 /* IndexingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78044F31DDD06D000C8CE46 /* IndexingTests.swift */; };
 		A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */; };
-		A7E95E7A1D91FA4D00FC4F02 /* JsonConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +120,6 @@
 		03BBC3E51DF81863003FCB3C /* Footnote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Footnote.swift; sourceTree = "<group>"; };
 		03BBC3E61DF81863003FCB3C /* HorizontalRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalRule.swift; sourceTree = "<group>"; };
 		03BBC3E71DF81863003FCB3C /* Inline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inline.swift; sourceTree = "<group>"; };
-		03BBC3E81DF81863003FCB3C /* JsonConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonConverter.swift; sourceTree = "<group>"; };
 		03BBC3E91DF81863003FCB3C /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		03BBC3EA1DF81863003FCB3C /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		03BBC3EB1DF81863003FCB3C /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -147,7 +142,6 @@
 		A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrgFileWriterTests.swift; path = SwiftOrgTests/OrgFileWriterTests.swift; sourceTree = "<group>"; };
 		A78044F31DDD06D000C8CE46 /* IndexingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexingTests.swift; path = SwiftOrgTests/IndexingTests.swift; sourceTree = "<group>"; };
 		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformanceTests.swift; path = SwiftOrgTests/PerformanceTests.swift; sourceTree = "<group>"; };
-		A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonConverterTests.swift; path = SwiftOrgTests/JsonConverterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +235,6 @@
 			children = (
 				03BBC3E31DF81863003FCB3C /* Data.swift */,
 				03C091171E2321FB00002E2F /* Constants.swift */,
-				03BBC3E81DF81863003FCB3C /* JsonConverter.swift */,
 				03BBC3ED1DF81863003FCB3C /* OrgFileWriter.swift */,
 				03BBC3F01DF81863003FCB3C /* Regex.swift */,
 				03BBC3F21DF81863003FCB3C /* String.swift */,
@@ -289,7 +282,6 @@
 				A78044F31DDD06D000C8CE46 /* IndexingTests.swift */,
 				03C091131E220DF500002E2F /* TimestampTests.swift */,
 				A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */,
-				A7E95E791D91FA4D00FC4F02 /* JsonConverterTests.swift */,
 				A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */,
 			);
 			path = Tests;
@@ -516,7 +508,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0382A19C1DF827080015B475 /* JsonConverterTests.swift in Sources */,
 				0382A19B1DF827080015B475 /* PerformanceTests.swift in Sources */,
 				0382A19D1DF827080015B475 /* OrgFileWriterTests.swift in Sources */,
 				0382A1901DF827080015B475 /* Asserts.swift in Sources */,
@@ -543,7 +534,6 @@
 				03BBC4201DF818F1003FCB3C /* Regex.swift in Sources */,
 				03BBC4101DF818E6003FCB3C /* OrgDocument.swift in Sources */,
 				03C091161E220F2700002E2F /* Timestamp.swift in Sources */,
-				03BBC41E1DF818F1003FCB3C /* JsonConverter.swift in Sources */,
 				03BBC4271DF8191E003FCB3C /* Inline.swift in Sources */,
 				03BBC41D1DF818F1003FCB3C /* Data.swift in Sources */,
 				03BBC40A1DF818E6003FCB3C /* Comment.swift in Sources */,
@@ -573,7 +563,6 @@
 				03BBC4251DF818F1003FCB3C /* Regex.swift in Sources */,
 				03BBC41A1DF818E7003FCB3C /* OrgDocument.swift in Sources */,
 				03C091121E21A4D100002E2F /* Timestamp.swift in Sources */,
-				03BBC4231DF818F1003FCB3C /* JsonConverter.swift in Sources */,
 				03BBC42B1DF8191E003FCB3C /* Inline.swift in Sources */,
 				03BBC4221DF818F1003FCB3C /* Data.swift in Sources */,
 				03BBC4141DF818E7003FCB3C /* Comment.swift in Sources */,
@@ -598,7 +587,6 @@
 			files = (
 				A70C22511D8A1D6A007796E2 /* Asserts.swift in Sources */,
 				A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */,
-				A7E95E7A1D91FA4D00FC4F02 /* JsonConverterTests.swift in Sources */,
 				A77DDD5A1D9C975D00120BA7 /* OrgFileWriterTests.swift in Sources */,
 				03F9E6AC1D60411A0080E872 /* TokenizerTests.swift in Sources */,
 				035EEA271D8D526F00A38F7E /* InlineParsingTests.swift in Sources */,
