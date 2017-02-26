@@ -1,5 +1,6 @@
 osx_image: xcode8.2
-language: generic
+language: objective-c
+xcode_project: SwiftOrg.xcodeproj
 script:
   - swift build
   - swift test
