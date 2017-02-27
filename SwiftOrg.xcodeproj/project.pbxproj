@@ -109,7 +109,7 @@
 		035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InlineParsingTests.swift; path = SwiftOrgTests/InlineParsingTests.swift; sourceTree = "<group>"; };
 		036C5E811D928A85007484CF /* README.org */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.org; sourceTree = SOURCE_ROOT; };
 		037BFFB71E6406A3005EB02F /* ConvertToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertToJSON.swift; sourceTree = "<group>"; };
-		037BFFB91E640710005EB02F /* ConvertToJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertToJSONTests.swift; sourceTree = "<group>"; };
+		037BFFB91E640710005EB02F /* ConvertToJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvertToJSONTests.swift; path = SwiftOrgTests/ConvertToJSONTests.swift; sourceTree = "<group>"; };
 		0382A1831DF826730015B475 /* SwiftOrgTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftOrgTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0382A18E1DF826A10015B475 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
 		0382A1A01DF9713B0015B475 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LexerTests.swift; path = SwiftOrgTests/LexerTests.swift; sourceTree = "<group>"; };
