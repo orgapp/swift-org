@@ -117,7 +117,17 @@ extension Planning: JSONable {
         return [
           "type": "planning",
           "keyword": keyword.rawValue,
-          // TODO timestamp
+          "timestamp": timestamp?.toJSON(),
+        ]
+    }
+}
+
+extension Timestamp: JSONable {
+    func toJSON() -> [String : Any?] {
+        return [
+            "active": active,
+            "repeater": repeater,
+            "date": date.description,
         ]
     }
 }
