@@ -13,7 +13,7 @@ private extension Array {
 }
 
 extension OrgDocument: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "document",
           "title": title ?? "",
@@ -25,7 +25,7 @@ extension OrgDocument: JSONable {
 }
 
 extension Section: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         var dict: [String: Any?] = [
           "type": "section",
           "title": title ?? "",
@@ -44,7 +44,7 @@ extension Section: JSONable {
 }
 
 extension Paragraph: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "paragraph",
           "text": text,
@@ -53,7 +53,7 @@ extension Paragraph: JSONable {
 }
 
 extension Block: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "block",
           "name": name,
@@ -64,7 +64,7 @@ extension Block: JSONable {
 }
 
 extension List: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "list",
           "ordered": ordered,
@@ -74,7 +74,7 @@ extension List: JSONable {
 }
 
 extension ListItem: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "list_item",
           "text": text,
@@ -84,7 +84,7 @@ extension ListItem: JSONable {
 }
 
 extension Comment: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "comment",
           "text": text,
@@ -93,7 +93,7 @@ extension Comment: JSONable {
 }
 
 extension Drawer: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "drawer",
           "name": name,
@@ -103,7 +103,7 @@ extension Drawer: JSONable {
 }
 
 extension Footnote: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "footnote",
           "label": label,
@@ -113,7 +113,7 @@ extension Footnote: JSONable {
 }
 
 extension Planning: JSONable {
-    func toJSON() -> [String: Any?] {
+    public func toJSON() -> [String: Any?] {
         return [
           "type": "planning",
           "keyword": keyword.rawValue,
@@ -123,7 +123,7 @@ extension Planning: JSONable {
 }
 
 extension Timestamp: JSONable {
-    func toJSON() -> [String : Any?] {
+    public func toJSON() -> [String : Any?] {
         return [
             "active": active,
             "repeater": repeater,
@@ -133,13 +133,13 @@ extension Timestamp: JSONable {
 }
 
 extension HorizontalRule: JSONable {
-    func toJSON() -> [String : Any?] {
+    public func toJSON() -> [String : Any?] {
         return [ "type": "horizontal_rule" ]
     }
 }
 
 extension Table.Row: JSONable {
-    func toJSON() -> [String : Any?] {
+    public func toJSON() -> [String : Any?] {
         return [
             "has_seperator": hasSeparator,
             "cells": cells,
@@ -149,7 +149,7 @@ extension Table.Row: JSONable {
 
 extension Table: JSONable {
 
-    func toJSON() -> [String : Any?] {
+    public func toJSON() -> [String : Any?] {
         return [
             "rows": rows.toJSON()
         ]

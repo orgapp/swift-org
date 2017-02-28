@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SwiftOrg
+import SwiftOrg
 
 class ConvertToJSONTests: XCTestCase {
     func testJSONConvertion() throws {

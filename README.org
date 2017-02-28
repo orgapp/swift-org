@@ -218,8 +218,8 @@
 ** TODO Release
    To bump up version number.
    #+BEGIN_SRC sh :results silent
-     agvtool new-marketing-version 0.7.7
-     sed -i.bak "s/s\.version = .*/s\.version = '0\.7\.7'/" SwiftOrg.podspec
+     agvtool new-marketing-version 0.7.8
+     sed -i.bak "s/s\.version = .*/s\.version = '0\.7\.8'/" SwiftOrg.podspec
    #+END_SRC
 
 * License
