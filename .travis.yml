@@ -10,11 +10,3 @@ deploy:
     on:
       branch: master
       tags: true
-  - provider: releases
-    api_key:
-      secure: mT+AAfP3Y2mMSanouyG1RVBiEsVIeJ0loUyXTgzcO0tYpeIQyz3IOfaX191L9HnlKuOAFyC9WgWQZswAc3YDOtoVS6k/3iPnQze5IjAWc22TPHmIRgR/K8JwaCaK84+LFLug1qXzPfmrCmI/iQFOszaAxkqutWWxWYJblzYjkBJznfuuQT/fYkTXxRF3990eUwMwLnxt+VfQJFQc9wMnTbxwInDIhGhT4W/5KQPt/rZ9h2pFJLb34IAk1Buf51xDtZp17cBt8Dg6GdBC2b6uV65xTKmx8X+fL6p0SA69djp2n6mNitjTGf1ADiU97XUunopqZ60vzXY/nMlU8rNUwa2j7I8kTKiQ3QMWWUEYhZCHO9fcO52qjehyz/lI8CajgwVbzAkpP98OLviZj8RHxL0xHv9UifQOc6HtU6BlkTSQqS69ie0E8KCFux8ZuqtyC1vqRpU7z/nSIjoEAscZat2CRuoIkyIoshabUq+T3USA06bPlLfXSUgJDn6C96ZEaVY2JsUYGT/UIoD5He6pwsUmwnFhm1jtt0/CwpeM0pBpFcD12Bew8JGvu/G291tfzzVXGEIu+jirjXr6BVuHDMUcil81e2kwhTbA+pu4LuOkoLFYbUTW5pe6oeHd9NTIOOyJhHpZvdvIp3433AwzsxJplG2TT8bJycnfDJgQwig=
-    file: ''
-    on:
-      repo: xiaoxinghu/swift-org
-      branch: master
-      tags: true
