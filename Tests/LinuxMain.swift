@@ -6,4 +6,5 @@ XCTMain([testCase(TokenizerTests.allTests),
          testCase(InlineParsingTests.allTests),
          testCase(ParserTests.allTests),
          testCase(TimestampTests.allTests),
+         testCase(ConvertToJSONTests.allTests),
         ])
