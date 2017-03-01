@@ -1,7 +1,7 @@
 # coding: utf-8
 Pod::Spec.new do |s|
   s.name = 'SwiftOrg'
-  s.version = '0.7.8'
+  s.version = '0.7.9'
   s.summary = 'org-mode with swift'
   s.homepage = 'https://github.com/xiaoxinghu/swift-org'
   s.license = { type: 'MIT', file: 'LICENSE' }
