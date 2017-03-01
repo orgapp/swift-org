@@ -63,3 +63,9 @@ extension TimestampTests {
       ("testInvalidTimestamp", testInvalidTimestamp),
     ]
 }
+
+extension ConvertToJSONTests {
+    static var allTests = [
+        ("testJSONConvertion", testJSONConvertion),
+    ]
+}

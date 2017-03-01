@@ -373,7 +373,6 @@ class ParserTests: XCTestCase {
             XCTFail("Expect 0 to be Table")
             return
         }
-        print(table)
         XCTAssertEqual(table.rows.count, 4)
         XCTAssertEqual(table.rows[0].cells, ["Name", "Species", "Gender", "Role"])
         XCTAssertTrue(table.rows[0].hasSeparator)
