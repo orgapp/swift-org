@@ -215,7 +215,10 @@
      ./bin/setup
      ./bin/test
    #+END_SRC
-** TODO Release
+** About Indentation
+   Please use 2 spaces for indentation.
+** DONE Release
+   CLOSED: [2017-03-06 Mon 12:59]
    To bump up version number.
    #+BEGIN_SRC sh :results silent
      agvtool new-marketing-version 0.7.9

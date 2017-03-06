@@ -9,7 +9,7 @@
 import Foundation
 
 public struct HorizontalRule: Node {
-    public var description: String {
-        return "HorizontalRule"
-    }
+  public var description: String {
+    return "HorizontalRule"
+  }
 }
