@@ -83,6 +83,8 @@
 		A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70C22521D8A204F007796E2 /* TokenExtensions.swift */; };
 		A77DDD5A1D9C975D00120BA7 /* OrgFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */; };
 		A78044F41DDD06D000C8CE46 /* IndexingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78044F31DDD06D000C8CE46 /* IndexingTests.swift */; };
+		A7AF43811E6CE67D006AAB1B /* Affiliatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AF43801E6CE67D006AAB1B /* Affiliatable.swift */; };
+		A7AF43821E6CE67D006AAB1B /* Affiliatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AF43801E6CE67D006AAB1B /* Affiliatable.swift */; };
 		A7B688461D8B74FA009E2FB1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +148,7 @@
 		A70C22521D8A204F007796E2 /* TokenExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenExtensions.swift; path = SwiftOrgTests/TokenExtensions.swift; sourceTree = "<group>"; };
 		A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrgFileWriterTests.swift; path = SwiftOrgTests/OrgFileWriterTests.swift; sourceTree = "<group>"; };
 		A78044F31DDD06D000C8CE46 /* IndexingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndexingTests.swift; path = SwiftOrgTests/IndexingTests.swift; sourceTree = "<group>"; };
+		A7AF43801E6CE67D006AAB1B /* Affiliatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Affiliatable.swift; sourceTree = "<group>"; };
 		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformanceTests.swift; path = SwiftOrgTests/PerformanceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -221,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				03BBC3EB1DF81863003FCB3C /* Node.swift */,
+				A7AF43801E6CE67D006AAB1B /* Affiliatable.swift */,
 				03BBC3EC1DF81863003FCB3C /* OrgDocument.swift */,
 				03BBC3F11DF81863003FCB3C /* Section.swift */,
 				03BBC3E41DF81863003FCB3C /* Drawer.swift */,
@@ -543,6 +547,7 @@
 				03BBC4101DF818E6003FCB3C /* OrgDocument.swift in Sources */,
 				037BFFBC1E640714005EB02F /* ConvertToJSON.swift in Sources */,
 				03C091161E220F2700002E2F /* Timestamp.swift in Sources */,
+				A7AF43821E6CE67D006AAB1B /* Affiliatable.swift in Sources */,
 				03BBC4271DF8191E003FCB3C /* Inline.swift in Sources */,
 				03BBC41D1DF818F1003FCB3C /* Data.swift in Sources */,
 				03BBC40A1DF818E6003FCB3C /* Comment.swift in Sources */,
@@ -573,6 +578,7 @@
 				03BBC41A1DF818E7003FCB3C /* OrgDocument.swift in Sources */,
 				03C091121E21A4D100002E2F /* Timestamp.swift in Sources */,
 				03BBC42B1DF8191E003FCB3C /* Inline.swift in Sources */,
+				A7AF43811E6CE67D006AAB1B /* Affiliatable.swift in Sources */,
 				03BBC4221DF818F1003FCB3C /* Data.swift in Sources */,
 				03BBC4141DF818E7003FCB3C /* Comment.swift in Sources */,
 				037BFFB81E6406A3005EB02F /* ConvertToJSON.swift in Sources */,

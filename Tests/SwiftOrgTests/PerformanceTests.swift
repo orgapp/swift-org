@@ -7,29 +7,59 @@
 //
 
 import XCTest
-import SwiftOrg
+@testable import SwiftOrg
 
 class PerformanceTests: XCTestCase {
-
-    var content: String = ""
-    // override func setUp() {
-    //     super.setUp()
-    //     do {
-    //         let path = Bundle(for: type(of: self)).path(forResource: "README", ofType: "org")
-    //         content = try String(contentsOfFile: path!)
-    //     } catch {
-    //         XCTFail("ERROR: \(error)")
-    //     }
-    // }
-
-    // func testPerformanceParseSmallFile() {
-    //     self.measure {
-    //         do {
-    //             let parser = OrgParser()
-    //             _ = try parser.parse(content: self.content)
-    //         } catch {
-    //             XCTFail("ERROR: \(error)")
-    //         }
-    //     }
-    // }
+  
+  var content: String = ""
+  override func setUp() {
+    super.setUp()
+    let src = "https://raw.githubusercontent.com/xiaoxinghu/dotfiles/master/home.org"
+//    let src = "https://raw.githubusercontent.com/sachac/.emacs.d/gh-pages/Sacha.org"
+    if let url = URL(string: src) {
+      do {
+        content = try String(contentsOf: url)
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }
+  }
+  
+  func testLexerPerformance() {
+    let lines = content.lines
+    print("File size: \(content.characters.count) characters, \(lines.count) lines.")
+    let lexer = Lexer(lines: lines)
+    self.measure {
+      do {
+        _ = try lexer.tokenize()
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }
+  }
+  
+  func testParserPerformance() throws {
+    print("File size: \(content.characters.count)")
+    let tokens = try Lexer(lines: content.lines).tokenize()
+    let parser = OrgParser()
+    self.measure {
+      do {
+        _ = try parser.parse(tokens: tokens)
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }    
+  }
+  
+//  func testTheFileFirst() {
+//    print("File size: \(content.characters.count)")
+//    do {
+//      let parser = OrgParser()
+//      let doc = try parser.parse(content: self.content)
+//      print("\(doc)")
+//    } catch {
+//      print(Thread.callStackSymbols)
+//      XCTFail("ERROR: \(error)")
+//    }
+//  }
 }
