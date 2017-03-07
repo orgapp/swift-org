@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import SwiftOrg
+@testable import SwiftOrg
 
 class PerformanceTests: XCTestCase {
   
@@ -25,28 +25,41 @@ class PerformanceTests: XCTestCase {
     }
   }
   
-//  func testPerformanceParseSmallFile() {
-//    print("File size: \(content.characters.count)")
-//    self.measure {
-//      do {
-//        let parser = OrgParser()
-//        let doc = try parser.parse(content: self.content)
-//        print("\(doc.title!)")
-//      } catch {
-//        XCTFail("ERROR: \(error)")
-//      }
-//    }
-//  }
-  
-  func testTheFileFirst() {
-    print("File size: \(content.characters.count)")
-    do {
-      let parser = OrgParser()
-      let doc = try parser.parse(content: self.content)
-      print("\(doc.title!)")
-    } catch {
-      print(Thread.callStackSymbols)
-      XCTFail("ERROR: \(error)")
+  func testLexerPerformance() {
+    let lines = content.lines
+    print("File size: \(content.characters.count) characters, \(lines.count) lines.")
+    let lexer = Lexer(lines: lines)
+    self.measure {
+      do {
+        _ = try lexer.tokenize()
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
     }
   }
+  
+  func testParserPerformance() throws {
+    print("File size: \(content.characters.count)")
+    let tokens = try Lexer(lines: content.lines).tokenize()
+    let parser = OrgParser()
+    self.measure {
+      do {
+        _ = try parser.parse(tokens: tokens)
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }    
+  }
+  
+//  func testTheFileFirst() {
+//    print("File size: \(content.characters.count)")
+//    do {
+//      let parser = OrgParser()
+//      let doc = try parser.parse(content: self.content)
+//      print("\(doc)")
+//    } catch {
+//      print(Thread.callStackSymbols)
+//      XCTFail("ERROR: \(error)")
+//    }
+//  }
 }
