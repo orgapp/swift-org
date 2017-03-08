@@ -12,22 +12,23 @@ import Foundation
 
 let parser = OrgParser()
 
-func parse(_ lines: [String], with parser: OrgParser = parser) -> OrgDocument? {
-    do {
-        return try parser.parse(lines: lines)
-    } catch {
-        XCTFail("> ERROR: \(error).")
-    }
-    return nil
+func parse(_ lines: [String], with parser: OrgParser = parser,
+           file: StaticString = #file, line: UInt = #line) -> OrgDocument? {
+  do {
+    return try parser.parse(lines: lines)
+  } catch {
+    XCTFail("> ERROR: \(error).", file: file, line: line)
+  }
+  return nil
 }
 
 func quickDate(date: String, time: String? = nil) -> Date {
-    let formater = DateFormatter()
-    formater.dateFormat = "yyyy-MM-dd"
-    var dt = date
-    if let t = time {
-        dt = "\(date) \(t)"
-        formater.dateFormat = "yyyy-MM-dd HH:mm"
-    }
-    return formater.date(from: dt)!
+  let formater = DateFormatter()
+  formater.dateFormat = "yyyy-MM-dd"
+  var dt = date
+  if let t = time {
+    dt = "\(date) \(t)"
+    formater.dateFormat = "yyyy-MM-dd HH:mm"
+  }
+  return formater.date(from: dt)!
 }

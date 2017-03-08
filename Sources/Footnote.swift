@@ -25,25 +25,24 @@ extension OrgParser {
     
     var footnote = Footnote(label: label, content: [try parseParagraph(content)!])
     var blanks = 0
-    while let (_, token) = tokens.peek() {
+    footnote = try parse(
+      under: footnote,
+      breaks: { token in
+        switch token {
+        case .headline, .footnote: return true
+        default: ()
+        }
+        return false
+    }, skips: { token in
       switch token {
       case .blank:
         blanks = blanks + 1
-        if blanks == 2 {
-          return footnote
-        } else {
-          _ = tokens.dequeue()
-          continue
-        }
-      case .headline, .footnote:
-        return footnote
-      default:
-        blanks = 0
-        if let n = try parseTheRest() {
-          footnote.content.append(n)
-        }
+        return blanks == 2
+      default: blanks = 0
       }
-    }
+      return false
+    }) as! Footnote
+    
     return footnote
   }
 }

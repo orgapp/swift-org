@@ -76,48 +76,76 @@ public class OrgParser {
     return try parse(lines: content.lines)
   }
   
-  // MARK: real parsing logic
-  func parse(under container: NodeContainer) throws -> NodeContainer {
+}
+
+typealias TokenCondition = (Token) -> Bool
+
+// MARK: the real parsing logic
+extension OrgParser {
+  func parse(under container: NodeContainer,
+             breaks: TokenCondition = { _ in return false },
+             skips: TokenCondition = { _ in return false }) throws -> NodeContainer {
     guard let (_, token) = tokens.peek() else {
       return container
     }
-    
-    guard let index = container.index else {
-      throw Errors.illegalNodeForContainer("\(type(of: container))")
+    if breaks(token) { return container }
+    if skips(token) {
+      _ = tokens.dequeue()
+      return try parse(under: container, breaks: breaks, skips: skips)
     }
     
     var newContainer = container
     var newContent: Node? = nil
-
+    
     switch token {
     case .blank:
       _ = tokens.dequeue() // skip blank
       consumeAffiliatedKeywords()
       
-      // blank means that existing affiliated keywords are not attached to anything
+    // blank means that existing affiliated keywords are not attached to anything
     case .setting:
       try dealWithAffiliatedKeyword()
     case let .headline(l, _):
+      guard let index = container.index else {
+        throw Errors.illegalNodeForContainer("\(type(of: container))")
+      }
       if l <= index.indexes.count {
         return container // break the loop for finding higher level headline
       }
       var section = try parseSection()
       section.index = indexForNewSection(under: container)
-      newContent = try parse(under: section)
+      newContent = try parse(under: section, breaks: breaks, skips: skips)
     case .footnote:
       newContent = try parseFootnote()
+    case .line:
+      newContent = try parseParagraph()
+    case let .comment(t):
+      _ = tokens.dequeue()
+      newContent = Comment(text: t)
+    case .blockBegin:
+      newContent = try parseBlock()
+    case .drawerBegin:
+      newContent = try parseDrawer()
+    case .listItem:
+      newContent = try parseList()
+    case .planning(let keyword, let timestamp):
+      _ = tokens.dequeue()
+      newContent = Planning(keyword: keyword, timestamp: timestamp)
+    case .tableRow, .horizontalSeparator:
+      newContent = try parseTable()
+    case .horizontalRule:
+      _ = tokens.dequeue()
+      newContent = HorizontalRule()
     default:
-      newContent = try parseTheRest()
+      throw Errors.unexpectedToken("\(token) is not expected")
     }
     if var c = newContent as? Affiliatable,
       let a = attrBuffer {
       c.attributes = a
       attrBuffer = nil
       newContainer.content.append(c as! Node)
-    } else {
-      if let c = newContent {
-        newContainer.content.append(c)
-      }
+    } else if let c = newContent {
+      newContainer.content.append(c)
     }
     
     return try parse(under: newContainer)
@@ -129,4 +157,5 @@ public class OrgParser {
     }
     return (container.index?.in)!
   }
+  
 }

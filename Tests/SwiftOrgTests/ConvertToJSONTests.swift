@@ -43,7 +43,7 @@ class ConvertToJSONTests: XCTestCase {
             "** Section Two.One",
         ]
 
-        let doc = parse(lines)
+        let doc = try parse(lines)
         let json = doc?.toJSON()
         XCTAssertEqual(json?["type"] as? String, "document")
         XCTAssertEqual(json?["title"] as? String, "Org Mode Syntax")
