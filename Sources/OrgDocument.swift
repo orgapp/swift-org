@@ -57,15 +57,23 @@ public struct OrgDocument: NodeContainer, Affiliatable {
 extension OrgParser {
     
   func parseDocument() throws -> OrgDocument {
-    var index = OrgIndex([0])
-    while tokens.isEmpty == false {
-      if let node = try parseSection(index) {
-        document.content.append(node)
-        index = index.next
+    document = preProcess()
+    document = try parse(under: document) as! OrgDocument
+    document.attributes.merge(with: orphanAttributes)
+    return document
+  }
+  
+  fileprivate func preProcess() -> OrgDocument {
+    document = OrgDocument(todos: defaultTodos)
+    document = tokens.array.reduce(document!) {
+      if case let .setting(key, value) = $1.1,
+        isIBS(key) {
+        var doc = $0
+        doc.attributes[key] = value
+        return doc
       }
+      return $0
     }
-    consumeAffiliatedKeywords()
-
     return document
   }
 }

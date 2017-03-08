@@ -19,11 +19,18 @@ public class OrgParser {
   var tokens: Queue<TokenInfo>!
   var document: OrgDocument!
   var attrBuffer: [String : String]?
+  var orphanAttributes = [String : String]()
   public var defaultTodos: [[String]]
   
   // MARK: init
   public init(defaultTodos: [[String]] = [["TODO"], ["DONE"]]) {
     self.defaultTodos = defaultTodos
+  }
+  
+  func reset() {
+    attrBuffer = nil
+    orphanAttributes = [String : String]()
+    tokens = nil
   }
     
   /// look ahead for matching tokens
@@ -53,10 +60,10 @@ public class OrgParser {
     }
   }
   
-  // MARK: parse document
+  // MARK: parse document  
   func parse(tokens: [TokenInfo]) throws -> OrgDocument {
+    reset()
     self.tokens = Queue<TokenInfo>(data: tokens)
-    document = OrgDocument(todos: defaultTodos)
     return try parseDocument()
   }
   
@@ -67,5 +74,59 @@ public class OrgParser {
   
   public func parse(content: String) throws -> OrgDocument {
     return try parse(lines: content.lines)
+  }
+  
+  // MARK: real parsing logic
+  func parse(under container: NodeContainer) throws -> NodeContainer {
+    guard let (_, token) = tokens.peek() else {
+      return container
+    }
+    
+    guard let index = container.index else {
+      throw Errors.illegalNodeForContainer("\(type(of: container))")
+    }
+    
+    var newContainer = container
+    var newContent: Node? = nil
+
+    switch token {
+    case .blank:
+      _ = tokens.dequeue() // skip blank
+      consumeAffiliatedKeywords()
+      
+      // blank means that existing affiliated keywords are not attached to anything
+    case .setting:
+      try dealWithAffiliatedKeyword()
+    case let .headline(l, _):
+      if l <= index.indexes.count {
+        return container // break the loop for finding higher level headline
+      }
+      var section = try parseSection()
+      section.index = indexForNewSection(under: container)
+      newContent = try parse(under: section)
+    case .footnote:
+      newContent = try parseFootnote()
+    default:
+      newContent = try parseTheRest()
+    }
+    if var c = newContent as? Affiliatable,
+      let a = attrBuffer {
+      c.attributes = a
+      attrBuffer = nil
+      newContainer.content.append(c as! Node)
+    } else {
+      if let c = newContent {
+        newContainer.content.append(c)
+      }
+    }
+    
+    return try parse(under: newContainer)
+  }
+  
+  fileprivate func indexForNewSection(under container: NodeContainer) -> OrgIndex {
+    if let lastIndexed = container.content.filter({ $0.index != nil }).last {
+      return (lastIndexed.index?.next)!
+    }
+    return (container.index?.in)!
   }
 }
