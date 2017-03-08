@@ -67,53 +67,16 @@ public struct Planning: Node {
 }
 
 extension OrgParser {
-  fileprivate func _parseSection(_ index: OrgIndex) throws -> Node? {
-    guard let (_, token) = tokens.peek() else {
-      return nil
-    }
-    switch token {
-    case .blank:
-      _ = tokens.dequeue() // skip blank
-      consumeAffiliatedKeywords()
-      // blank means that existing affiliated keywords are not attached to anything
-      return try parseSection(index)
-    case .setting:
-      try dealWithAffiliatedKeyword()
-      return try parseSection(index)
-    case let .headline(l, t):
-      if l < index.indexes.count {
-        return nil
-      }
-      _ = tokens.dequeue()
-      var section = Section(stars: l, title: t, todos: document.todos.flatMap{ $0 })
-      if let attr = attrBuffer {
-        section.attributes = attr
-        attrBuffer = nil
-      }
-      
-      section.index = index
-      var subIndex = index.in
-      while let subSection = try parseSection(subIndex) {
-        section.content.append(subSection)
-        subIndex = subIndex.next
-      }
-      return section
-    case .footnote:
-      return try parseFootnote()
-    default:
-      return try parseTheRest()
-    }
-  }
   
-  func parseSection(_ index: OrgIndex) throws -> Node? {
-    let node = try _parseSection(index)
-    if var a = node as? Affiliatable,
-      let attr = attrBuffer {
-      a.attributes = attr
-      attrBuffer = nil
-      return (a as! Node)
-    } else {
-      return node
+  func parseSection() throws -> Section {
+    guard case let (_, Token.headline(l, t)) = tokens.dequeue()! else {
+      throw Errors.unexpectedToken("headline expected")
     }
+    var section = Section(stars: l, title: t, todos: document.todos.flatMap{ $0 })
+    if let attr = attrBuffer {
+      section.attributes = attr
+      attrBuffer = nil
+    }
+    return section
   }
 }

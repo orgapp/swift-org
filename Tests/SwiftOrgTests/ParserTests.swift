@@ -435,5 +435,53 @@ class ParserTests: XCTestCase {
     XCTAssertEqual(para1.lines[0], "footnote one.")
   }
   
+  func testFootnoteBreaksAfterTwoSpaces() throws {
+    let doc = parse([
+      "[fn:1] footnote one.",
+      "",
+      "",
+      "[fn:2] footnote two.",
+      ])
+    
+    XCTAssertEqual(2, doc?.content.count)
+  }
   
+  func testComplexFootnote() throws {
+    let lines = [
+      "[fn:1] footnote one.",
+      "One line of content",
+      "",
+      "2nd paragraph",
+      "",
+      "",
+      "* a headline",
+      ]
+    let doc = parse(lines)
+    guard let foot = doc?.content[0] as? Footnote else {
+      XCTFail("Expect \(doc?.content[0]) to be Footnote")
+      return
+    }
+    
+    XCTAssertEqual(2, doc?.content.count)
+    
+    XCTAssertEqual(2, foot.content.count)
+    guard let para1 = foot.content[0] as? Paragraph else {
+      XCTFail("Expect [0][0] to be Paragraph")
+      return
+    }
+    XCTAssertEqual(para1.lines[0], "footnote one.")
+    XCTAssertEqual(para1.lines[1], "One line of content")
+    
+    guard let para2 = foot.content[1] as? Paragraph else {
+      XCTFail("Expect [0][1] to be Paragraph")
+      return
+    }
+    XCTAssertEqual(para2.lines[0], "2nd paragraph")
+    
+    guard let sec = doc?.content[1] as? Section else {
+      XCTFail("Expect \(doc?.content[2]) to be Section")
+      return
+    }
+    XCTAssertEqual(sec.title, "a headline")
+  }
 }

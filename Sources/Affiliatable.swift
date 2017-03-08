@@ -12,26 +12,38 @@ public protocol Affiliatable {
   var attributes: [String : String] { get set }
 }
 
+fileprivate func matches(_ array: [String]) -> (String) -> Bool {
+  return { key in
+    return array.contains { $0.lowercased() == key.lowercased() }
+  }
+}
+
 extension OrgParser {
+  
+  func isAK(_ key: String) -> Bool {
+    return matches(["CAPTION", "HEADER", "NAME", "PLOT", "RESULTS"])(key)
+  }
+  
+  func isIBS(_ key: String) -> Bool {
+    return matches(["TODO"])(key)
+  }
+  
   func dealWithAffiliatedKeyword() throws {
     guard case let (_, Token.setting(key, value)) = tokens.dequeue()! else {
       throw Errors.unexpectedToken("Affiliated Keyword expected")
     }
     
-    let isAK = ["CAPTION", "HEADER", "NAME", "PLOT", "RESULTS"]
-      .contains { $0.lowercased() == key.lowercased() }
-    
-    if isAK {
+    if isAK(key) {
       attrBuffer = attrBuffer ?? [String : String]()
       attrBuffer![key] = value
     } else {
-      document.attributes[key] = value
+      orphanAttributes[key] = value
     }
   }
   
   func consumeAffiliatedKeywords() {
     if let attr = attrBuffer {
-      document.attributes.merge(with: attr)
+      orphanAttributes.merge(with: attr)
       attrBuffer = nil
     }
   }

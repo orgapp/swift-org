@@ -66,36 +66,3 @@ extension Node {
 protocol NodeContainer: Node {
   var content: [Node] { get set }
 }
-
-extension OrgParser {
-  
-  func parseTheRest() throws -> Node? {
-    guard let (_, token) = tokens.peek() else {
-      return nil
-    }
-    
-    switch token {
-    case .line:
-      return try parseParagraph()
-    case let .comment(t):
-      _ = tokens.dequeue()
-      return Comment(text: t)
-    case .blockBegin:
-      return try parseBlock()
-    case .drawerBegin:
-      return try parseDrawer()
-    case .listItem:
-      return try parseList()
-    case .planning(let keyword, let timestamp):
-      _ = tokens.dequeue()
-      return Planning(keyword: keyword, timestamp: timestamp)
-    case .tableRow, .horizontalSeparator:
-      return try parseTable()
-    case .horizontalRule:
-      _ = tokens.dequeue()
-      return HorizontalRule()
-    default:
-      throw Errors.unexpectedToken("\(token) is not expected")
-    }
-  }  
-}

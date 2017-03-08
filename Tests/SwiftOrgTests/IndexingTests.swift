@@ -41,8 +41,8 @@ class IndexingTests: XCTestCase {
         XCTAssertEqual(index.prev.description, "0.1.1")
     }
 
-    func testSectionIndexing() {
-        guard let doc = parse([
+    func testSectionIndexing() throws {
+        guard let doc = try parse([
             "* Section 0",
             "** Section 0.0",
             "** Section 0.1",
