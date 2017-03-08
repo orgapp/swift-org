@@ -226,4 +226,4 @@
    #+END_SRC
 
 * License
-  Carthage is released under the [[https://github.com/xiaoxinghu/swift-org/blob/master/LICENSE][MIT LIcense]].
+  SwiftOrg is released under the [[https://github.com/xiaoxinghu/swift-org/blob/master/LICENSE][MIT LIcense]].

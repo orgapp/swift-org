@@ -461,14 +461,24 @@ class ParserTests: XCTestCase {
       XCTFail("Expect \(doc?.content[0]) to be Footnote")
       return
     }
-    guard let para = foot.content[0] as? Paragraph else {
+    
+    XCTAssertEqual(2, doc?.content.count)
+    
+    XCTAssertEqual(2, foot.content.count)
+    guard let para1 = foot.content[0] as? Paragraph else {
       XCTFail("Expect [0][0] to be Paragraph")
       return
     }
-    XCTAssertEqual(para.lines[0], "footnote one.")
-    XCTAssertEqual(para.lines[1], "One line of content")
+    XCTAssertEqual(para1.lines[0], "footnote one.")
+    XCTAssertEqual(para1.lines[1], "One line of content")
     
-    guard let sec = doc?.content[2] as? Section else {
+    guard let para2 = foot.content[1] as? Paragraph else {
+      XCTFail("Expect [0][1] to be Paragraph")
+      return
+    }
+    XCTAssertEqual(para2.lines[0], "2nd paragraph")
+    
+    guard let sec = doc?.content[1] as? Section else {
       XCTFail("Expect \(doc?.content[2]) to be Section")
       return
     }

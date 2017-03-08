@@ -82,16 +82,9 @@ typealias TokenCondition = (Token) -> Bool
 
 // MARK: the real parsing logic
 extension OrgParser {
-  func parse(under container: NodeContainer,
-             breaks: TokenCondition = { _ in return false },
-             skips: TokenCondition = { _ in return false }) throws -> NodeContainer {
+  func parse(under container: NodeContainer) throws -> NodeContainer {
     guard let (_, token) = tokens.peek() else {
       return container
-    }
-    if breaks(token) { return container }
-    if skips(token) {
-      _ = tokens.dequeue()
-      return try parse(under: container, breaks: breaks, skips: skips)
     }
     
     var newContainer = container
@@ -114,30 +107,11 @@ extension OrgParser {
       }
       var section = try parseSection()
       section.index = indexForNewSection(under: container)
-      newContent = try parse(under: section, breaks: breaks, skips: skips)
+      newContent = try parse(under: section)
     case .footnote:
       newContent = try parseFootnote()
-    case .line:
-      newContent = try parseParagraph()
-    case let .comment(t):
-      _ = tokens.dequeue()
-      newContent = Comment(text: t)
-    case .blockBegin:
-      newContent = try parseBlock()
-    case .drawerBegin:
-      newContent = try parseDrawer()
-    case .listItem:
-      newContent = try parseList()
-    case .planning(let keyword, let timestamp):
-      _ = tokens.dequeue()
-      newContent = Planning(keyword: keyword, timestamp: timestamp)
-    case .tableRow, .horizontalSeparator:
-      newContent = try parseTable()
-    case .horizontalRule:
-      _ = tokens.dequeue()
-      newContent = HorizontalRule()
     default:
-      throw Errors.unexpectedToken("\(token) is not expected")
+      newContent = try parseTheRest()
     }
     if var c = newContent as? Affiliatable,
       let a = attrBuffer {
@@ -149,6 +123,36 @@ extension OrgParser {
     }
     
     return try parse(under: newContainer)
+  }
+  
+  func parseTheRest() throws -> Node? {
+    guard let (_, token) = tokens.peek() else {
+      return nil
+    }
+    
+    switch token {
+    case .line:
+      return try parseParagraph()
+    case let .comment(t):
+      _ = tokens.dequeue()
+      return Comment(text: t)
+    case .blockBegin:
+      return try parseBlock()
+    case .drawerBegin:
+      return try parseDrawer()
+    case .listItem:
+      return try parseList()
+    case .planning(let keyword, let timestamp):
+      _ = tokens.dequeue()
+      return Planning(keyword: keyword, timestamp: timestamp)
+    case .tableRow, .horizontalSeparator:
+      return try parseTable()
+    case .horizontalRule:
+      _ = tokens.dequeue()
+      return HorizontalRule()
+    default:
+      throw Errors.unexpectedToken("\(token) is not expected")
+    }
   }
   
   fileprivate func indexForNewSection(under container: NodeContainer) -> OrgIndex {

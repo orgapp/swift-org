@@ -18,31 +18,39 @@ public struct Footnote: NodeContainer {
 }
 
 extension OrgParser {
+  
+  fileprivate func parseFootnoteContent(under footnote: Footnote, strikes: Int = 0) throws -> Footnote {
+    guard let (_, token) = tokens.peek() else {
+      return footnote
+    }
+    var newFootnote = footnote
+    var content: Node? = nil
+    var newStrikes = strikes
+    switch token {
+    case .blank:
+      newStrikes += 1
+      if newStrikes == 2 { return footnote }
+      _ = tokens.dequeue()
+    case .headline, .footnote:
+      return footnote
+    default:
+      content = try parseTheRest()
+      newStrikes = 0
+    }
+    
+    if let newContent = content {
+      newFootnote.content.append(newContent)
+    }
+    
+    return try parseFootnoteContent(under: newFootnote, strikes: newStrikes)
+  }
+  
   func parseFootnote() throws -> Footnote {
     guard case let(_, .footnote(label, content)) = tokens.dequeue()! else {
       throw Errors.unexpectedToken("footnote expected")
     }
     
-    var footnote = Footnote(label: label, content: [try parseParagraph(content)!])
-    var blanks = 0
-    footnote = try parse(
-      under: footnote,
-      breaks: { token in
-        switch token {
-        case .headline, .footnote: return true
-        default: ()
-        }
-        return false
-    }, skips: { token in
-      switch token {
-      case .blank:
-        blanks = blanks + 1
-        return blanks == 2
-      default: blanks = 0
-      }
-      return false
-    }) as! Footnote
-    
-    return footnote
+    let footnote = Footnote(label: label, content: [try parseParagraph(content)!])
+    return try parseFootnoteContent(under: footnote)
   }
 }
