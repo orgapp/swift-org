@@ -10,7 +10,7 @@ import XCTest
 @testable import SwiftOrg
 
 class PerformanceTests: XCTestCase {
-  
+
   var content: String = ""
   override func setUp() {
     super.setUp()
@@ -24,7 +24,7 @@ class PerformanceTests: XCTestCase {
       }
     }
   }
-  
+
   func testLexerPerformance() {
     let lines = content.lines
     print("File size: \(content.characters.count) characters, \(lines.count) lines.")
@@ -37,7 +37,7 @@ class PerformanceTests: XCTestCase {
       }
     }
   }
-  
+
   func testParserPerformance() throws {
     print("File size: \(content.characters.count)")
     let tokens = try Lexer(lines: content.lines).tokenize()
@@ -48,9 +48,9 @@ class PerformanceTests: XCTestCase {
       } catch {
         XCTFail("ERROR: \(error)")
       }
-    }    
+    }
   }
-  
+
 //  func testTheFileFirst() {
 //    print("File size: \(content.characters.count)")
 //    do {
