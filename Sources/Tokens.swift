@@ -39,24 +39,29 @@ typealias TokenGenerator = ([String?]) -> Token
 
 struct TokenDescriptor {
   let pattern: String
+  let name: String
   let options: RegularExpression.Options
   let generator: TokenGenerator
   
   
   init(_ thePattern: String,
+       name theName: String = "",
        options theOptions: RegularExpression.Options = [],
        generator theGenerator: @escaping TokenGenerator = { matches in .raw(matches[0]!) }) {
     pattern = thePattern
+    name = theName
     options = theOptions
     generator = theGenerator
   }
 }
 
 func define(_ pattern: String,
+            as name: String = "",
             options: RegularExpression.Options = [],
             generator: @escaping TokenGenerator) {
   tokenDescriptors.append(
     TokenDescriptor(pattern,
+                    name: name,
                     options: options,
                     generator: generator))
 }
@@ -71,7 +76,7 @@ func defineTokens() {
   define("^#\\+([a-zA-Z_]+):\\s*(.*)$") { matches in
     .setting(key: matches[1]!, value: matches[2]) }
   
-  define("^(\\*+)\\s+(.*)$") { matches in
+  define("^(\\*+)\\s+(.*)$", as: "headline") { matches in
     .headline(stars: matches[1]!.characters.count, text: matches[2]) }
   
   define("^\\s*(\(PlanningKeyword.all.joined(separator: "|"))):\\s+(.+)$") { matches in
@@ -137,4 +142,8 @@ func defineTokens() {
   define("^(\\s*)(.*)$") { matches in
     .line(text: matches[2]!) }
   
+}
+
+func tokenDescriptor(named name: String) -> TokenDescriptor {
+  return tokenDescriptors.first { $0.name == name }!
 }

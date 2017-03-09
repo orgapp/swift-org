@@ -68,8 +68,8 @@ public class OrgParser {
   }
   
   public func parse(lines: [String]) throws -> OrgDocument {
-    let lexer = Lexer(lines: lines)
-    return try parse(tokens: lexer.tokenize())
+    let lexer = Lexer()
+    return try parse(tokens: lexer.tokenize(lines: lines))
   }
   
   public func parse(content: String) throws -> OrgDocument {
