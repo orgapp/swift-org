@@ -41,7 +41,8 @@ class PerformanceTests: XCTestCase {
   func testGrammarMarkerPerformance() {
     self.measure {
       do {
-        _ = try mark(text: self.content)
+        let marks = try mark(text: self.content)
+//        _ = fold(marks)
       } catch {
         XCTFail("ERROR: \(error)")
       }

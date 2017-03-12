@@ -103,7 +103,7 @@ struct Grammar {
     
     Pattern("drawer.end", match: "^\(space)*:(end|END):\(space)*\(eol)"),
     Pattern("drawer.begin", match: "^\(space)*:([a-zA-Z]+):\(space)*\(eol)",
-      captures: [ 1: "drawer.name" ]),
+      captures: [ 1: "drawer.begin.name" ]),
     
     
     Pattern("horizontalRule", match: "^\(space)*-{5,}\(eol)"),
@@ -130,7 +130,16 @@ struct Grammar {
 public struct Mark {
   let range: Range<String.Index>
   let name: String
+  var marks = [Mark]()
   
+  init(range _range: Range<String.Index>, name _name: String) {
+    range = _range
+    name = _name
+  }
+  
+  mutating func include(_ mark: Mark) {
+    marks.append(mark)
+  }
 }
 
 extension String {
@@ -187,10 +196,27 @@ fileprivate func _parse(text: String, range: Range<String.Index>, callback: Call
   throw Errors.cannotFindToken("Nothing Matches")
 }
 
-public func mark(text: String) throws -> [Mark] {
+public func mark(text: String, folded: Bool = true) throws -> [Mark] {
   var marks = [Mark]()
   try parse(text: text) { name, range in
-    marks.append(Mark(range: range, name: name))
+    let mark = Mark(range: range, name: name)
+    if folded,
+      let last = marks.last,
+      scope(name, under: last.name) {
+      marks[marks.endIndex - 1].include(mark)
+    } else {
+      marks.append(mark)
+    }
   }
+  return marks
+}
+
+func scope(_ text: String, under: String) -> Bool {
+  return text.hasPrefix(under) && text.characters.count > under.characters.count
+}
+
+//func match(begin: (Mark) -> Bool, end: (Mark) -> Bool)
+
+public func analyze(_ text: String, marks: [Mark]) throws -> [Mark] {
   return marks
 }

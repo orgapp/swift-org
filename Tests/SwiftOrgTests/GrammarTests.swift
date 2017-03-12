@@ -51,94 +51,123 @@ class GrammarTests: XCTestCase {
     
 
     let marks = try mark(text: text)
-    var cursor = 0
     
-    func eval(name: String, value: String,
+    func eval(_ mark: Mark, name: String, value: String,
               file: StaticString = #file, line: UInt = #line) {
-      evalMark(marks[cursor], on: text, name: name, value: value,
-           file: file, line: line)
-      cursor += 1
+      evalMark(mark, on: text, name: name, value: value,
+               file: file, line: line)
     }
-
-    eval(name: "setting", value: "\(lines[0])\n")
-    eval(name: "setting.key", value: "TITLE")
-    eval(name: "setting.value", value: "Org Mode Syntax")
-    eval(name: "setting", value: "\(lines[1])\n")
-    eval(name: "setting.key", value: "TODO")
-    eval(name: "setting.value", value: "TODO NEXT | DONE")
-    eval(name: "blank", value: "\n")
-    eval(name: "headline", value: "\(lines[3])\n")
-    eval(name: "headline.stars", value: "*")
-    eval(name: "headline.keyword", value: "TODO")
-    eval(name: "headline.text", value: "Section One")
-    eval(name: "headline.tags", value: ":tag1:tag2:")
-    eval(name: "planning", value: "\(lines[4])\n")
-    eval(name: "planning.keyword", value: "DEADLINE")
-    eval(name: "planning.timestamp", value: "<2017-02-28 Tue>")
-    eval(name: "drawer.begin", value: "\(lines[5])\n")
-    eval(name: "drawer.name", value: "PROPERTIES")
-    eval(name: "line", value: "\(lines[6])\n")
-    eval(name: "drawer.end", value: "\(lines[7])\n")
-    eval(name: "blank", value: "\n")
-    eval(name: "line", value: "\(lines[9])\n")
-    eval(name: "line", value: "\(lines[10])\n")
-    eval(name: "horizontalRule", value: "\(lines[11])\n")
+    
+    var cursor = 0
+    eval(marks[cursor], name: "setting", value: "\(lines[0])\n")
+    eval(marks[cursor].marks[0], name: "setting.key", value: "TITLE")
+    eval(marks[cursor].marks[1], name: "setting.value", value: "Org Mode Syntax")
+    cursor += 1
+    eval(marks[cursor], name: "setting", value: "\(lines[1])\n")
+    eval(marks[cursor].marks[0], name: "setting.key", value: "TODO")
+    eval(marks[cursor].marks[1], name: "setting.value", value: "TODO NEXT | DONE")
+    cursor += 1
+    eval(marks[cursor], name: "blank", value: "\n")
+    cursor += 1
+    eval(marks[cursor], name: "headline", value: "\(lines[3])\n")
+    eval(marks[cursor].marks[0], name: "headline.stars", value: "*")
+    eval(marks[cursor].marks[1], name: "headline.keyword", value: "TODO")
+    eval(marks[cursor].marks[2], name: "headline.text", value: "Section One")
+    eval(marks[cursor].marks[3], name: "headline.tags", value: ":tag1:tag2:")
+    cursor += 1
+    eval(marks[cursor], name: "planning", value: "\(lines[4])\n")
+    eval(marks[cursor].marks[0], name: "planning.keyword", value: "DEADLINE")
+    eval(marks[cursor].marks[1], name: "planning.timestamp", value: "<2017-02-28 Tue>")
+    cursor += 1
+    eval(marks[cursor], name: "drawer.begin", value: "\(lines[5])\n")
+    eval(marks[cursor].marks[0], name: "drawer.begin.name", value: "PROPERTIES")
+    cursor += 1
+    eval(marks[cursor], name: "line", value: "\(lines[6])\n")
+    cursor += 1
+    eval(marks[cursor], name: "drawer.end", value: "\(lines[7])\n")
+    cursor += 1
+    eval(marks[cursor], name: "blank", value: "\n")
+    cursor += 1
+    eval(marks[cursor], name: "line", value: "\(lines[9])\n")
+    cursor += 1
+    eval(marks[cursor], name: "line", value: "\(lines[10])\n")
+    cursor += 1
+    eval(marks[cursor], name: "horizontalRule", value: "\(lines[11])\n")
     
     // table
-    eval(name: "table.row", value: "\(lines[12])\n")
-    eval(name: "table.separator", value: "\(lines[13])\n")
-    eval(name: "table.row", value: "\(lines[14])\n")
-    eval(name: "table.row", value: "\(lines[15])\n")
-    eval(name: "table.row", value: "\(lines[16])\n")
+    cursor += 1
+    eval(marks[cursor], name: "table.row", value: "\(lines[12])\n")
+    cursor += 1
+    eval(marks[cursor], name: "table.separator", value: "\(lines[13])\n")
+    cursor += 1
+    eval(marks[cursor], name: "table.row", value: "\(lines[14])\n")
+    cursor += 1
+    eval(marks[cursor], name: "table.row", value: "\(lines[15])\n")
+    cursor += 1
+    eval(marks[cursor], name: "table.row", value: "\(lines[16])\n")
     
-    eval(name: "horizontalRule", value: "\(lines[17])\n")
-    
+    cursor += 1
+    eval(marks[cursor], name: "horizontalRule", value: "\(lines[17])\n")
+
     // list
-    eval(name: "list.item", value: "\(lines[18])\n")
-    eval(name: "list.item.indent", value: "")
-    eval(name: "list.item.bullet", value: "-")
-    eval(name: "list.item.text", value: "list item one")
-    eval(name: "list.item", value: "\(lines[19])\n")
-    eval(name: "list.item.indent", value: "")
-    eval(name: "list.item.bullet", value: "2.")
-    eval(name: "list.item.checker", value: " ")
-    eval(name: "list.item.text", value: "list item two")
-    eval(name: "list.item", value: "\(lines[20])\n")
-    eval(name: "list.item.indent", value: "  ")
-    eval(name: "list.item.bullet", value: "1)")
-    eval(name: "list.item.checker", value: "X")
-    eval(name: "list.item.text", value: "list item two.one")
+    cursor += 1
+    eval(marks[cursor], name: "list.item", value: "\(lines[18])\n")
+    eval(marks[cursor].marks[0], name: "list.item.indent", value: "")
+    eval(marks[cursor].marks[1], name: "list.item.bullet", value: "-")
+    eval(marks[cursor].marks[2], name: "list.item.text", value: "list item one")
+    cursor += 1
+    eval(marks[cursor], name: "list.item", value: "\(lines[19])\n")
+    eval(marks[cursor].marks[0], name: "list.item.indent", value: "")
+    eval(marks[cursor].marks[1], name: "list.item.bullet", value: "2.")
+    eval(marks[cursor].marks[2], name: "list.item.checker", value: " ")
+    eval(marks[cursor].marks[3], name: "list.item.text", value: "list item two")
+    cursor += 1
+    eval(marks[cursor], name: "list.item", value: "\(lines[20])\n")
+    eval(marks[cursor].marks[0], name: "list.item.indent", value: "  ")
+    eval(marks[cursor].marks[1], name: "list.item.bullet", value: "1)")
+    eval(marks[cursor].marks[2], name: "list.item.checker", value: "X")
+    eval(marks[cursor].marks[3], name: "list.item.text", value: "list item two.one")
     
-    eval(name: "horizontalRule", value: "\(lines[21])\n")
-    
+    cursor += 1
+    eval(marks[cursor], name: "horizontalRule", value: "\(lines[21])\n")
+
     // block
-    eval(name: "block.begin", value: "\(lines[22])\n")
-    eval(name: "block.begin.type", value: "SRC")
-    eval(name: "block.begin.params", value: "swift")
-    eval(name: "line", value: "\(lines[23])\n")
-    eval(name: "block.end", value: "\(lines[24])\n")
-    eval(name: "block.end.type", value: "SRC")
+    cursor += 1
+    eval(marks[cursor], name: "block.begin", value: "\(lines[22])\n")
+    eval(marks[cursor].marks[0], name: "block.begin.type", value: "SRC")
+    eval(marks[cursor].marks[1], name: "block.begin.params", value: "swift")
+    cursor += 1
+    eval(marks[cursor], name: "line", value: "\(lines[23])\n")
+    cursor += 1
+    eval(marks[cursor], name: "block.end", value: "\(lines[24])\n")
+    eval(marks[cursor].marks[0], name: "block.end.type", value: "SRC")
     
-    eval(name: "horizontalRule", value: "\(lines[25])\n")
+    cursor += 1
+    eval(marks[cursor], name: "horizontalRule", value: "\(lines[25])\n")
     
     // comment
-    eval(name: "comment", value: "\(lines[26])\n")
+    cursor += 1
+    eval(marks[cursor], name: "comment", value: "\(lines[26])\n")
     
     // section
-    eval(name: "headline", value: "\(lines[27])\n")
-    eval(name: "headline.stars", value: "*")
-    eval(name: "headline.priority", value: "A")
-    eval(name: "headline.text", value: "Section Two")
+    cursor += 1
+    eval(marks[cursor], name: "headline", value: "\(lines[27])\n")
+    eval(marks[cursor].marks[0], name: "headline.stars", value: "*")
+    eval(marks[cursor].marks[1], name: "headline.priority", value: "A")
+    eval(marks[cursor].marks[2], name: "headline.text", value: "Section Two")
     
-    eval(name: "headline", value: "\(lines[28])\n")
-    eval(name: "headline.stars", value: "**")
-    eval(name: "headline.text", value: "Section Two.One")
+    cursor += 1
+    eval(marks[cursor], name: "headline", value: "\(lines[28])\n")
+    eval(marks[cursor].marks[0], name: "headline.stars", value: "**")
+    eval(marks[cursor].marks[1], name: "headline.text", value: "Section Two.One")
   
-    eval(name: "horizontalRule", value: "\(lines[29])\n")
+    cursor += 1
+    eval(marks[cursor], name: "horizontalRule", value: "\(lines[29])\n")
     
     // footnote
-    eval(name: "footnote", value: "\(lines[30])")
-    eval(name: "footnote.label", value: "1")
-    eval(name: "footnote.content", value: "footnote one.")
+    cursor += 1
+    eval(marks[cursor], name: "footnote", value: "\(lines[30])")
+    eval(marks[cursor].marks[0], name: "footnote.label", value: "1")
+    eval(marks[cursor].marks[1], name: "footnote.content", value: "footnote one.")
   }
 }
