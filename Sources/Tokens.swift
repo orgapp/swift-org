@@ -42,7 +42,7 @@ struct TokenDescriptor {
   let name: String
   let options: RegularExpression.Options
   let generator: TokenGenerator
-  
+  let expression: RegularExpression
   
   init(_ thePattern: String,
        name theName: String = "",
@@ -52,6 +52,7 @@ struct TokenDescriptor {
     name = theName
     options = theOptions
     generator = theGenerator
+    expression = try! RegularExpression(pattern: self.pattern, options: self.options)
   }
 }
 
@@ -127,7 +128,7 @@ func defineTokens() {
   
   // Table
   
-  define("\\s*\\|-.*$") { matches in
+  define("^\\s*\\|-.*$") { matches in
     return .horizontalSeparator
   }
   

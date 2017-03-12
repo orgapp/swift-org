@@ -14,6 +14,8 @@ public enum LexerErrors: Error {
 
 open class Lexer {
   
+  var tokens = [TokenInfo]()
+  
   /// Tokenize one line, without considering the context
   ///
   /// - Parameter line: the target line
@@ -24,6 +26,29 @@ open class Lexer {
       return td.generator(m)
     }
     return nil
+  }
+  
+  class func tokenize(text: String, range: NSRange, callback: (Token) -> Void) {
+    for td in tokenDescriptors {
+      guard let m = td.expression.firstMatch(in: text, options: [], range: range) else { continue }
+      
+      var matches = [String?]()
+      switch m.numberOfRanges {
+      case let n where n > 0:
+        for i in 0..<n {
+          let r = m.rangeAt(i)
+          matches.append(r.length > 0 ? NSString(string: text).substring(with: r) : nil)
+        }
+      default: ()
+      }
+
+      let token = td.generator(matches)
+      callback(token)
+      let newStart = m.range.location + m.range.length
+      
+      let newRange = NSMakeRange(newStart, text.utf16.count - newStart)
+      tokenize(text: text, range: newRange, callback: callback)
+    }
   }
   
   func tokenize(lines: [String]) throws -> [TokenInfo] {
@@ -38,4 +63,12 @@ open class Lexer {
     return tokens
   }
   
+  func _tokenize(text: String) throws -> [TokenInfo] {
+    defineTokens()
+    var tokens = [TokenInfo]()
+    Lexer.tokenize(text: text, range: NSMakeRange(0, text.utf16.count)) { token in
+      tokens.append((TokenMeta(raw: "", lineNumber: 0), token))
+    }
+    return tokens
+  }
 }

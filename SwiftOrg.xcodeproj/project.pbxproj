@@ -32,8 +32,10 @@
 		0382A19D1DF827080015B475 /* OrgFileWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77DDD591D9C975D00120BA7 /* OrgFileWriterTests.swift */; };
 		0382A19E1DF827080015B475 /* IndexingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78044F31DDD06D000C8CE46 /* IndexingTests.swift */; };
 		0382A19F1DF828700015B475 /* README.org in Resources */ = {isa = PBXBuildFile; fileRef = 036C5E811D928A85007484CF /* README.org */; };
-		0382A1A11DF9713B0015B475 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382A1A01DF9713B0015B475 /* LexerTests.swift */; };
-		03AF26331DF97342002E71A7 /* LexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382A1A01DF9713B0015B475 /* LexerTests.swift */; };
+		0382A1A11DF9713B0015B475 /* GrammarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382A1A01DF9713B0015B475 /* GrammarTests.swift */; };
+		03AF26331DF97342002E71A7 /* GrammarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0382A1A01DF9713B0015B475 /* GrammarTests.swift */; };
+		03BAE6A81E736D7E008A4CA0 /* Grammar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAE6A71E736D7E008A4CA0 /* Grammar.swift */; };
+		03BAE6A91E736D7E008A4CA0 /* Grammar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BAE6A71E736D7E008A4CA0 /* Grammar.swift */; };
 		03BBC3DD1DF817E0003FCB3C /* SwiftOrg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03BBC3D91DF817DB003FCB3C /* SwiftOrg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03BBC3DE1DF817E1003FCB3C /* SwiftOrg.h in Headers */ = {isa = PBXBuildFile; fileRef = 03BBC3D91DF817DB003FCB3C /* SwiftOrg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03BBC4091DF818E6003FCB3C /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BBC3E11DF81863003FCB3C /* Block.swift */; };
@@ -114,7 +116,8 @@
 		037BFFB91E640710005EB02F /* ConvertToJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConvertToJSONTests.swift; path = SwiftOrgTests/ConvertToJSONTests.swift; sourceTree = "<group>"; };
 		0382A1831DF826730015B475 /* SwiftOrgTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftOrgTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0382A18E1DF826A10015B475 /* Info-macOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
-		0382A1A01DF9713B0015B475 /* LexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LexerTests.swift; path = SwiftOrgTests/LexerTests.swift; sourceTree = "<group>"; };
+		0382A1A01DF9713B0015B475 /* GrammarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrammarTests.swift; path = SwiftOrgTests/GrammarTests.swift; sourceTree = "<group>"; };
+		03BAE6A71E736D7E008A4CA0 /* Grammar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grammar.swift; sourceTree = "<group>"; };
 		03BBC3BD1DF81104003FCB3C /* SwiftOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03BBC3CA1DF8127C003FCB3C /* SwiftOrg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftOrg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03BBC3D71DF817DB003FCB3C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 				03BBC3D71DF817DB003FCB3C /* Info-iOS.plist */,
 				03BBC3D81DF817DB003FCB3C /* Info-macOS.plist */,
 				03BBC3D91DF817DB003FCB3C /* SwiftOrg.h */,
+				03BAE6A71E736D7E008A4CA0 /* Grammar.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -285,7 +289,7 @@
 				A70C22501D8A1D6A007796E2 /* Asserts.swift */,
 				035EEA1E1D8D504A00A38F7E /* Utils.swift */,
 				A70C22521D8A204F007796E2 /* TokenExtensions.swift */,
-				0382A1A01DF9713B0015B475 /* LexerTests.swift */,
+				0382A1A01DF9713B0015B475 /* GrammarTests.swift */,
 				03F9E6AB1D60411A0080E872 /* TokenizerTests.swift */,
 				03520BE71E5C3785003345D5 /* ParserTests.swift */,
 				035EEA261D8D526F00A38F7E /* InlineParsingTests.swift */,
@@ -528,7 +532,7 @@
 				0382A1911DF827080015B475 /* Utils.swift in Sources */,
 				0382A1931DF827080015B475 /* TokenizerTests.swift in Sources */,
 				0382A1921DF827080015B475 /* TokenExtensions.swift in Sources */,
-				03AF26331DF97342002E71A7 /* LexerTests.swift in Sources */,
+				03AF26331DF97342002E71A7 /* GrammarTests.swift in Sources */,
 				03C091151E220ECD00002E2F /* TimestampTests.swift in Sources */,
 				0382A19E1DF827080015B475 /* IndexingTests.swift in Sources */,
 			);
@@ -556,6 +560,7 @@
 				03BBC4281DF8191E003FCB3C /* Lexer.swift in Sources */,
 				03BBC40C1DF818E6003FCB3C /* Footnote.swift in Sources */,
 				035A61821E3F3BBA001CE563 /* Table.swift in Sources */,
+				03BAE6A91E736D7E008A4CA0 /* Grammar.swift in Sources */,
 				03BBC4111DF818E6003FCB3C /* Paragraph.swift in Sources */,
 				03BBC40E1DF818E6003FCB3C /* List.swift in Sources */,
 				03BBC4211DF818F1003FCB3C /* String.swift in Sources */,
@@ -587,6 +592,7 @@
 				03BBC42C1DF8191E003FCB3C /* Lexer.swift in Sources */,
 				03BBC4161DF818E7003FCB3C /* Footnote.swift in Sources */,
 				035A61811E3F3BBA001CE563 /* Table.swift in Sources */,
+				03BAE6A81E736D7E008A4CA0 /* Grammar.swift in Sources */,
 				03BBC41B1DF818E7003FCB3C /* Paragraph.swift in Sources */,
 				03BBC4181DF818E7003FCB3C /* List.swift in Sources */,
 				03BBC4261DF818F1003FCB3C /* String.swift in Sources */,
@@ -609,7 +615,7 @@
 				035EEA1F1D8D504A00A38F7E /* Utils.swift in Sources */,
 				03520BE81E5C3785003345D5 /* ParserTests.swift in Sources */,
 				A70C22531D8A204F007796E2 /* TokenExtensions.swift in Sources */,
-				0382A1A11DF9713B0015B475 /* LexerTests.swift in Sources */,
+				0382A1A11DF9713B0015B475 /* GrammarTests.swift in Sources */,
 				03C091141E220DF500002E2F /* TimestampTests.swift in Sources */,
 				A78044F41DDD06D000C8CE46 /* IndexingTests.swift in Sources */,
 			);
