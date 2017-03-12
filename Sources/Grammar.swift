@@ -110,6 +110,15 @@ struct Grammar {
     
     Pattern("comment", match: "^\(space)*#\(space)+(.*)\(eol)"),
     
+    Pattern("list.item", match: "^(\(space)*)([-+*]|\\d+(?:\\.|\\)))\(space)+(?:\\[([ X-])\\]\(space)+)?(.*)\(eol)",
+      captures: [ 1: "list.item.indent", 2: "list.item.bullet", 3: "list.item.checker", 4: "list.item.text" ]),
+    
+    Pattern("footnote", match: "^\\[fn:(\\d+)\\](?:\(space)+(.*))?\(eol)",
+      captures: [1: "footnote.label", 2: "footnote.content"]),
+    
+    Pattern("table.separator", match: "^\(space)*\\|-.*\(eol)"),
+    Pattern("table.row", match: "^\(space)*\\|(?:[^\\r\\n\\|]*\\|?)+\(eol)"),
+    
     Pattern("line", match: "^[^\\n]+\(eol)"),
     ])
   
@@ -147,28 +156,32 @@ extension String {
 
 typealias Callback = (_ scope: String, _ range: Range<String.Index>) -> Void
 
-func parse(text: String, range: Range<String.Index>, callback: Callback) throws {
-  if range.isEmpty { return }
+fileprivate func parse(text: String, callback: Callback) throws {
+  var range = text.startIndex..<text.endIndex
+  while !range.isEmpty {
+    range = try _parse(text: text, range: range, callback: callback)
+  }
+}
+
+fileprivate func _parse(text: String, range: Range<String.Index>, callback: Callback) throws -> Range<String.Index> {
+  if range.isEmpty { return range }
   for pattern in Grammar.main.patterns {
     guard let m = pattern.match.expression.firstMatch(
       in: text, options: [], range: text.nsRange(from: range)) else { continue }
     
     let matchRange = text.range(from: m.range)!
     callback(pattern.name, matchRange)
-    //    let mark = Mark(range: text.range(from: m.range)!, name: pattern.name)
-    //    var marks = [mark]
-    if let captures = pattern.match.captures {
+    if let captures = pattern.match.captures?
+      .sorted(by: { $0.key < $1.key }) {
+      
       for (index, name) in captures {
         if let r = text.range(from:m.rangeAt(index)) {
           callback(name, r)
         }
       }
     }
-    try parse(
-      text: text,
-      range: matchRange.upperBound..<text.endIndex,
-      callback: callback)
-    return
+    
+    return matchRange.upperBound..<range.upperBound
   }
   
   throw Errors.cannotFindToken("Nothing Matches")
@@ -176,7 +189,7 @@ func parse(text: String, range: Range<String.Index>, callback: Callback) throws 
 
 public func mark(text: String) throws -> [Mark] {
   var marks = [Mark]()
-  try parse(text: text, range: text.startIndex..<text.endIndex) { name, range in
+  try parse(text: text) { name, range in
     marks.append(Mark(range: range, name: name))
   }
   return marks

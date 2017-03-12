@@ -37,6 +37,17 @@ class PerformanceTests: XCTestCase {
       }
     }
   }
+  
+  func testGrammarMarkerPerformance() {
+    self.measure {
+      do {
+        _ = try mark(text: self.content)
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }
+    
+  }
 
   func testParserPerformance() throws {
     print("File size: \(content.characters.count)")

@@ -33,8 +33,8 @@ class GrammarTests: XCTestCase {
       "| Diana Prince | Amazonian  | F      | Wonder Woman |", // 16
       "-----", // 17
       "- list item one", // 18
-      "- list item tow", // 19
-      "  - list item tow.one", // 20
+      "2. [ ] list item two", // 19
+      "  1) [X] list item two.one", // 20
       "-----", // 21
       "#+BEGIN_SRC swift", // 22
       "print(\"org-mode is awesome.\")", // 23
@@ -43,6 +43,8 @@ class GrammarTests: XCTestCase {
       "# This is a comment.", // 26
       "* [#A] Section Two", // 27
       "** Section Two.One", // 28
+      "-----", // 29
+      "[fn:1] footnote one.", // 30
       ]
     
     let text = lines.joined(separator: "\n")
@@ -59,20 +61,20 @@ class GrammarTests: XCTestCase {
     }
 
     eval(name: "setting", value: "\(lines[0])\n")
-    eval(name: "setting.value", value: "Org Mode Syntax")
     eval(name: "setting.key", value: "TITLE")
+    eval(name: "setting.value", value: "Org Mode Syntax")
     eval(name: "setting", value: "\(lines[1])\n")
-    eval(name: "setting.value", value: "TODO NEXT | DONE")
     eval(name: "setting.key", value: "TODO")
+    eval(name: "setting.value", value: "TODO NEXT | DONE")
     eval(name: "blank", value: "\n")
     eval(name: "headline", value: "\(lines[3])\n")
-    eval(name: "headline.tags", value: ":tag1:tag2:")
-    eval(name: "headline.keyword", value: "TODO")
     eval(name: "headline.stars", value: "*")
+    eval(name: "headline.keyword", value: "TODO")
     eval(name: "headline.text", value: "Section One")
+    eval(name: "headline.tags", value: ":tag1:tag2:")
     eval(name: "planning", value: "\(lines[4])\n")
-    eval(name: "planning.timestamp", value: "<2017-02-28 Tue>")
     eval(name: "planning.keyword", value: "DEADLINE")
+    eval(name: "planning.timestamp", value: "<2017-02-28 Tue>")
     eval(name: "drawer.begin", value: "\(lines[5])\n")
     eval(name: "drawer.name", value: "PROPERTIES")
     eval(name: "line", value: "\(lines[6])\n")
@@ -84,25 +86,39 @@ class GrammarTests: XCTestCase {
     
     // table
     eval(name: "table.row", value: "\(lines[12])\n")
-    eval(name: "table.seperator", value: "\(lines[13])\n")
+    eval(name: "table.separator", value: "\(lines[13])\n")
     eval(name: "table.row", value: "\(lines[14])\n")
     eval(name: "table.row", value: "\(lines[15])\n")
     eval(name: "table.row", value: "\(lines[16])\n")
+    
     eval(name: "horizontalRule", value: "\(lines[17])\n")
     
     // list
     eval(name: "list.item", value: "\(lines[18])\n")
+    eval(name: "list.item.indent", value: "")
+    eval(name: "list.item.bullet", value: "-")
+    eval(name: "list.item.text", value: "list item one")
     eval(name: "list.item", value: "\(lines[19])\n")
+    eval(name: "list.item.indent", value: "")
+    eval(name: "list.item.bullet", value: "2.")
+    eval(name: "list.item.checker", value: " ")
+    eval(name: "list.item.text", value: "list item two")
     eval(name: "list.item", value: "\(lines[20])\n")
+    eval(name: "list.item.indent", value: "  ")
+    eval(name: "list.item.bullet", value: "1)")
+    eval(name: "list.item.checker", value: "X")
+    eval(name: "list.item.text", value: "list item two.one")
+    
     eval(name: "horizontalRule", value: "\(lines[21])\n")
     
     // block
     eval(name: "block.begin", value: "\(lines[22])\n")
-    eval(name: "block.begin.params", value: "swift")
     eval(name: "block.begin.type", value: "SRC")
+    eval(name: "block.begin.params", value: "swift")
     eval(name: "line", value: "\(lines[23])\n")
     eval(name: "block.end", value: "\(lines[24])\n")
     eval(name: "block.end.type", value: "SRC")
+    
     eval(name: "horizontalRule", value: "\(lines[25])\n")
     
     // comment
@@ -110,13 +126,19 @@ class GrammarTests: XCTestCase {
     
     // section
     eval(name: "headline", value: "\(lines[27])\n")
-    eval(name: "headline.priority", value: "A")
     eval(name: "headline.stars", value: "*")
+    eval(name: "headline.priority", value: "A")
     eval(name: "headline.text", value: "Section Two")
     
-    eval(name: "headline", value: "\(lines[28])")
+    eval(name: "headline", value: "\(lines[28])\n")
     eval(name: "headline.stars", value: "**")
     eval(name: "headline.text", value: "Section Two.One")
   
+    eval(name: "horizontalRule", value: "\(lines[29])\n")
+    
+    // footnote
+    eval(name: "footnote", value: "\(lines[30])")
+    eval(name: "footnote.label", value: "1")
+    eval(name: "footnote.content", value: "footnote one.")
   }
 }
