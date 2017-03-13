@@ -122,9 +122,11 @@ func evalHorizontalSeparator(_ str: String,
            file: file, line: line)
 }
 
-func evalMark(_ mark: Mark, on text: String, name: String, value: String,
+func evalMark(_ mark: Mark, on text: String, name: String, value: String? = nil,
               file: StaticString = #file, line: UInt = #line) {
   XCTAssertEqual(name, mark.name, file: file, line: line)
-  XCTAssertEqual(value, text.substring(with: mark.range), file: file, line: line)
+  if let value = value {
+    XCTAssertEqual(value, mark.value(on: text), file: file, line: line)
+  }
 }
 
