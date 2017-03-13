@@ -15,37 +15,37 @@ class GrammarTests: XCTestCase {
   var lines: [String]!
   override func setUp() {
     lines = [
-      "#+TITLE: Org Mode Syntax",  // 0
-      "#+TODO: TODO NEXT | DONE", // 1
-      "", // 2
-      "* TODO Section One         :tag1:tag2:", // 3
-      "  DEADLINE: <2017-02-28 Tue>", // 4
-      "  :PROPERTIES:", // 5
-      "  :CATEGORY: nice", // 6
-      "  :END:", // 7
-      "", // 8
-      "  Fist line of a paragraph.", // 9
-      "  Second line of a paragraph.", // 10
-      "-----", // 11
-      "| Name         | Species    | Gender | Role         |", // 12
-      "|--------------+------------+--------+--------------|", // 13
-      "| Bruce Wayne  | Human      | M      | Batman       |", // 14
-      "| Clark Kent   | Kryptonian | M      | Superman     |", // 15
-      "| Diana Prince | Amazonian  | F      | Wonder Woman |", // 16
-      "-----", // 17
-      "- list item one", // 18
-      "2. [ ] list item two", // 19
-      "  1) [X] list item two.one", // 20
-      "-----", // 21
-      "#+BEGIN_SRC swift", // 22
-      "print(\"org-mode is awesome.\")", // 23
-      "#+END_SRC", // 24
-      "-----", // 25
-      "# This is a comment.", // 26
-      "* [#A] Section Two", // 27
-      "** Section Two.One", // 28
-      "-----", // 29
-      "[fn:1] footnote one.", // 30
+      /* 00 */ "#+TITLE: Org Mode Syntax",
+      /* 01 */ "#+TODO: TODO NEXT | DONE",
+      /* 02 */ "",
+      /* 03 */ "* TODO Section One         :tag1:tag2:",
+      /* 04 */ "  DEADLINE: <2017-02-28 Tue>",
+      /* 05 */ "  :PROPERTIES:",
+      /* 06 */ "  :CATEGORY: nice",
+      /* 07 */ "  :END:",
+      /* 08 */ "",
+      /* 09 */ "  Fist line of a paragraph.",
+      /* 10 */ "  Second line of a paragraph.",
+      /* 11 */ "-----",
+      /* 12 */ "| Name         | Species    | Gender | Role         |",
+      /* 13 */ "|--------------+------------+--------+--------------|",
+      /* 14 */ "| Bruce Wayne  | Human      | M      | Batman       |",
+      /* 15 */ "| Clark Kent   | Kryptonian | M      | Superman     |",
+      /* 16 */ "| Diana Prince | Amazonian  | F      | Wonder Woman |",
+      /* 17 */ "-----",
+      /* 18 */ "- list item one",
+      /* 19 */ "2. [ ] list item two",
+      /* 20 */ "  1) [X] list item two.one",
+      /* 21 */ "-----",
+      /* 22 */ "#+BEGIN_SRC swift",
+      /* 23 */ "print(\"org-mode is awesome.\")",
+      /* 24 */ "#+END_SRC",
+      /* 25 */ "-----",
+      /* 26 */ "# This is a comment.",
+      /* 27 */ "* [#A] Section Two",
+      /* 28 */ "** Section Two.One",
+      /* 29 */ "-----",
+      /* 30 */ "[fn:1] footnote one.",
     ]
 
     text = lines.joined(separator: "\n")
