@@ -38,18 +38,6 @@ class PerformanceTests: XCTestCase {
     }
   }
   
-  func testGrammarMarkerPerformance() {
-    self.measure {
-      do {
-        let marks = try mark(text: self.content)
-//        _ = fold(marks)
-      } catch {
-        XCTFail("ERROR: \(error)")
-      }
-    }
-    
-  }
-
   func testParserPerformance() throws {
     print("File size: \(content.characters.count)")
     let tokens = try Lexer().tokenize(lines: content.lines)
@@ -62,6 +50,28 @@ class PerformanceTests: XCTestCase {
       }
     }
   }
+  
+  func testGrammarMarking() {
+    self.measure {
+      do {
+        _ = try mark(text: self.content)
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }
+  }
+  
+  func testGrammarParsing() throws {
+    let marks = try mark(text: self.content)
+    self.measure {
+      do {
+        _ = try analyze(self.content, marks: marks)
+      } catch {
+        XCTFail("ERROR: \(error)")
+      }
+    }
+  }
+
 
 //  func testTheFileFirst() {
 //    print("File size: \(content.characters.count)")

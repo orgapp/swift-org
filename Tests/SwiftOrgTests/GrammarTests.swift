@@ -169,5 +169,9 @@ class GrammarTests: XCTestCase {
     eval(marks[cursor], name: "footnote", value: "\(lines[30])")
     eval(marks[cursor].marks[0], name: "footnote.label", value: "1")
     eval(marks[cursor].marks[1], name: "footnote.content", value: "footnote one.")
+    
+    let matched = try analyze(text, marks: marks)
+    
+    print("\(matched.count)")
   }
 }
