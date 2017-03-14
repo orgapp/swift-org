@@ -66,7 +66,7 @@ class GrammarTests: XCTestCase {
 
   func testMarking() throws {
 
-    let marks = try mark(text: text)
+    let marks = try mark(text)
 
 
     var cursor = 0
@@ -195,8 +195,8 @@ class GrammarTests: XCTestCase {
 
   func testStructualGrouping() throws {
 
-    var marks = try mark(text: text)
-    marks = try analyze(text, marks: marks)
+    let marker = Marker()
+    let marks = try marker.mark(text)
 
     var cursor = 0
     eval(marks[cursor], name: "setting", value: "\(lines[0])\n") { mark in
@@ -321,10 +321,9 @@ class GrammarTests: XCTestCase {
 
   }
 
-  func testFolding() throws {
-    var marks = try mark(text: text)
-    marks = try analyze(text, marks: marks)
-    marks = section(marks, on: text)
+  func testSection() throws {
+    let marker = Marker()
+    let marks = try marker.mark(text, sectionize: true)
 
     for section in marks.filter({ $0.name == "section" }) {
       print(">>>>>>>>>>>>>>>>>>>>>")

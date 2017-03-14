@@ -54,7 +54,7 @@ class PerformanceTests: XCTestCase {
   func testGrammarMarking() {
     self.measure {
       do {
-        _ = try mark(text: self.content)
+        _ = try mark(self.content)
       } catch {
         XCTFail("ERROR: \(error)")
       }
@@ -62,10 +62,10 @@ class PerformanceTests: XCTestCase {
   }
   
   func testGrammarParsing() throws {
-    let marks = try mark(text: self.content)
+    let marks = try mark(self.content)
     self.measure {
       do {
-        _ = try analyze(self.content, marks: marks)
+        _ = try analyze(marks, on: self.content)
       } catch {
         XCTFail("ERROR: \(error)")
       }
@@ -73,8 +73,8 @@ class PerformanceTests: XCTestCase {
   }
   
   func testSection() throws {
-    var marks = try mark(text: self.content)
-    marks = try analyze(self.content, marks: marks)
+    var marks = try mark(self.content)
+    marks = try analyze(marks, on: self.content)
     self.measure {
       _ = section(marks, on: self.content)
     }

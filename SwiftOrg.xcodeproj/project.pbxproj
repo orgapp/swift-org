@@ -91,8 +91,8 @@
 		A7F12E6C1E760739000F1BC0 /* Mark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E6A1E760739000F1BC0 /* Mark.swift */; };
 		A7F12E6E1E760768000F1BC0 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E6D1E760768000F1BC0 /* Pattern.swift */; };
 		A7F12E6F1E760768000F1BC0 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E6D1E760768000F1BC0 /* Pattern.swift */; };
-		A7F12E711E76086D000F1BC0 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E701E76086D000F1BC0 /* Parser.swift */; };
-		A7F12E721E76086D000F1BC0 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E701E76086D000F1BC0 /* Parser.swift */; };
+		A7F12E711E76086D000F1BC0 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E701E76086D000F1BC0 /* Marker.swift */; };
+		A7F12E721E76086D000F1BC0 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F12E701E76086D000F1BC0 /* Marker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +159,7 @@
 		A7B688451D8B74FA009E2FB1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformanceTests.swift; path = SwiftOrgTests/PerformanceTests.swift; sourceTree = "<group>"; };
 		A7F12E6A1E760739000F1BC0 /* Mark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mark.swift; sourceTree = "<group>"; };
 		A7F12E6D1E760768000F1BC0 /* Pattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
-		A7F12E701E76086D000F1BC0 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		A7F12E701E76086D000F1BC0 /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,7 +228,7 @@
 				03BAE6A71E736D7E008A4CA0 /* Grammar.swift */,
 				A7F12E6A1E760739000F1BC0 /* Mark.swift */,
 				A7F12E6D1E760768000F1BC0 /* Pattern.swift */,
-				A7F12E701E76086D000F1BC0 /* Parser.swift */,
+				A7F12E701E76086D000F1BC0 /* Marker.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -570,7 +570,7 @@
 				03BBC40C1DF818E6003FCB3C /* Footnote.swift in Sources */,
 				035A61821E3F3BBA001CE563 /* Table.swift in Sources */,
 				03BAE6A91E736D7E008A4CA0 /* Grammar.swift in Sources */,
-				A7F12E721E76086D000F1BC0 /* Parser.swift in Sources */,
+				A7F12E721E76086D000F1BC0 /* Marker.swift in Sources */,
 				03BBC4111DF818E6003FCB3C /* Paragraph.swift in Sources */,
 				03BBC40E1DF818E6003FCB3C /* List.swift in Sources */,
 				03BBC4211DF818F1003FCB3C /* String.swift in Sources */,
@@ -605,7 +605,7 @@
 				03BBC4161DF818E7003FCB3C /* Footnote.swift in Sources */,
 				035A61811E3F3BBA001CE563 /* Table.swift in Sources */,
 				03BAE6A81E736D7E008A4CA0 /* Grammar.swift in Sources */,
-				A7F12E711E76086D000F1BC0 /* Parser.swift in Sources */,
+				A7F12E711E76086D000F1BC0 /* Marker.swift in Sources */,
 				03BBC41B1DF818E7003FCB3C /* Paragraph.swift in Sources */,
 				03BBC4181DF818E7003FCB3C /* List.swift in Sources */,
 				03BBC4261DF818F1003FCB3C /* String.swift in Sources */,

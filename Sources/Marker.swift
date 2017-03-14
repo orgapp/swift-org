@@ -10,7 +10,7 @@ import Foundation
 
 typealias Callback = (_ name: String, _ range: Range<String.Index>) -> Void
 
-fileprivate func parse(text: String, callback: Callback) throws {
+fileprivate func _parse(text: String, callback: Callback) throws {
   var range = text.startIndex..<text.endIndex
   while !range.isEmpty {
     range = try _parse(text: text, range: range, callback: callback)
@@ -22,28 +22,28 @@ fileprivate func _parse(text: String, range: Range<String.Index>, callback: Call
   for pattern in Grammar.main.patterns {
     guard let m = pattern.match.expression.firstMatch(
       in: text, options: [], range: text.nsRange(from: range)) else { continue }
-    
+
     let matchRange = text.range(from: m.range)!
     callback(pattern.name, matchRange)
     if let captures = pattern.match.captures?
       .sorted(by: { $0.key < $1.key }) {
-      
+
       for (index, name) in captures {
         if let r = text.range(from:m.rangeAt(index)) {
           callback(name, r)
         }
       }
     }
-    
+
     return matchRange.upperBound..<range.upperBound
   }
-  
+
   throw Errors.cannotFindToken("Nothing Matches")
 }
 
-public func mark(text: String, folded: Bool = true) throws -> [Mark] {
+func mark(_ text: String, folded: Bool = true) throws -> [Mark] {
   var marks = [Mark]()
-  try parse(text: text) { name, range in
+  try _parse(text: text) { name, range in
     let mark = Mark(range: range, name: name)
     if folded,
       let last = marks.last,
@@ -56,7 +56,7 @@ public func mark(text: String, folded: Bool = true) throws -> [Mark] {
   return marks
 }
 
-fileprivate func matchMaking(_ marks: [Mark],
+fileprivate func _matchMaking(_ marks: [Mark],
                              name: String,
                              matchBegin: (Mark) -> Bool,
                              matchEnd: (Mark) -> Bool,
@@ -66,15 +66,15 @@ fileprivate func matchMaking(_ marks: [Mark],
   guard let beginIndex = marks.index(where: matchBegin) else {
     return marks
   }
-  
+
   let begin = marks[beginIndex]
-  
+
   guard let endIndex = marks[beginIndex+1..<marks.endIndex].index(where: matchEnd) else {
     marks[beginIndex] = beginFallback(marks[beginIndex])
-    return matchMaking(marks, name: name, matchBegin: matchBegin, matchEnd: matchEnd, markContent: markContent, beginFallback: beginFallback)
+    return _matchMaking(marks, name: name, matchBegin: matchBegin, matchEnd: matchEnd, markContent: markContent, beginFallback: beginFallback)
   }
   let end = marks[endIndex]
-  
+
   let contentRange = begin.range.upperBound..<end.range.lowerBound
   var contentMarks = [begin]
   contentMarks.append(contentsOf: markContent(contentRange))
@@ -83,10 +83,10 @@ fileprivate func matchMaking(_ marks: [Mark],
   var container = Mark(range: begin.range.lowerBound..<end.range.upperBound, name: name)
   container.marks = contentMarks
   marks.insert(container, at: beginIndex)
-  return matchMaking(marks, name: name, matchBegin: matchBegin, matchEnd: matchEnd, markContent: markContent, beginFallback: beginFallback)
+  return _matchMaking(marks, name: name, matchBegin: matchBegin, matchEnd: matchEnd, markContent: markContent, beginFallback: beginFallback)
 }
 
-fileprivate func group(_ marks: [Mark],
+fileprivate func _group(_ marks: [Mark],
                        name: String,
                        renameTo: String? = nil,
                        match: (Mark) -> Bool) -> [Mark] {
@@ -115,14 +115,14 @@ fileprivate func group(_ marks: [Mark],
 }
 
 func section(_ marks: [Mark], on text: String) -> [Mark] {
-  
+
   func level(of headline: Mark) -> Int {
     return headline[".stars"]!.value(on: text).characters.count
   }
-  
+
   let headlines = marks
     .filter { $0.name == "headline" }
-  
+
   let sections = headlines.enumerated().reduce([Mark]()) { result, current in
     let (index, headline) = current
     let l = level(of: headline)
@@ -132,17 +132,16 @@ func section(_ marks: [Mark], on text: String) -> [Mark] {
     if let greater = theRest.first(where: { level(of: $0) >= l }) {
       end = greater.range.lowerBound
     }
-//    let section = Mark(
     return result + [Mark(range: start..<end, name: "section")]
   }
-  
+
   return marks + sections
 }
 
-public func analyze(_ text: String, marks: [Mark]) throws -> [Mark] {
+func analyze(_ marks: [Mark], on text: String) throws -> [Mark] {
   // match block
   var blockType = ""
-  var marks = matchMaking(
+  var marks = _matchMaking(
     marks, name: "block",
     matchBegin: { mark in
       if mark.name == "block.begin" {
@@ -158,9 +157,9 @@ public func analyze(_ text: String, marks: [Mark]) throws -> [Mark] {
   }, beginFallback: { mark in
     return mark
   })
-  
+
   // match drawer
-  marks = matchMaking(
+  marks = _matchMaking(
     marks, name: "drawer",
     matchBegin: { mark in
       return mark.name == "drawer.begin"
@@ -173,11 +172,31 @@ public func analyze(_ text: String, marks: [Mark]) throws -> [Mark] {
     mark.name = "line"
     return mark
   })
-  
+
   // match paragraph
-  marks = group(marks, name: "paragraph", renameTo: "paragraph.line") { $0.name == "line" }
-  marks = group(marks, name: "list") { $0.name == "list.item" }
-  marks = group(marks, name: "table") { $0.name.hasPrefix("table.") }
-  
+  marks = _group(marks, name: "paragraph", renameTo: "paragraph.line") { $0.name == "line" }
+  marks = _group(marks, name: "list") { $0.name == "list.item" }
+  marks = _group(marks, name: "table") { $0.name.hasPrefix("table.") }
+
   return marks
+}
+
+public struct Marker {
+
+  var todos: [[String]]
+
+  public init(
+    todos _todos: [[String]] = [["TODO"], ["DONE"]]) {
+    todos = _todos
+  }
+
+  func mark(_ text: String, sectionize: Bool = false) throws -> [Mark] {
+    var marks = try SwiftOrg.mark(text)
+    marks = try analyze(marks, on: text)
+    if sectionize {
+      marks = section(marks, on: text)
+    }
+
+    return marks
+  }
 }
