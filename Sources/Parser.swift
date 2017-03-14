@@ -114,6 +114,31 @@ fileprivate func group(_ marks: [Mark],
   return marks
 }
 
+func section(_ marks: [Mark], on text: String) -> [Mark] {
+  
+  func level(of headline: Mark) -> Int {
+    return headline[".stars"]!.value(on: text).characters.count
+  }
+  
+  let headlines = marks
+    .filter { $0.name == "headline" }
+  
+  let sections = headlines.enumerated().reduce([Mark]()) { result, current in
+    let (index, headline) = current
+    let l = level(of: headline)
+    let start = headline.range.lowerBound
+    var end = text.endIndex
+    let theRest = Array(headlines[index+1..<headlines.endIndex])
+    if let greater = theRest.first(where: { level(of: $0) >= l }) {
+      end = greater.range.lowerBound
+    }
+//    let section = Mark(
+    return result + [Mark(range: start..<end, name: "section")]
+  }
+  
+  return marks + sections
+}
+
 public func analyze(_ text: String, marks: [Mark]) throws -> [Mark] {
   // match block
   var blockType = ""

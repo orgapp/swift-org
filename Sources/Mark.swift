@@ -44,6 +44,12 @@ public struct Mark: CustomStringConvertible {
     }
   }
   
+  func prefix(with prefix: String) -> Mark {
+    var m = Mark(range: range, name: "\(prefix).\(name)")
+    m.marks = marks.map { $0.prefix(with: prefix) }
+    return m
+  }
+  
   public var description: String {
     return "Mark(name: \(name))"
   }

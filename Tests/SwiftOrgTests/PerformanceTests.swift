@@ -71,7 +71,14 @@ class PerformanceTests: XCTestCase {
       }
     }
   }
-
+  
+  func testSection() throws {
+    var marks = try mark(text: self.content)
+    marks = try analyze(self.content, marks: marks)
+    self.measure {
+      _ = section(marks, on: self.content)
+    }
+  }
 
 //  func testTheFileFirst() {
 //    print("File size: \(content.characters.count)")

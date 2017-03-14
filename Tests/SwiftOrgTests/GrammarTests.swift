@@ -321,4 +321,15 @@ class GrammarTests: XCTestCase {
 
   }
 
+  func testFolding() throws {
+    var marks = try mark(text: text)
+    marks = try analyze(text, marks: marks)
+    marks = section(marks, on: text)
+
+    for section in marks.filter({ $0.name == "section" }) {
+      print(">>>>>>>>>>>>>>>>>>>>>")
+      print("\(section.value(on: text))")
+      print("<<<<<<<<<<<<<<<<<<<<<")
+    }
+  }
 }
