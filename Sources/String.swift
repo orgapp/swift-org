@@ -24,5 +24,5 @@ extension String {
 }
 
 func length(_ text: String?) -> Int {
-    return (text ?? "").characters.count
+    return (text ?? "").count
 }
