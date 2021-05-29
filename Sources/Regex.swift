@@ -9,8 +9,8 @@
 import Foundation
 
 #if !os(Linux)
-typealias RegularExpression = NSRegularExpression
-typealias TextCheckingResult = NSTextCheckingResult
+public typealias RegularExpression = NSRegularExpression
+public typealias TextCheckingResult = NSTextCheckingResult
 #else
     extension TextCheckingResult {
         func rangeAt(_ idx: Int) -> NSRange {
@@ -47,7 +47,7 @@ public extension String {
             return []
         case let n where n > 0:
             for i in 0..<n {
-                let r = match.rangeAt(i)
+                let r = match.range(at: i)
                 matches.append(r.length > 0 ? NSString(string: self).substring(with: r) : nil)
             }
         default:
@@ -56,7 +56,7 @@ public extension String {
         return matches
     }
 
-    public func match(_ regex: String, options: RegularExpression.Options = []) -> [String?]? {
+    func match(_ regex: String, options: RegularExpression.Options = []) -> [String?]? {
         let expression = self.getExpression(regex, options: options)
 
         if let match = expression.firstMatch(in: self, options: [], range: NSMakeRange(0, self.utf16.count)) {
@@ -65,25 +65,25 @@ public extension String {
         return nil
     }
 
-    public func matchSplit(_ regex: String, options: RegularExpression.Options) -> [String] {
+    func matchSplit(_ regex: String, options: RegularExpression.Options) -> [String] {
         let expression = self.getExpression(regex, options: options)
         let matches = expression.matches(in: self, options: [], range: NSMakeRange(0, self.utf16.count))
         var splitted = [String]()
         var cursor = 0
         for m in matches {
             if m.range.location > cursor {
-                splitted.append(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.characters.index(self.startIndex, offsetBy: m.range.location)))
+                splitted.append(self.substring(with: self.index(self.startIndex, offsetBy: cursor)..<self.index(self.startIndex, offsetBy: m.range.location)))
             }
             splitted.append(NSString(string: self).substring(with: m.range))
             cursor = (m.range.toRange()?.upperBound)! + 1
         }
-        if cursor <= self.characters.count {
-            splitted.append(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
+        if cursor <= self.count {
+            splitted.append(self.substring(with: self.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
         }
         return splitted
     }
 
-    public func tryMatch(_ regex: String,
+    func tryMatch(_ regex: String,
                         options: RegularExpression.Options = [],
                         match: ([String?]) -> Void,
                         or: (String) -> Void) {
@@ -92,13 +92,13 @@ public extension String {
         var cursor = 0
         for m in matches {
             if m.range.location > cursor {
-                or(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.characters.index(self.startIndex, offsetBy: m.range.location)))
+                or(self.substring(with: self.index(self.startIndex, offsetBy: cursor)..<self.index(self.startIndex, offsetBy: m.range.location)))
             }
             match(getMatches(m))
             cursor = (m.range.toRange()?.upperBound)!
         }
-        if cursor < self.characters.count {
-            or(self.substring(with: self.characters.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
+        if cursor < self.count {
+            or(self.substring(with: self.index(self.startIndex, offsetBy: cursor)..<self.endIndex))
         }
     }
 }

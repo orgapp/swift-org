@@ -72,7 +72,7 @@ func defineTokens() {
         .setting(key: matches[1]!, value: matches[2]) }
 
     define("^(\\*+)\\s+(.*)$") { matches in
-        .headline(stars: matches[1]!.characters.count, text: matches[2]) }
+        .headline(stars: matches[1]!.count, text: matches[2]) }
 
     define("^\\s*(\(PlanningKeyword.all.joined(separator: "|"))):\\s+(.+)$") { matches in
         let timestamp = Timestamp.from(string: matches[2]!)
@@ -84,7 +84,7 @@ func defineTokens() {
     { matches in
         var params: [String]?
         if let m3 = matches[3] {
-            params = m3.characters.split{$0 == " "}.map(String.init)
+            params = m3.split{$0 == " "}.map(String.init)
         }
         return .blockBegin(name: matches[2]!, params: params)
     }
